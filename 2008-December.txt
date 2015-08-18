@@ -1,0 +1,21 @@
+From matthias.blaesing at rwth-aachen.de  Sun Dec 28 20:46:26 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 28 Dec 2008 20:46:26 +0100
+Subject: [Lbrc-devel] Release of LBRC 0.6.4
+Message-ID: <1230493586.12731.2.camel@enterprise.glx>
+
+Hey everyone,
+
+earlier today I released the 0.6.4 version of LBRC. It was more or less
+ready on the twelfth of December. Since then my notebook broke, my qemu
+build environment failed and some personal things had to be dealt with.
+
+Nothing big to say, other than that it should now work on ubuntu 8.10
+with the new bluez release.
+
+Greetings
+
+Matthias
+
+
+

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Keypress Handling
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Keypress%20Handling&In-Reply-To=%3C1219600942.25496.15.camel%40enterprise.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000156.html">
+   <LINK REL="Next"  HREF="000158.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Keypress Handling</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Keypress%20Handling&In-Reply-To=%3C1219600942.25496.15.camel%40enterprise.glx%3E"
+       TITLE="[Lbrc-devel] Keypress Handling">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sun Aug 24 20:02:22 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000156.html">[Lbrc-devel] Keypress Handling
+</A></li>
+        <LI>Next message: <A HREF="000158.html">[Lbrc-devel] Keypress Handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey,
+
+so I try to summarise:
+
+This is the current situation:
+
+profile -&gt; {keycode-&gt;handler/parameter}
+
+A profile is a mapping between a keycode and an associated
+handler/parameter.
+
+Your Idea sounds like this:
+
+profile -&gt; {keycode-&gt;action}
+
+and
+
+action -&gt; [handler/paramater]
+
+A profile is a mapping between keycode and associated action and an
+action is a mapped to one or more handler/paramters.
+
+I'm thinking about the situation where a whole keyboard gets mapped. The
+actionslist is then least 52 entries long. With action names like
+&quot;keypress_a&quot; or &quot;keypress_A&quot;. Not really helpfull.
+
+I see benefits, if you define actions based on the dbus and
+commandexecutor module. The example was for a media player. But then a
+mediaplayer might want to keep an internal state or needs more work
+under the hood (like the mplayer module). If you go that far you can
+create a generic Player module, which specific player is set at profile
+selection and that &quot;knows&quot; how to handle each player. This is currently
+done in the VolumeControl Module, that has currently support for alsa
+and oss (pulseaudio needs work, as there are no channels, but instead
+each sind is identified as a device on a server).
+
+Greetings
+
+Matthias
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080824/aa2b25d2/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080824/aa2b25d2/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000156.html">[Lbrc-devel] Keypress Handling
+</A></li>
+	<LI>Next message: <A HREF="000158.html">[Lbrc-devel] Keypress Handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

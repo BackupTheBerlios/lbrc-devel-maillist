@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Keypress Handling
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Keypress%20Handling&In-Reply-To=%3C1219527575.3857.25.camel%40enterprise.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000154.html">
+   <LINK REL="Next"  HREF="000156.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Keypress Handling</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Keypress%20Handling&In-Reply-To=%3C1219527575.3857.25.camel%40enterprise.glx%3E"
+       TITLE="[Lbrc-devel] Keypress Handling">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sat Aug 23 23:39:35 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000154.html">[Lbrc-devel] Mailinglist works again
+</A></li>
+        <LI>Next message: <A HREF="000156.html">[Lbrc-devel] Keypress Handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#155">[ date ]</a>
+              <a href="thread.html#155">[ thread ]</a>
+              <a href="subject.html#155">[ subject ]</a>
+              <a href="author.html#155">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey,
+
+Am Dienstag, den 19.08.2008, 23:10 +0200 schrieb Jasper Groenewegen:
+&gt;<i> &gt; This basicly exists. A Scheme is just a more intelligent module. Let's
+</I>&gt;<i> &gt; go back to the Player example. Currently the Rhythmbox Profile uses the
+</I>&gt;<i> &gt; DBUS-Module. But it does not have to. You could also programm a
+</I>&gt;<i> &gt; Rhythmbox Module, that hides the whole DBUS handling and just offers:
+</I>&gt;<i> &gt; play, forward and so on.
+</I>&gt;<i> Ah, this brings me to an issue with the current design: Currently, a key
+</I>&gt;<i> press/release is registered and all event handlers are polled to see if
+</I>&gt;<i> they map this keycode in the active profile. This allows for
+</I>&gt;<i> flexibility, I guess this way 1 keypress could mean 'left mouse button'
+</I>&gt;<i> 'Rhythmbox.play' and 'Walk the dog' at the same time, but in my opinion
+</I>&gt;<i> 1 keypress should in principle be mapped to one action. Note that it is
+</I>&gt;<i> still possible to create an action that consists of a set of calls/input
+</I>&gt;<i> events.
+</I>
+You get inflexible this way. Think about the presentation module. There
+are many actions when pressing the next slide key: restart the slide
+timer, save the record for the last slide and switch to next slide.
+
+The handling of the slide timer and records is pretty easy (one module
+and your done), but there are n+1 programms to show presentations, each
+with slithly different keybindings. Why make it unnecessry complex and
+just provide a way to send request via dbus, keyinput and so on.
+
+I see the point for the end user. But the multiple programms can easily
+tangled by providing pre created profiles f&#252;r acroread, evince, OOo
+Impress and so on. This coupled with a new config inteface shoudl do
+it. 
+
+What I think of is this:
+
+Make the tabs in the profile section &quot;Init&quot;, &quot;Actions&quot;, &quot;Destruct&quot; or
+their corresponding title for &quot;normal&quot; people. Inside these you find a
+treeview, with keycode (on the phone, if you want also with Alias Names)
+and the associated actions. The actions are short text desciptions and a
+double click opens a window, where you can configure the action. Action
+in this case means a combination of handler and config for it.
+
+This frontend config can be decomposed to the already known config
+format. And the current config format can be put into the format
+described above. By treeview reordering you could sort by handler,
+key/keycode and paramters (this would be stupid).
+
+I tried to do a GUI Mockup - I thing it shows my idea. If a screen
+designer wants to step up to improve I have no problem with that.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Config-Mockup.png
+Type: image/png
+Size: 38723 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080823/6fe31a0a/attachment.png">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080823/6fe31a0a/attachment.png</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080823/6fe31a0a/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080823/6fe31a0a/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000154.html">[Lbrc-devel] Mailinglist works again
+</A></li>
+	<LI>Next message: <A HREF="000156.html">[Lbrc-devel] Keypress Handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#155">[ date ]</a>
+              <a href="thread.html#155">[ thread ]</a>
+              <a href="subject.html#155">[ subject ]</a>
+              <a href="author.html#155">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

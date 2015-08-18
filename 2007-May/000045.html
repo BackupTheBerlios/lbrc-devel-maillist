@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Generic Bluetooth HID?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Generic%20Bluetooth%20HID%3F&In-Reply-To=%3Cd776779b0705110806h2fefc0f0q4c7d1b6990653efc%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000044.html">
+   <LINK REL="Next"  HREF="000046.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Generic Bluetooth HID?</H1>
+    <B>Lars G&#229;rden</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Generic%20Bluetooth%20HID%3F&In-Reply-To=%3Cd776779b0705110806h2fefc0f0q4c7d1b6990653efc%40mail.gmail.com%3E"
+       TITLE="[Lbrc-devel] Generic Bluetooth HID?">lars.gaarden at gmail.com
+       </A><BR>
+    <I>Fri May 11 17:06:24 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000044.html">[Lbrc-devel] Generic Bluetooth HID?
+</A></li>
+        <LI>Next message: <A HREF="000046.html">[Lbrc-devel] Error on LBRC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#45">[ date ]</a>
+              <a href="thread.html#45">[ thread ]</a>
+              <a href="subject.html#45">[ subject ]</a>
+              <a href="author.html#45">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 5/11/07, Matthias Bl&#228;sing &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">matthias.blaesing at rwth-aachen.de</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> And (something I really begin to like) there is the possibility to use
+</I>&gt;<i> different profile concurrently. The 0.4 version will be put out with
+</I>&gt;<i> modules to control applications via DBUS, has a mplayer module, can
+</I>&gt;<i> execute arbitrary commands and also offers Keyboard/Mouse Control.
+</I>
+Ah, that's a very good point. Hmm, perhaps you should have a talk with
+the lirc developers.
+
+
+&gt;<i> I really don't know! But the JSR82/J2ME implementers seem to be a bit
+</I>&gt;<i> lazy when it comes to completeness and more exotic functionality seems
+</I>&gt;<i> to be missing quite often.
+</I>
+After some googling..
+
+It looks like JSR82 only allows PSM values above 0x1000. All the
+standard services like HID are below 0x1000 so looks like J2ME can't
+be used for this.
+
+PSM is, as far as I understand, the bluetooth equivalent of TCP port
+numbers. So this would be like trying to implement a mail server in
+Java, but your Java TCP/IP stack only allowing you to listen to ports
+above 1024.
+
+Oh well, seems I have to figure out how to write a native app for
+Nokia S60. Thanks for your help.
+
+-- 
+LarsG
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000044.html">[Lbrc-devel] Generic Bluetooth HID?
+</A></li>
+	<LI>Next message: <A HREF="000046.html">[Lbrc-devel] Error on LBRC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#45">[ date ]</a>
+              <a href="thread.html#45">[ thread ]</a>
+              <a href="subject.html#45">[ subject ]</a>
+              <a href="author.html#45">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

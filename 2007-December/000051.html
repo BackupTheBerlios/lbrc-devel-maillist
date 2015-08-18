@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Hi
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Hi&In-Reply-To=%3C1197196461.6375.7.camel%40blackmamba%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000052.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Hi</H1>
+    <B>Felix Rubio Dalmau</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Hi&In-Reply-To=%3C1197196461.6375.7.camel%40blackmamba%3E"
+       TITLE="[Lbrc-devel] Hi">felix.rubio at bsc.es
+       </A><BR>
+    <I>Sun Dec  9 11:34:21 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000052.html">[Lbrc-devel] Hi
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>My name is Felix. I've tried to install LBRC and with the application
+that runs on the phone I've been successfull, but not with the part that
+runs on my computer. The error message I get when I try to
+run ./LBRCdbus.py is:
+
+##################################3
+Traceback (most recent call last):
+  File &quot;./LBRCdbus.py&quot;, line 8, in ?
+    brs = LBRCdbus()
+  File &quot;/home/felix/software/LBRC-0.4/LBRC/dbusinterface.py&quot;, line 26,
+in __init__
+    bus_name = dbus.service.BusName('custom.LBRC',
+bus=dbus.SessionBus())
+  File &quot;/var/lib/python-support/python2.4/dbus/_dbus.py&quot;, line 213, in
+__new__
+    mainloop=mainloop)
+  File &quot;/var/lib/python-support/python2.4/dbus/_dbus.py&quot;, line 102, in
+__new__
+    bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+  File &quot;/var/lib/python-support/python2.4/dbus/bus.py&quot;, line 125, in
+__new__
+    bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.NoReply: Did
+not receive a reply. Possible causes include: the remote application did
+not send a reply, the message bus security policy blocked the reply, the
+reply timeout expired, or the network connection was broken.
+#####################################
+
+Do you know what this means? Any help would be appreciated, 'cause I
+need your application to work in order to manage slideshows with it.
+
+Thank you very much.
+
+Felix Rubio Dalmau
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071209/9f0b45b8/attachment.html">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071209/9f0b45b8/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000052.html">[Lbrc-devel] Hi
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

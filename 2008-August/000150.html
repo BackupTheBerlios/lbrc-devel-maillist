@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Mailinglist works again
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Mailinglist%20works%20again&In-Reply-To=%3C1219088427.26535.27.camel%40enterprise.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000149.html">
+   <LINK REL="Next"  HREF="000151.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Mailinglist works again</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Mailinglist%20works%20again&In-Reply-To=%3C1219088427.26535.27.camel%40enterprise.glx%3E"
+       TITLE="[Lbrc-devel] Mailinglist works again">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Mon Aug 18 21:40:27 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000149.html">[Lbrc-devel] Mailinglist works again
+</A></li>
+        <LI>Next message: <A HREF="000151.html">[Lbrc-devel] Mailinglist works again
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#150">[ date ]</a>
+              <a href="thread.html#150">[ thread ]</a>
+              <a href="subject.html#150">[ subject ]</a>
+              <a href="author.html#150">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey,
+
+Man! That is a list - I'm not sure whether I can reply in depth, as I'm
+pretty occupied, but some things were pretty interesting and some seemed
+pretty similar.
+
+Am Montag, den 18.08.2008, 20:40 +0200 schrieb Jasper Groenewegen:
+&gt;<i> [Introduce aliases for the keycodes]
+</I>
+You can support both. If you get a number from json, its a keycode, if
+not its an alias. But it would be better IMHO, if the config keeps to
+keycodes, as these are not dependend on an interpretation.
+
+&gt;<i> [New level system for config]
+</I>&gt;<i> Now for point 2. I would like to suggest a 3 level system:
+</I>&gt;<i> - Profiles
+</I>&gt;<i> - Schemes
+</I>&gt;<i> - Handlers
+</I>
+Actually there is currently handler and profiles, the current term
+profile would in your wording be schemes, and you would add another
+layer on top.
+
+What you are suggesting is done now through the predefined profiles,
+which can be copied into a new profile an adjust the used keys and
+functions.
+
+&gt;<i> First Handlers. These objects are the InputCaller, CmdCaller,
+</I>&gt;<i> DBusCaller. They should be kept really basic and simple. For example,
+</I>&gt;<i> the CmdCaller only knows how to call 1 command (with argument list) and
+</I>&gt;<i> the InputCaller only knows how to handle 1 (combination)keypress or 1
+</I>&gt;<i> mousemovement/click at the time (but with configurable repeat time).
+</I>&gt;<i> 
+</I>&gt;<i> Now comes the new part. Schemes are lists of Actions that belong to a
+</I>&gt;<i> certain program/use case. For example, a Rhythmbox Scheme. This scheme
+</I>&gt;<i> consists of a list of actions and each action is defined as 1 or more
+</I>&gt;<i> Handler calls. So say the Rhythmbox action 'Play' is defined as a dbus
+</I>&gt;<i> call to the Rhythmbox dbus object with all the right parameters. Or for
+</I>&gt;<i> example a MyPresentation scheme has an action 'Start movie 1' which is a
+</I>&gt;<i> CmdCall for mplayer with as argument the path to a specific movie.
+</I>&gt;<i> Now the real nice thing would be, schemes are configurations so they
+</I>&gt;<i> should be saved and loaded from .lbrc.conf. And even better, make
+</I>&gt;<i> importing/exporting schemes from the configuration possible. I want to
+</I>&gt;<i> be able to download this nifty Scheme somebody created with 30 possible
+</I>&gt;<i> options to handle Program X and load that into my LBRC-applet to use to
+</I>&gt;<i> create...
+</I>
+So you want to create an aditional abstraction layer? I'm reluctant to
+do this. Consider the rhythmbox profile. Currently this is just a thin
+wrapper around the dbus caller module. For me this is nice. Another,
+maybe better module would be a player module, that supports xmms,
+rhythmbox, amarok, ... transparently and from one place.
+
+&gt;<i> In other words, the current four tabs should go. A user wants to work
+</I>&gt;<i> from keys -&gt; action. Similary, the .lbrc.conf profiles should be a
+</I>&gt;<i> key-&gt;scheme/handler-&gt;action/command flow.
+</I>
+&#196;hm - the current config gui is a pretty direct translation of
+the .lbrc.conf structure. Each module is represented by a tab, each
+profile in the drop down menu.
+
+&gt;<i> Next, on the mobile side:
+</I>&gt;<i> The current slide helper screen and volume screen are nice, but I think
+</I>&gt;<i> what would be really nice is have a profile dependent overview of the
+</I>&gt;<i> button mappings visible. I can't remember what NUM7 does in profile Foo!
+</I>&gt;<i> The profile list can be send over, how about sending a profile
+</I>&gt;<i> description on choosing one? What I'm thinking of is:
+</I>&gt;<i> - The J2ME app should have a set of stock icons, can be very simple,
+</I>&gt;<i> even wingdings like images for 'play, pause, stop, volume up, volume
+</I>&gt;<i> down, shutdown, etc.
+</I>&gt;<i> - On choosing a profile, the pc sends a description which contains
+</I>&gt;<i> something like 'NUM7{ico:play}, NUM8{txt:'FFWD'}'. Now, the J2ME program
+</I>&gt;<i> doesn't have to know which keycode goes with that NUM7. It just needs to
+</I>&gt;<i> draw a generic phone key layout on screen, with a play icon in the
+</I>&gt;<i> square that represents NUM7 and the string 'FFWD' in the square
+</I>&gt;<i> representing NUM8.
+</I>&gt;<i> My phone does svg, I'm not sure how normal that is nowadays but if it is
+</I>&gt;<i> normal, it would be very easy to scale vector buttons, vector images and
+</I>&gt;<i> text to the exact size of the screen.
+</I>
+Hava look at the MIDP 2 spec. I'm not sure about svg, but at these
+screen sizes, I think using indexed png would be equally good. But
+someone would have to implement that and I would not wan't to have the
+keys always visible (I'm thinking something like a help screen).
+
+&gt;<i> When you want the presentation helper widget, you might use 2/3 of the
+</I>&gt;<i> screen with room for the timer above and the slide number on the side!
+</I>&gt;<i> Same for the volume helper screen, scale down the key mapping view a
+</I>&gt;<i> little and draw the bars in the created space.
+</I>
+The screen is a moving target in the MIDP environment (the sizes differ
+from phone to phone).
+
+&gt;<i> When people create a profile or scheme, one of the options in the editor
+</I>&gt;<i> could be how to present the action on the phone. So give the ability to
+</I>&gt;<i> choose between text (max 4 chars) and icons with again a dropdown list
+</I>&gt;<i> of the icons also present on the phone.
+</I>
+Your opening a can of worms!
+
+&gt;<i> Ok, this was basically what caused me to not sleep almost an entire
+</I>&gt;<i> night last week because I was so excited about coming up with this
+</I>&gt;<i> design which would improve the usability of the program (in my opinion).
+</I>&gt;<i> It's a lot of text and likely I left some stuff out that is present in
+</I>&gt;<i> my head so that this makes perfect sense for me but not (yet) for you
+</I>&gt;<i> guys. So please, let me know what you think.
+</I>
+I think we should have another look, who it already might just need the
+right gui, without reinventing the whole layering.
+
+&gt;<i> Finally, a few notes:
+</I>&gt;<i> - LBRC-applet and LBRCdbus are the only /usr/bin executables on my
+</I>&gt;<i> system with CAPS. It looks kind of wrong and against convention. Maybe
+</I>&gt;<i> make that more in line with the rest of the unix world an go lowercase?
+</I>
+Not sure where you store X, but programms starting with X contradict
+your theses:
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">mblaesing at enterprise</A>:~$ X&lt;tab&gt;
+X         Xdmx      Xephyr    XMLRPCsh  Xorg      
+<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">mblaesing at enterprise</A>:~$ X
+
+I'm reluctant to change the name. Joe average user will probably just
+use the GUI icon.
+
+&gt;<i> - The ganyremote J2ME program knows how to save previously used
+</I>&gt;<i> connections. So scanning for devices becomes an option, you can pick
+</I>&gt;<i> your system from a list. That would be nice for lbrc too.
+</I>
+This would be doable - I have to check whether we need our own handling
+of this or whether we can just reuse the infrastructre from j2me. This
+is definitly something archivable pretty easily.
+
+These are some comments - I'll try to find some more time to look
+through it again, but I think the main focus should be to improve the
+config _gui_, fix some quirks of the modules and improve the j2me part.
+
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080818/b2176cf3/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080818/b2176cf3/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000149.html">[Lbrc-devel] Mailinglist works again
+</A></li>
+	<LI>Next message: <A HREF="000151.html">[Lbrc-devel] Mailinglist works again
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#150">[ date ]</a>
+              <a href="thread.html#150">[ thread ]</a>
+              <a href="subject.html#150">[ subject ]</a>
+              <a href="author.html#150">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

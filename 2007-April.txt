@@ -1,0 +1,73 @@
+From matthias.blaesing at rwth-aachen.de  Wed Apr 11 22:24:33 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 11 Apr 2007 22:24:33 +0200
+Subject: [Lbrc-devel] Release when?
+Message-ID: <1176323073.29183.4.camel@debian.glx>
+
+Hello all,
+
+I think judging from the long list of changes that were done in the
+core, I would like to get a release out of the door, before more
+extensions (like widgets for the phone) are introduced.
+
+I would like to ask you where you see places that have to be worked on
+before a release. I think the gui should get a high priority or the
+decision not include the editor into the release. Are there remaining
+errors/problems in the basic system that have to be fixed?
+
+As far as I can say the AMD64 Problem should be fixed since the switch
+over to the dbus<->uinput bridge. Anything more?
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070411/47c676ba/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Apr 28 22:39:53 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 28 Apr 2007 22:39:53 +0200
+Subject: [Lbrc-devel] Release when?
+In-Reply-To: <1176323073.29183.4.camel@debian.glx>
+References: <1176323073.29183.4.camel@debian.glx>
+Message-ID: <1177792793.20913.4.camel@prometheus.glx>
+
+Hello,
+
+I asked for opinions towards a new release. I tried to work on the GUI
+part and was partly successfull (read: The UinputDispatcher Config part
+is working). I would like to encourage you to test it.
+
+Please Iuri, what is your opinion on this. I started this work, because
+you did not react to my last email - I did not mean to offend you.
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070428/e3829d41/attachment.pgp>
+

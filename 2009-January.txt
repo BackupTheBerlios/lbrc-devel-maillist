@@ -1,0 +1,31 @@
+From alefel at cadl.iisc.ernet.in  Mon Jan 19 05:37:14 2009
+From: alefel at cadl.iisc.ernet.in (Alexander Fell)
+Date: Mon, 19 Jan 2009 10:07:14 +0530
+Subject: [Lbrc-devel] lbrc.jad/jar download
+Message-ID: <4974037A.3040108@cadl.iisc.ernet.in>
+
+Hi!
+
+It would be nice, if you can make the lbrc.jad/jar files available for
+download again. http://www.doppel-helix.eu/lbrc.ad/jar gives a 404.
+I know that these files are also included in the package. But
+unfortunately there are phones which annoy the user with the necessity
+to download the software through GPRS and WAP, if it should be
+installed. An upload to the phone by USB or similar only gives an
+"invalid jar file" error.
+
+Thanks,
+Alex
+
+-- 
+==============================================
+Alexander Fell
+Supercomputer Education and Research Center
+CADLab
+Indian Institute of Science
+Bangalore - 560012
+India
+==============================================
+
+
+

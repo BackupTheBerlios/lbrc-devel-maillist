@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Linux Bluetooth Remote Control --debug
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Linux%20Bluetooth%20Remote%20Control%20--debug&In-Reply-To=%3C1206379337.32211.0.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000105.html">
+   <LINK REL="Next"  HREF="000107.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Linux Bluetooth Remote Control --debug</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Linux%20Bluetooth%20Remote%20Control%20--debug&In-Reply-To=%3C1206379337.32211.0.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Linux Bluetooth Remote Control --debug">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Mon Mar 24 18:22:16 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000105.html">[Lbrc-devel] Linux Bluetooth Remote Control --debug
+</A></li>
+        <LI>Next message: <A HREF="000107.html">[Lbrc-devel] Config for Nokia 9300i
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#106">[ date ]</a>
+              <a href="thread.html#106">[ thread ]</a>
+              <a href="subject.html#106">[ subject ]</a>
+              <a href="author.html#106">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey,
+
+you see two different problems:
+
+     1. The UinputDispatcher Modules (this is responsible for sending
+        key and mouse events into the kernel) can't find the device
+        node, on which the kernel part waits for the userspace
+        application. To work around this, make sure, that the uinput
+        module is loaded and you have permissions to access it.
+     2. The lbrcdbus tries to raise a failure and broadcast it to all
+        the connected clients -- this fails and this is the second part
+        of the problem.
+
+Problem 2 is fixed in svn. The first problem should be solveable by
+doing a &quot;modprobe uinput&quot; as root.
+
+HTH
+
+Matthias
+
+Am Sonntag, den 23.03.2008, 21:32 +0100 schrieb kamilek_snk:
+&gt;<i> I don't know what doing now.
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">krzaku at krzaku</A>:~/Desktop/lbrc-0.6.1$ LBRCdbus.py
+</I>&gt;<i> bash: LBRCdbus.py: command not found
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">krzaku at krzaku</A>:~/Desktop/lbrc-0.6.1$ ./LBRCdbus.py
+</I>&gt;<i> bash: ./LBRCdbus.py: No such file or directory
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">krzaku at krzaku</A>:~/Desktop/lbrc-0.6.1$ '/home/krzaku/Desktop/lbrc-0.6.1/LBRCdbus'
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : ERROR    No device node found,
+</I>&gt;<i> that looks like a uinput device node - is the kernel module loaded?
+</I>&gt;<i> dbus.connection                    : ERROR    Unable to set arguments
+</I>&gt;<i> (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5)) according to
+</I>&gt;<i> signature u'ssq': &lt;type 'exceptions.TypeError'&gt;: Expected a string or
+</I>&gt;<i> unicode object
+</I>&gt;<i> LBRC                               : WARNING  Failed to initalize
+</I>&gt;<i> &lt;class 'LBRC.UinputDispatcher.UinputDispatcher'&gt;
+</I>&gt;<i> Expected a string or unicode object
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">krzaku at krzaku</A>:~/Desktop/lbrc-0.6.1$
+</I>&gt;<i> '/home/krzaku/Desktop/lbrc-0.6.1/LBRC-applet'
+</I>&gt;<i> 2008-03-23 21:25:01,139 Applet   WARNING  DBUS Component not found
+</I>&gt;<i> 2008-03-23 21:25:03,157 DBUS.LBRC.Listener.UInputDispatcher ERROR
+</I>&gt;<i> No device node found, that looks like a uinput device node - is the
+</I>&gt;<i> kernel module loaded?
+</I>&gt;<i> 2008-03-23 21:25:03,158 DBUS.dbus.connection ERROR    Unable to set
+</I>&gt;<i> arguments (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5))
+</I>&gt;<i> according to signature u'ssq': &lt;type 'exceptions.TypeError'&gt;: Expected
+</I>&gt;<i> a string or unicode object
+</I>&gt;<i> 2008-03-23 21:25:03,159 DBUS.LBRC WARNING  Failed to initalize &lt;class
+</I>&gt;<i> 'LBRC.UinputDispatcher.UinputDispatcher'&gt;
+</I>&gt;<i> Expected a string or unicode object
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>   File &quot;/home/krzaku/Desktop/lbrc-0.6.1/LBRC-applet&quot;, line 81, in &lt;module&gt;
+</I>&gt;<i>     lbrc.quit()
+</I>&gt;<i>   File &quot;/home/krzaku/Desktop/lbrc-0.6.1/LBRC_gtk_gui/applet.py&quot;, line
+</I>&gt;<i> 157, in quit
+</I>&gt;<i>     self.lbrc_core.shutdown()
+</I>&gt;<i>   File &quot;/var/lib/python-support/python2.5/dbus/proxies.py&quot;, line 135,
+</I>&gt;<i> in __call__
+</I>&gt;<i>     **keywords)
+</I>&gt;<i>   File &quot;/var/lib/python-support/python2.5/dbus/connection.py&quot;, line
+</I>&gt;<i> 603, in call_blocking
+</I>&gt;<i>     message, timeout)
+</I>&gt;<i> dbus.exceptions.DBusException: org.freedesktop.DBus.Error.NoReply:
+</I>&gt;<i> Message did not receive a reply (timeout by message bus)
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">krzaku at krzaku</A>:~/Desktop/lbrc-0.6.1$
+</I>&gt;<i> '/home/krzaku/Desktop/lbrc-0.6.1/LBRCdbus' --debug
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Examing
+</I>&gt;<i> /dev/input/uinput as uinput device
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    The place does not exist!
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/misc/uinput
+</I>&gt;<i> as uinput device
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    The place does not exist!
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    None of the well known
+</I>&gt;<i> places for uinput device was found to be ok, beginning search
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : ERROR    No device node found,
+</I>&gt;<i> that looks like a uinput device node - is the kernel module loaded?
+</I>&gt;<i> dbus.connection                    : ERROR    Unable to set arguments
+</I>&gt;<i> (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5)) according to
+</I>&gt;<i> signature u'ssq': &lt;type 'exceptions.TypeError'&gt;: Expected a string or
+</I>&gt;<i> unicode object
+</I>&gt;<i> LBRC                               : WARNING  Failed to initalize
+</I>&gt;<i> &lt;class 'LBRC.UinputDispatcher.UinputDispatcher'&gt;
+</I>&gt;<i> Expected a string or unicode object
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event
+</I>&gt;<i> Listener: &lt;class 'LBRC.CommandExecutor.CommandExecutor'&gt;
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event
+</I>&gt;<i> Listener: &lt;class 'LBRC.DBUSCaller.DBUSCaller'&gt;
+</I>&gt;<i> LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event
+</I>&gt;<i> Listener: &lt;class 'LBRC.ProfileSwitcher.ProfileSwitcher'&gt;
+</I>&gt;<i> LBRC.Listener.MPlayer              : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.MPlayer              : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event
+</I>&gt;<i> Listener: &lt;class 'LBRC.MPlayer.MPlayer'&gt;
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event
+</I>&gt;<i> Listener: &lt;class 'LBRC.PresentationCompanion.PresentationCompanion'&gt;
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event
+</I>&gt;<i> Listener: &lt;class 'LBRC.VolumeControl.VolumeControl'&gt;
+</I>&gt;<i> LBRC                               : DEBUG    Register done
+</I>&gt;<i> LBRC                               : DEBUG    Initial Profile set
+</I>&gt;<i> LBRC                               : DEBUG    Init dispatcher
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while
+</I>&gt;<i> interprating destruct
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while
+</I>&gt;<i> interprating destruct
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.MPlayer              : DEBUG    Command:connect_fifo
+</I>&gt;<i> /home/mblaesing/test
+</I>&gt;<i> LBRC.Listener.MPlayer              : DEBUG    FIFO does not exist:
+</I>&gt;<i> /home/mblaesing/test
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while
+</I>&gt;<i> interprating destruct
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while
+</I>&gt;<i> interprating destruct
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    set_profile finished
+</I>&gt;<i> LBRC                               : DEBUG    Reload config
+</I>&gt;<i> LBRC.Listener.MPlayer              : DEBUG    Command:disconnect_fifo
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Can you tell me what I must to do ?
+</I>&gt;<i> Thanks Kamil
+</I>-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080324/fc731676/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080324/fc731676/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000105.html">[Lbrc-devel] Linux Bluetooth Remote Control --debug
+</A></li>
+	<LI>Next message: <A HREF="000107.html">[Lbrc-devel] Config for Nokia 9300i
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#106">[ date ]</a>
+              <a href="thread.html#106">[ thread ]</a>
+              <a href="subject.html#106">[ subject ]</a>
+              <a href="author.html#106">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

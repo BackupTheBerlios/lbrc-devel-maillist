@@ -1,0 +1,231 @@
+From anarki13 at gmail.com  Sat Sep 13 01:14:13 2008
+From: anarki13 at gmail.com (A D)
+Date: Sat, 13 Sep 2008 01:14:13 +0200
+Subject: [Lbrc-devel] 'BerliOS Developer: SVN Repository'
+Message-ID: <b776568f0809121614y8e0fd7tb50af89d4a727178@mail.gmail.com>
+
+
+From matthias.blaesing at rwth-aachen.de  Sat Sep 13 18:52:04 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 13 Sep 2008 18:52:04 +0200
+Subject: [Lbrc-devel] Preparing the next release
+Message-ID: <1221324724.11979.2.camel@enterprise.glx>
+
+Hello,
+
+I'll try to get the next release out as fast as possible. So please test
+the svn version and report any bugs you find.
+
+This release will prepare a rework of the config utility, to make it
+more userfriendly.
+
+So if you have bugs that need fixing -- this is the time to tell.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080913/774f16f2/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Sep 13 22:47:10 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 13 Sep 2008 22:47:10 +0200
+Subject: [Lbrc-devel] 'BerliOS Developer: SVN Repository'
+In-Reply-To: <b776568f0809121614y8e0fd7tb50af89d4a727178@mail.gmail.com>
+References: <b776568f0809121614y8e0fd7tb50af89d4a727178@mail.gmail.com>
+Message-ID: <1221338830.22837.10.camel@enterprise.glx>
+
+Hey 
+
+Am Samstag, den 13.09.2008, 01:14 +0200 schrieb A D:
+> Hello, i have a problem with the LBRC: the installation was ok, but i
+> keep getting a message LBRC Service not found
+> length of service list:0
+> 
+> can you please help me?
+> 
+> i have a nokia n70 music edition
+
+You'll have to provide more info:
+
+      * Which linux distribution do you use?
+      * How did you install LBRC (Package, Source, ...)?
+      * Run "LBRC-applet --debug" and provide the _complete_ output
+      * if this does not produce any output, run "LBRC-dbus --debug" and
+        again the complete output please
+
+At least for ubuntu there is a known bug, that causes a problem that
+sound suspicously like your problem.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080913/153e20bf/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Sep 14 10:04:16 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 14 Sep 2008 10:04:16 +0200
+Subject: [Lbrc-devel] 'BerliOS Developer: SVN Repository'
+In-Reply-To: <b776568f0809131504x39cc7656vf3401294576ed82b@mail.gmail.com>
+References: <b776568f0809121614y8e0fd7tb50af89d4a727178@mail.gmail.com>
+	<1221338830.22837.10.camel@enterprise.glx>
+	<b776568f0809131504x39cc7656vf3401294576ed82b@mail.gmail.com>
+Message-ID: <1221379456.10304.3.camel@enterprise.glx>
+
+Hey,
+
+Am Sonntag, den 14.09.2008, 00:04 +0200 schrieb A D:
+> indeed its ubuntu hardy 8.04.1
+> [A normal debug run of LBRC was cut]
+
+I think your were biten by the mentioned bug in Hardy:
+
+https://bugs.launchpad.net/ubuntu/+source/bluez-utils/+bug/227429
+
+There is a solution presented - whether that works in a stable manner:
+no idea ;-)
+
+Greetings
+
+Matthias
+
+PS: Please direct your mails to lbrc-devel at lists.berlios.de or keep it
+CCed - so that the next one facing the same problems finds the solution
+in the archives.
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080914/47c2adba/attachment.pgp>
+
+From anarki13 at gmail.com  Tue Sep 16 21:30:35 2008
+From: anarki13 at gmail.com (A D)
+Date: Tue, 16 Sep 2008 21:30:35 +0200
+Subject: [Lbrc-devel] 'BerliOS Developer: SVN Repository'
+In-Reply-To: <1221379456.10304.3.camel@enterprise.glx>
+References: <b776568f0809121614y8e0fd7tb50af89d4a727178@mail.gmail.com>
+	<1221338830.22837.10.camel@enterprise.glx>
+	<b776568f0809131504x39cc7656vf3401294576ed82b@mail.gmail.com>
+	<1221379456.10304.3.camel@enterprise.glx>
+Message-ID: <b776568f0809161230q76100f3eh3814d1bb64bc5f53@mail.gmail.com>
+
+thanks!
+--
+
+"Our background & circumstances
+may have influenced who we are,
+But we're responsible for who we become."
+
+"shooting griffins with a rocket launcher is, indeed, awesome."
+
+
+????? ?????? ??? ????? ???? ????? ???? ??? ???
+
+
+
+
+
+On Sun, Sep 14, 2008 at 10:04 AM, Matthias Bl?sing <
+matthias.blaesing at rwth-aachen.de> wrote:
+
+> Hey,
+>
+> Am Sonntag, den 14.09.2008, 00:04 +0200 schrieb A D:
+> > indeed its ubuntu hardy 8.04.1
+> > [A normal debug run of LBRC was cut]
+>
+> I think your were biten by the mentioned bug in Hardy:
+>
+> https://bugs.launchpad.net/ubuntu/+source/bluez-utils/+bug/227429
+>
+> There is a solution presented - whether that works in a stable manner:
+> no idea ;-)
+>
+> Greetings
+>
+> Matthias
+>
+> PS: Please direct your mails to lbrc-devel at lists.berlios.de or keep it
+> CCed - so that the next one facing the same problems finds the solution
+> in the archives.
+> --
+> So long and thanks for all the fish!
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080916/96f2209e/attachment.html>
+
+From matthias.blaesing at rwth-aachen.de  Sat Sep 20 21:49:10 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 20 Sep 2008 21:49:10 +0200
+Subject: [Lbrc-devel] 0.6.3 was releases - Grab it while its hot
+Message-ID: <1221940150.21959.14.camel@enterprise.glx>
+
+Hello all,
+
+I put a new release (0.6.3) of LBRC on berlios and also put the
+announcement on freshmeat. So you should also note, that 0.6.3 is out.
+There were quite a few changes in svn. There were two pretty fatal
+errors fixed and quite a few commits just to clean the code.
+
+Here a brief changelog:
+
+* Fix typo in DBUSCaller rendering it unusable
+* Fix type in CommandExecutorCommand rendering CommandExecutor useless
+* Massive cleanups of the code and generalisation of functionality
+* Add XInput Module, making use of the XTest Extension to better inject KeyPresses
+* Create smaller j2me part (by obfuscation)
+* Make j2me part create a list of pre known devices without scanning first
+* Make j2me part more rebust with respect to the device search
+* better debug output for the listenes modules (colbrac)
+* make setup.py clean-up after itself (colbrac)
+* fix debian versions (colbrac)
+* add MANIFEST.in for easy source package creation (colbrac)
+* switch applet to use logging framework and suppress irritating warnings when using LBRC-applet
+
+Plans for the future are:
+
+      * further cleanup of the code,
+      * change of the config gui to present the user a more straight
+        forward way to configure LBRC (get away from the seperate  tabs
+        for each handler and switch to a seperation by init, action and
+        destruct tabs. In the action tab you get one entry per phone
+        keycode.
+      * add a action library (consisting of a description and an
+        handler/options tuple)
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080920/e2a3ade7/attachment.pgp>
+

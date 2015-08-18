@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3C1201712559.14895.13.camel%40iphigenie.paessler.home%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000080.html">
+   <LINK REL="Next"  HREF="000082.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)</H1>
+    <B>Daniel P&#228;&#223;ler</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3C1201712559.14895.13.camel%40iphigenie.paessler.home%3E"
+       TITLE="[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)">paessler at gmx.de
+       </A><BR>
+    <I>Wed Jan 30 18:02:38 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000080.html">[Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+</A></li>
+        <LI>Next message: <A HREF="000082.html">[Lbrc-devel] CPU-Architectures
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#81">[ date ]</a>
+              <a href="thread.html#81">[ thread ]</a>
+              <a href="subject.html#81">[ subject ]</a>
+              <a href="author.html#81">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi to all,
+
+i'm new to this list, so hello to all members ;)
+today i tried to get LBRC working, but got the same errors as tloudev:
+
+&gt;<i> kino / # LBRCdbus
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>    File &quot;/usr/bin/LBRCdbus&quot;, line 15, in &lt;module&gt;
+</I>&gt;<i>      brs = Core()
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line 204, 
+</I>&gt;<i> in __init__
+</I>&gt;<i>      self.btserver = BTServer()
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/LBRC/BTServer.py&quot;, line 193, in 
+</I>&gt;<i> __init__
+</I>&gt;<i>      self.port = bluetooth.get_available_port( bluetooth.RFCOMM )
+</I>&gt;<i> AttributeError: 'module' object has no attribute 'get_available_port'
+</I>
+after some trying and reading the list, i patched BTServer.py as suggested by matthias.
+bluetooth is up and running, uinput is loaded and /dev/input/uinput is rw for all users.
+however, when i run &quot;LBRCdbus --debug&quot; i get this (the error message is in german, translated from: &quot;File descriptor in bad state&quot;,
+but i think, matthias will know ;) ) :
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">paessler at iphigenie</A> pts/1] LBRCdbus --debug
+Traceback (most recent call last):
+  File &quot;/usr/bin/LBRCdbus&quot;, line 13, in &lt;module&gt;
+    brs = Core(debug=logging.DEBUG)
+  File &quot;/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line 204, in __init__
+    self.btserver = BTServer()
+  File &quot;/usr/lib64/python2.5/site-packages/LBRC/BTServer.py&quot;, line 194, in __init__
+    self.server_sock.listen(1)
+  File &quot;&lt;string&gt;&quot;, line 5, in listen
+bluetooth.btcommon.BluetoothError: (77, 'Die Dateizugriffsnummer ist in schlechter Verfassung')
+
+any idea, what's wrong there?
+
+thanks
+
+daniel
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000080.html">[Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+</A></li>
+	<LI>Next message: <A HREF="000082.html">[Lbrc-devel] CPU-Architectures
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#81">[ date ]</a>
+              <a href="thread.html#81">[ thread ]</a>
+              <a href="subject.html#81">[ subject ]</a>
+              <a href="author.html#81">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

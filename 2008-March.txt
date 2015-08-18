@@ -1,0 +1,1642 @@
+From chronos.hun at gmail.com  Thu Mar  6 14:06:02 2008
+From: chronos.hun at gmail.com (=?ISO-8859-1?Q?D=E1vid_Horv=E1th?=)
+Date: Thu, 6 Mar 2008 14:06:02 +0100
+Subject: [Lbrc-devel] Dbus problem
+Message-ID: <5194de740803060506k79ef2f5i5ac066313ed66a4f@mail.gmail.com>
+
+Hy!
+I'm running Ubuntu 7.10 and after a few things tried i am where i started.
+Tried to install, tried both deb and tar.gz versions, its all the same. I'm
+Hungarian, so i'm using several programs(almost all) in my native language.
+What i get when i sudo LBRCdbus:
+
+chronos at ChronosBase-Ubuntu:/tmp/lbrc-0.6.1$ sudo LBRCdbus
+Traceback (most recent call last):
+  File "/usr/bin/LBRCdbus", line 17, in <module>
+    brs = Core()
+  File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 209,
+in __init__
+    bus_name = dbus.service.BusName(DBUSNAME, bus=dbus.SessionBus())
+  File "/var/lib/python-support/python2.5/dbus/_dbus.py", line 218, in
+__new__
+    mainloop=mainloop)
+  File "/var/lib/python-support/python2.5/dbus/_dbus.py", line 107, in
+__new__
+    bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+  File "/var/lib/python-support/python2.5/dbus/bus.py", line 121, in __new__
+    bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.NoReply: Did not
+receive a reply. Possible causes include: the remote application did not
+send a reply, the message bus security policy blocked the reply, the reply
+timeout expired, or the network connection was broken.
+
+if i run it in normal user mode:
+
+chronos at ChronosBase-Ubuntu:/tmp/lbrc-0.6.1$ LBRCdbus
+> Traceback (most recent call last):
+>   File "logging/__init__.py", line 744, in emit
+>     msg = self.format(record)
+>   File "logging/__init__.py", line 630, in format
+>     return fmt.format(record)
+>   File "logging/__init__.py", line 430, in format
+>     s = s + record.exc_text
+> UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 187:
+> ordinal not in range(128)
+> Traceback (most recent call last):
+>   File "/usr/bin/LBRCdbus", line 17, in <module>
+>     brs = Core()
+>   File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 218,
+> in __init__
+>     self.btserver = BTServer()
+>   File "/usr/lib/python2.5/site-packages/LBRC/BTServer.py", line 177, in
+> __init__
+>     self.config = config()
+>   File "/usr/lib/python2.5/site-packages/LBRC/config.py", line 43, in
+> __init__
+>     self.reread()
+>   File "/usr/lib/python2.5/site-packages/LBRC/config.py", line 53, in
+> reread
+>     self.user = self._read_config(self.paths.get_userconfigfile())
+>   File "/usr/lib/python2.5/site-packages/LBRC/config.py", line 210, in
+> _read_config
+>     logging.getLogger('LBRC.Config').exception(_("Could not read config
+> file: %s") % absfilename)
+>   File "/usr/lib/python2.5/site-packages/PIL/__init__.py", line 1021, in
+> exception
+>
+>   File "/usr/lib/python2.5/site-packages/PIL/__init__.py", line 1015, in
+> error
+>
+>   File "/usr/lib/python2.5/site-packages/PIL/__init__.py", line 1101, in
+> _log
+>
+>   File "/usr/lib/python2.5/site-packages/PIL/__init__.py", line 1111, in
+> handle
+>
+>   File "/usr/lib/python2.5/site-packages/PIL/__init__.py", line 1148, in
+> callHandlers
+>
+>   File "/usr/lib/python2.5/site-packages/PIL/__init__.py", line 655, in
+> handle
+>
+>   File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 180,
+> in emit
+>     lr.fmessage = self.format(lr)
+>   File "/usr/lib/python2.5/site-packages/PIL/__init__.py", line 630, in
+> format
+>
+>   File "/usr/lib/python2.5/site-packages/PIL/__init__.py", line 430, in
+> format
+>
+> UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 187:
+> ordinal not in range(128)
+>
+
+Thanks in advance. David
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080306/5aa27701/attachment.html>
+
+From iuridiniz at yahoo.com.br  Fri Mar  7 01:04:39 2008
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Thu, 06 Mar 2008 21:04:39 -0300
+Subject: [Lbrc-devel] Dbus problem
+In-Reply-To: <5194de740803060506k79ef2f5i5ac066313ed66a4f@mail.gmail.com>
+References: <5194de740803060506k79ef2f5i5ac066313ed66a4f@mail.gmail.com>
+Message-ID: <1204848279.5985.32.camel@cego>
+
+I don't know how to help you, but could you do 'export LANG="C"' before
+start LBRC?
+
+do:
+
+export LANG='C'
+LBRCdbus
+
+
+futher reference:
+http://wiki.wxpython.org/UnicodeDecodeError
+
+
+
+On Thu, 2008-03-06 at 14:06 +0100, D?vid Horv?th wrote:
+> Hy!
+> I'm running Ubuntu 7.10 and after a few things tried i am where i
+> started. Tried to install, tried both deb and tar.gz versions, its all
+> the same. I'm Hungarian, so i'm using several programs(almost all) in
+> my native language. What i get when i sudo LBRCdbus:
+> 
+>         chronos at ChronosBase-Ubuntu:/tmp/lbrc-0.6.1$ sudo LBRCdbus 
+>         Traceback (most recent call last):
+>           File "/usr/bin/LBRCdbus", line 17, in <module>
+>             brs = Core()
+>           File
+>         "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line
+>         209, in __init__
+>             bus_name = dbus.service.BusName(DBUSNAME,
+>         bus=dbus.SessionBus())
+>           File "/var/lib/python-support/python2.5/dbus/_dbus.py", line
+>         218, in __new__
+>             mainloop=mainloop)
+>           File "/var/lib/python-support/python2.5/dbus/_dbus.py", line
+>         107, in __new__
+>             bus = BusConnection.__new__(subclass, bus_type,
+>         mainloop=mainloop)
+>           File "/var/lib/python-support/python2.5/dbus/bus.py", line
+>         121, in __new__
+>             bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+>         dbus.exceptions.DBusException:
+>         org.freedesktop.DBus.Error.NoReply: Did not receive a reply.
+>         Possible causes include: the remote application did not send a
+>         reply, the message bus security policy blocked the reply, the
+>         reply timeout expired, or the network connection was broken.
+>         
+> if i run it in normal user mode:
+> 
+>         chronos at ChronosBase-Ubuntu:/tmp/lbrc-0.6.1$ LBRCdbus
+>         Traceback (most recent call last):
+>           File "logging/__init__.py", line 744, in emit
+>             msg = self.format(record)
+>           File "logging/__init__.py", line 630, in format
+>             return fmt.format(record)
+>           File "logging/__init__.py", line 430, in format
+>             s = s + record.exc_text
+>         UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in
+>         position 187: ordinal not in range(128)
+>         Traceback (most recent call last):
+>           File "/usr/bin/LBRCdbus", line 17, in <module>
+>             brs = Core()
+>           File
+>         "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line
+>         218, in __init__
+>             self.btserver = BTServer()
+>           File "/usr/lib/python2.5/site-packages/LBRC/BTServer.py",
+>         line 177, in __init__
+>             self.config = config()
+>           File "/usr/lib/python2.5/site-packages/LBRC/config.py", line
+>         43, in __init__
+>             self.reread()
+>           File "/usr/lib/python2.5/site-packages/LBRC/config.py", line
+>         53, in reread
+>             self.user =
+>         self._read_config(self.paths.get_userconfigfile())
+>           File "/usr/lib/python2.5/site-packages/LBRC/config.py", line
+>         210, in _read_config
+>             logging.getLogger('LBRC.Config').exception(_("Could not
+>         read config file: %s") % absfilename)
+>           File "/usr/lib/python2.5/site-packages/PIL/__init__.py",
+>         line 1021, in exception
+>             
+>           File "/usr/lib/python2.5/site-packages/PIL/__init__.py",
+>         line 1015, in error
+>             
+>           File "/usr/lib/python2.5/site-packages/PIL/__init__.py",
+>         line 1101, in _log
+>             
+>           File "/usr/lib/python2.5/site-packages/PIL/__init__.py",
+>         line 1111, in handle
+>             
+>           File "/usr/lib/python2.5/site-packages/PIL/__init__.py",
+>         line 1148, in callHandlers
+>             
+>           File "/usr/lib/python2.5/site-packages/PIL/__init__.py",
+>         line 655, in handle
+>             
+>           File
+>         "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line
+>         180, in emit
+>             lr.fmessage = self.format(lr)
+>           File "/usr/lib/python2.5/site-packages/PIL/__init__.py",
+>         line 630, in format
+>             
+>           File "/usr/lib/python2.5/site-packages/PIL/__init__.py",
+>         line 430, in format
+>             
+>         UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in
+>         position 187: ordinal not in range(128)
+> 
+> Thanks in advance. David
+> 
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080306/7943da79/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Fri Mar  7 12:41:23 2008
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Fri, 07 Mar 2008 08:41:23 -0300
+Subject: [Lbrc-devel] [Fwd: Re:  Dbus problem]
+Message-ID: <1204890083.8747.7.camel@cego>
+
+to archive 
+
+-------------- next part --------------
+An embedded message was scrubbed...
+From: "=?ISO-8859-1?Q?D=E1vid_Horv=E1th?=" <chronos.hun at gmail.com>
+Subject: Re: [Lbrc-devel] Dbus problem
+Date: Fri, 7 Mar 2008 08:02:29 +0100
+Size: 2400
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080307/71df68a2/attachment.mht>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080307/71df68a2/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Tue Mar 11 16:24:32 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 11 Mar 2008 16:24:32 +0100
+Subject: [Lbrc-devel] lbrc and nokia E70
+In-Reply-To: <1205240749.8872.5.camel@jabberwock>
+References: <1205240749.8872.5.camel@jabberwock>
+Message-ID: <1205249072.13436.23.camel@prometheus.glx>
+
+Hey Chris,
+
+I fully quoted your email, because I direct a copy to the lbrc-devel
+mailinglists, so that the answer gets archived. I would also advise you
+to write your mails directly to the list, as there are more people, that
+can help.
+
+Am Dienstag, den 11.03.2008, 15:05 +0200 schrieb Chris Picton:
+> Hi
+> 
+> I am testing lbrc, and I like what I see so far, but I have a problem:
+> 
+> My phone has a full keyboard, and I have been trying to make a profile
+> for it.
+> 
+> I see in input.h that there are mappings for uppercase letters only:  My
+> config has:
+> 
+>           {
+>             "type": "key",
+>             "map_to": "A",
+>             "keycode": 97,
+>             "repeat_freq": 0
+>           },
+> 
+> 
+> This works, and sends through a lowercase 'a' when I press 'a' on my
+> phone
+> 
+> If I press shift-a on my phone, I get a different keycode (65).
+> 
+> How will I map this in my profile?
+
+You have to create a new entry  for that keycode. You have to change the
+mapping. The problem is caused by the fact, that the input system is
+modelled after the way a keyboard works - the board doe not send three
+different codes for one key when you press shift or Alt-Gr. The phone
+shows a different behaviour (or more probable - the software layer wants
+to be intelligent).
+
+The UInput Module is intelligent enough to handle these cases. You can
+define whole keycode sequences, that should be send to the kernel.
+
+map_to = "A" whould then be: 
+map_to = "LEFTSHIFT+A" or 
+map_to = "RIGHTSHIFT+A"
+
+You can concatenate as many keys as you want (or at least as many keys,
+as the kernel buffer can hold - I have no idea where the limits lie ;-)
+
+> Also, my phone has a # key, but I see no option for # in the input.h
+> file.  How would I handle this?
+
+Yeah! I just noticed this problem ... this caused by the fact, that most
+keycodes have nice names - I didn't think about the fact, that the
+keycodes don't uniquely correspond to symbols (compare an english and a
+german keyboard). The keycode stays with the key, but the symbol
+changes.
+
+You can get the code by running xev and pressing the key you want to
+generate. Then you have to look into consts.py to find the right name.
+Yes I know - I hate it too -- there has to be a way around this...
+
+For # this should be on a german locale I get keycode 51 and this is
+COMMA.
+
+> Thanks for the app - it looks like I will use it a lot to control my
+> mythtv server.
+
+Nice ;-)
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080311/1524a007/attachment.pgp>
+
+From chrisp at tangent.co.za  Tue Mar 11 18:22:58 2008
+From: chrisp at tangent.co.za (Chris Picton)
+Date: Tue, 11 Mar 2008 19:22:58 +0200
+Subject: [Lbrc-devel] lbrc and nokia E70
+In-Reply-To: <1205249072.13436.23.camel@prometheus.glx>
+References: <1205240749.8872.5.camel@jabberwock>
+	<1205249072.13436.23.camel@prometheus.glx>
+Message-ID: <1205256178.8872.18.camel@jabberwock>
+
+
+> > Also, my phone has a # key, but I see no option for # in the input.h
+> > file.  How would I handle this?
+> 
+> Yeah! I just noticed this problem ... this caused by the fact, that most
+> keycodes have nice names - I didn't think about the fact, that the
+> keycodes don't uniquely correspond to symbols (compare an english and a
+> german keyboard). The keycode stays with the key, but the symbol
+> changes.
+> 
+> You can get the code by running xev and pressing the key you want to
+> generate. Then you have to look into consts.py to find the right name.
+> Yes I know - I hate it too -- there has to be a way around this...
+
+This appears to cause a problem:
+
+My config now has:
+
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+3",
+            "keycode": 35,
+            "repeat_freq": 0
+          }
+
+
+The # key is above my 3 on my wireless keyboard (it is US layout)
+
+However
+
+If I disconnect my wireless keyboard, my actual notebook keyboard is in
+GBr layout.  If I switch gnome to this layout, the # key is by itself
+above Enter, and above the 3 key, I have the ? symbol.
+
+When my keyboard layout is in US mode, # on the phone inputs #.
+When my keyboard layout is GBr, # on the phone gives ?.
+
+I can see that this is because you are inputting raw key data, not the
+final character, but short of reading the gnome keyboard/language
+layout, I am not sure how this can be overcome.
+
+
+Chris
+
+
+---------------------+-------------------------------------------------------
+        Chris Picton | PGP Key ID: 9D28A988 (wwwkeys.pgp.net)
+  Technical Director | PGP Key Fingerprint:
+     Tangent Systems | 2B46 29EA D530 79EC D9EA 3ED0 229D 6DD6 9D28 A988
+        011 447 8096 | 
+chrisp at tangent.co.za | http://www.tangent.co.za/keys/chrisp.asc
+---------------------+-------------------------------------------------------
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080311/e525f245/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Thu Mar 13 22:06:48 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Thu, 13 Mar 2008 22:06:48 +0100
+Subject: [Lbrc-devel] lbrc and nokia E70
+In-Reply-To: <1205256178.8872.18.camel@jabberwock>
+References: <1205240749.8872.5.camel@jabberwock>
+	<1205249072.13436.23.camel@prometheus.glx>
+	<1205256178.8872.18.camel@jabberwock>
+Message-ID: <1205442408.29718.7.camel@prometheus.glx>
+
+Hey Chris,
+
+Am Dienstag, den 11.03.2008, 19:22 +0200 schrieb Chris Picton:
+> [Problem: keycode generates different symbols depending on keyboard >
+>  layout]
+> 
+> I can see that this is because you are inputting raw key data, not the
+> final character, but short of reading the gnome keyboard/language
+> layout, I am not sure how this can be overcome.
+
+It would be interesting to know whether there is a way to make X
+generate a symbol. But I asume that on the layer I could see a chance to
+inject keystrokes (XTest) keycodes are expected - But I could be wrong
+and an input module without the usage of uinput could be done.
+
+Other projects working in similar directions already inject on the
+X-level and not the kernel level. Both approches have their pros and
+cons. I really would like to see a X-level input system, as this would
+eliminate the pain of making the uinput-dbus bridge run.
+
+But I won't have enough time for this in the near future (maybe in the
+summer, but I'm really not sure). If someone wants to write such a
+module - don't hesitate. I'll look over it, you can ask if you are faced
+with problems and you have the source of the uinput module and the other
+key listeners.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080313/9f02f23a/attachment.pgp>
+
+From kamilek.snk at gmail.com  Sun Mar 23 21:32:25 2008
+From: kamilek.snk at gmail.com (kamilek_snk)
+Date: Sun, 23 Mar 2008 21:32:25 +0100
+Subject: [Lbrc-devel] Linux Bluetooth Remote Control --debug
+Message-ID: <cc6669530803231332l340dc202le199f531226e6886@mail.gmail.com>
+
+I don't know what doing now.
+
+krzaku at krzaku:~/Desktop/lbrc-0.6.1$ LBRCdbus.py
+bash: LBRCdbus.py: command not found
+krzaku at krzaku:~/Desktop/lbrc-0.6.1$ ./LBRCdbus.py
+bash: ./LBRCdbus.py: No such file or directory
+krzaku at krzaku:~/Desktop/lbrc-0.6.1$ '/home/krzaku/Desktop/lbrc-0.6.1/LBRCdbus'
+LBRC.Listener.UInputDispatcher     : ERROR    No device node found,
+that looks like a uinput device node - is the kernel module loaded?
+dbus.connection                    : ERROR    Unable to set arguments
+(None, 'Linux Bluetooth Remote Control', dbus.UInt16(5)) according to
+signature u'ssq': <type 'exceptions.TypeError'>: Expected a string or
+unicode object
+LBRC                               : WARNING  Failed to initalize
+<class 'LBRC.UinputDispatcher.UinputDispatcher'>
+Expected a string or unicode object
+krzaku at krzaku:~/Desktop/lbrc-0.6.1$
+'/home/krzaku/Desktop/lbrc-0.6.1/LBRC-applet'
+2008-03-23 21:25:01,139 Applet   WARNING  DBUS Component not found
+2008-03-23 21:25:03,157 DBUS.LBRC.Listener.UInputDispatcher ERROR
+No device node found, that looks like a uinput device node - is the
+kernel module loaded?
+2008-03-23 21:25:03,158 DBUS.dbus.connection ERROR    Unable to set
+arguments (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5))
+according to signature u'ssq': <type 'exceptions.TypeError'>: Expected
+a string or unicode object
+2008-03-23 21:25:03,159 DBUS.LBRC WARNING  Failed to initalize <class
+'LBRC.UinputDispatcher.UinputDispatcher'>
+Expected a string or unicode object
+Traceback (most recent call last):
+  File "/home/krzaku/Desktop/lbrc-0.6.1/LBRC-applet", line 81, in <module>
+    lbrc.quit()
+  File "/home/krzaku/Desktop/lbrc-0.6.1/LBRC_gtk_gui/applet.py", line
+157, in quit
+    self.lbrc_core.shutdown()
+  File "/var/lib/python-support/python2.5/dbus/proxies.py", line 135,
+in __call__
+    **keywords)
+  File "/var/lib/python-support/python2.5/dbus/connection.py", line
+603, in call_blocking
+    message, timeout)
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.NoReply:
+Message did not receive a reply (timeout by message bus)
+krzaku at krzaku:~/Desktop/lbrc-0.6.1$
+'/home/krzaku/Desktop/lbrc-0.6.1/LBRCdbus' --debug
+LBRC.Listener.UInputDispatcher     : DEBUG    __init__ begin
+LBRC.Listener.UInputDispatcher     : DEBUG    __init__ of baseclass done
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing
+/dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    The place does not exist!
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/misc/uinput
+as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    The place does not exist!
+LBRC.Listener.UInputDispatcher     : DEBUG    None of the well known
+places for uinput device was found to be ok, beginning search
+LBRC.Listener.UInputDispatcher     : ERROR    No device node found,
+that looks like a uinput device node - is the kernel module loaded?
+dbus.connection                    : ERROR    Unable to set arguments
+(None, 'Linux Bluetooth Remote Control', dbus.UInt16(5)) according to
+signature u'ssq': <type 'exceptions.TypeError'>: Expected a string or
+unicode object
+LBRC                               : WARNING  Failed to initalize
+<class 'LBRC.UinputDispatcher.UinputDispatcher'>
+Expected a string or unicode object
+LBRC.Listener.CommandExecutor      : DEBUG    __init__ begin
+LBRC.Listener.CommandExecutor      : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    __init__ begin
+LBRC.Listener.DBUSCaller           : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ begin
+LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    __init__ begin
+LBRC.Listener.MPlayer              : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    __init__ begin
+LBRC.Listener.PresentationCompanion: DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    __init__ begin
+LBRC.Listener.VolumeControl        : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.VolumeControl.VolumeControl'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC.Listener.CommandExecutor      : DEBUG    set_profile called
+LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile called
+LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating init
+LBRC.Listener.CommandExecutor      : DEBUG    failure while
+interprating destruct
+LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating actions
+LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile finished
+LBRC.Listener.CommandExecutor      : DEBUG    set_profile finished
+LBRC.Listener.DBUSCaller           : DEBUG    set_profile called
+LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile called
+LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating init
+LBRC.Listener.DBUSCaller           : DEBUG    failure while
+interprating destruct
+LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating actions
+LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile finished
+LBRC.Listener.DBUSCaller           : DEBUG    set_profile finished
+LBRC.Listener.MPlayer              : DEBUG    Command:connect_fifo
+/home/mblaesing/test
+LBRC.Listener.MPlayer              : DEBUG    FIFO does not exist:
+/home/mblaesing/test
+LBRC.Listener.PresentationCompanion: DEBUG    set_profile called
+LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile called
+LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating init
+LBRC.Listener.PresentationCompanion: DEBUG    failure while
+interprating destruct
+LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating actions
+LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile finished
+LBRC.Listener.PresentationCompanion: DEBUG    set_profile finished
+LBRC.Listener.VolumeControl        : DEBUG    set_profile called
+LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile called
+LBRC.Listener.VolumeControl        : DEBUG    failure while interprating init
+LBRC.Listener.VolumeControl        : DEBUG    failure while
+interprating destruct
+LBRC.Listener.VolumeControl        : DEBUG    failure while interprating actions
+LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile finished
+LBRC.Listener.VolumeControl        : DEBUG    set_profile finished
+LBRC                               : DEBUG    Reload config
+LBRC.Listener.MPlayer              : DEBUG    Command:disconnect_fifo
+
+
+
+Can you tell me what I must to do ?
+Thanks Kamil
+-- 
+kamilek_snk
+
+
+From matthias.blaesing at rwth-aachen.de  Mon Mar 24 18:22:16 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 24 Mar 2008 18:22:16 +0100
+Subject: [Lbrc-devel] Linux Bluetooth Remote Control --debug
+In-Reply-To: <cc6669530803231332l340dc202le199f531226e6886@mail.gmail.com>
+References: <cc6669530803231332l340dc202le199f531226e6886@mail.gmail.com>
+Message-ID: <1206379337.32211.0.camel@prometheus.glx>
+
+Hey,
+
+you see two different problems:
+
+     1. The UinputDispatcher Modules (this is responsible for sending
+        key and mouse events into the kernel) can't find the device
+        node, on which the kernel part waits for the userspace
+        application. To work around this, make sure, that the uinput
+        module is loaded and you have permissions to access it.
+     2. The lbrcdbus tries to raise a failure and broadcast it to all
+        the connected clients -- this fails and this is the second part
+        of the problem.
+
+Problem 2 is fixed in svn. The first problem should be solveable by
+doing a "modprobe uinput" as root.
+
+HTH
+
+Matthias
+
+Am Sonntag, den 23.03.2008, 21:32 +0100 schrieb kamilek_snk:
+> I don't know what doing now.
+> 
+> krzaku at krzaku:~/Desktop/lbrc-0.6.1$ LBRCdbus.py
+> bash: LBRCdbus.py: command not found
+> krzaku at krzaku:~/Desktop/lbrc-0.6.1$ ./LBRCdbus.py
+> bash: ./LBRCdbus.py: No such file or directory
+> krzaku at krzaku:~/Desktop/lbrc-0.6.1$ '/home/krzaku/Desktop/lbrc-0.6.1/LBRCdbus'
+> LBRC.Listener.UInputDispatcher     : ERROR    No device node found,
+> that looks like a uinput device node - is the kernel module loaded?
+> dbus.connection                    : ERROR    Unable to set arguments
+> (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5)) according to
+> signature u'ssq': <type 'exceptions.TypeError'>: Expected a string or
+> unicode object
+> LBRC                               : WARNING  Failed to initalize
+> <class 'LBRC.UinputDispatcher.UinputDispatcher'>
+> Expected a string or unicode object
+> krzaku at krzaku:~/Desktop/lbrc-0.6.1$
+> '/home/krzaku/Desktop/lbrc-0.6.1/LBRC-applet'
+> 2008-03-23 21:25:01,139 Applet   WARNING  DBUS Component not found
+> 2008-03-23 21:25:03,157 DBUS.LBRC.Listener.UInputDispatcher ERROR
+> No device node found, that looks like a uinput device node - is the
+> kernel module loaded?
+> 2008-03-23 21:25:03,158 DBUS.dbus.connection ERROR    Unable to set
+> arguments (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5))
+> according to signature u'ssq': <type 'exceptions.TypeError'>: Expected
+> a string or unicode object
+> 2008-03-23 21:25:03,159 DBUS.LBRC WARNING  Failed to initalize <class
+> 'LBRC.UinputDispatcher.UinputDispatcher'>
+> Expected a string or unicode object
+> Traceback (most recent call last):
+>   File "/home/krzaku/Desktop/lbrc-0.6.1/LBRC-applet", line 81, in <module>
+>     lbrc.quit()
+>   File "/home/krzaku/Desktop/lbrc-0.6.1/LBRC_gtk_gui/applet.py", line
+> 157, in quit
+>     self.lbrc_core.shutdown()
+>   File "/var/lib/python-support/python2.5/dbus/proxies.py", line 135,
+> in __call__
+>     **keywords)
+>   File "/var/lib/python-support/python2.5/dbus/connection.py", line
+> 603, in call_blocking
+>     message, timeout)
+> dbus.exceptions.DBusException: org.freedesktop.DBus.Error.NoReply:
+> Message did not receive a reply (timeout by message bus)
+> krzaku at krzaku:~/Desktop/lbrc-0.6.1$
+> '/home/krzaku/Desktop/lbrc-0.6.1/LBRCdbus' --debug
+> LBRC.Listener.UInputDispatcher     : DEBUG    __init__ begin
+> LBRC.Listener.UInputDispatcher     : DEBUG    __init__ of baseclass done
+> LBRC.Listener.UInputDispatcher     : DEBUG    Examing
+> /dev/input/uinput as uinput device
+> LBRC.Listener.UInputDispatcher     : DEBUG    The place does not exist!
+> LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/misc/uinput
+> as uinput device
+> LBRC.Listener.UInputDispatcher     : DEBUG    The place does not exist!
+> LBRC.Listener.UInputDispatcher     : DEBUG    None of the well known
+> places for uinput device was found to be ok, beginning search
+> LBRC.Listener.UInputDispatcher     : ERROR    No device node found,
+> that looks like a uinput device node - is the kernel module loaded?
+> dbus.connection                    : ERROR    Unable to set arguments
+> (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5)) according to
+> signature u'ssq': <type 'exceptions.TypeError'>: Expected a string or
+> unicode object
+> LBRC                               : WARNING  Failed to initalize
+> <class 'LBRC.UinputDispatcher.UinputDispatcher'>
+> Expected a string or unicode object
+> LBRC.Listener.CommandExecutor      : DEBUG    __init__ begin
+> LBRC.Listener.CommandExecutor      : DEBUG    __init__ of baseclass done
+> LBRC                               : DEBUG    Initiablized Event
+> Listener: <class 'LBRC.CommandExecutor.CommandExecutor'>
+> LBRC.Listener.DBUSCaller           : DEBUG    __init__ begin
+> LBRC.Listener.DBUSCaller           : DEBUG    __init__ of baseclass done
+> LBRC                               : DEBUG    Initiablized Event
+> Listener: <class 'LBRC.DBUSCaller.DBUSCaller'>
+> LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ begin
+> LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ of baseclass done
+> LBRC                               : DEBUG    Initiablized Event
+> Listener: <class 'LBRC.ProfileSwitcher.ProfileSwitcher'>
+> LBRC.Listener.MPlayer              : DEBUG    __init__ begin
+> LBRC.Listener.MPlayer              : DEBUG    __init__ of baseclass done
+> LBRC                               : DEBUG    Initiablized Event
+> Listener: <class 'LBRC.MPlayer.MPlayer'>
+> LBRC.Listener.PresentationCompanion: DEBUG    __init__ begin
+> LBRC.Listener.PresentationCompanion: DEBUG    __init__ of baseclass done
+> LBRC                               : DEBUG    Initiablized Event
+> Listener: <class 'LBRC.PresentationCompanion.PresentationCompanion'>
+> LBRC.Listener.VolumeControl        : DEBUG    __init__ begin
+> LBRC.Listener.VolumeControl        : DEBUG    __init__ of baseclass done
+> LBRC                               : DEBUG    Initiablized Event
+> Listener: <class 'LBRC.VolumeControl.VolumeControl'>
+> LBRC                               : DEBUG    Register done
+> LBRC                               : DEBUG    Initial Profile set
+> LBRC                               : DEBUG    Init dispatcher
+> LBRC.Listener.CommandExecutor      : DEBUG    set_profile called
+> LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile called
+> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating init
+> LBRC.Listener.CommandExecutor      : DEBUG    failure while
+> interprating destruct
+> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating actions
+> LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile finished
+> LBRC.Listener.CommandExecutor      : DEBUG    set_profile finished
+> LBRC.Listener.DBUSCaller           : DEBUG    set_profile called
+> LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile called
+> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating init
+> LBRC.Listener.DBUSCaller           : DEBUG    failure while
+> interprating destruct
+> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating actions
+> LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile finished
+> LBRC.Listener.DBUSCaller           : DEBUG    set_profile finished
+> LBRC.Listener.MPlayer              : DEBUG    Command:connect_fifo
+> /home/mblaesing/test
+> LBRC.Listener.MPlayer              : DEBUG    FIFO does not exist:
+> /home/mblaesing/test
+> LBRC.Listener.PresentationCompanion: DEBUG    set_profile called
+> LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile called
+> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating init
+> LBRC.Listener.PresentationCompanion: DEBUG    failure while
+> interprating destruct
+> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating actions
+> LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile finished
+> LBRC.Listener.PresentationCompanion: DEBUG    set_profile finished
+> LBRC.Listener.VolumeControl        : DEBUG    set_profile called
+> LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile called
+> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating init
+> LBRC.Listener.VolumeControl        : DEBUG    failure while
+> interprating destruct
+> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating actions
+> LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile finished
+> LBRC.Listener.VolumeControl        : DEBUG    set_profile finished
+> LBRC                               : DEBUG    Reload config
+> LBRC.Listener.MPlayer              : DEBUG    Command:disconnect_fifo
+> 
+> 
+> 
+> Can you tell me what I must to do ?
+> Thanks Kamil
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080324/fc731676/attachment.pgp>
+
+From jari.eskelinen at iki.fi  Sun Mar 30 17:40:00 2008
+From: jari.eskelinen at iki.fi (Jari Eskelinen)
+Date: Sun, 30 Mar 2008 18:40:00 +0300
+Subject: [Lbrc-devel] Config for Nokia 9300i
+Message-ID: <47EFB450.1090702@iki.fi>
+
+Hi there everybody!
+
+I recently stumbled across LBRC and found it very neat tool so my thanks
+to everybody created this software. I did not find any configuration
+examples for phones having QWERTY keyboards so I though I could share
+one I created for Nokia 9300i beacuse it was really pain to create it
+(Finnish keyboard layout, probably slight adjustments are needed for
+other layouts?). My apologies if this is wrong place to send this!
+
+I found few problems though:
+
+- Pressing * character from mobile (Chr + ?) does cause LBRC client to
+disconnect.
+- Ctrl+E does quit whole client (though I think this is because JVM and
+nothing can be done for it?)
+- Pressing Ctrl+I will send the same keycode than pressing tab
+- Pressing Ctrl+A/F/Z/X/C/V does not send keycode at all
+- Pressing Ctrl+H will send the same keyvode than backspace
+- Pressing Ctrl+J will send the same keycode than enter
+
+Otherwise everything works fine. Below is my .lbrc.conf:
+
+------------------------------------------------------
+{
+  "generic-config": {
+    "default-profile": [
+      "user",
+      "Nokia 9300i FI"
+    ],
+    "require-pairing": true
+  },
+  "profiles": {
+    "Nokia 9300i FI": {
+      "UinputDispatcher": {
+        "actions": [
+          {
+            "type": "key",
+            "map_to": "ESC",
+            "keycode": 27,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "1",
+            "keycode": 49,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "2",
+            "keycode": 50,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "3",
+            "keycode": 51,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "4",
+            "keycode": 52,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "5",
+            "keycode": 53,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "6",
+            "keycode": 54,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "7",
+            "keycode": 55,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "8",
+            "keycode": 56,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "9",
+            "keycode": 57,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "0",
+            "keycode": 48,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "MINUS",
+            "keycode": 43,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "BACKSPACE",
+            "keycode": 8,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "TAB",
+            "keycode": 9,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "Q",
+            "keycode": 113,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "W",
+            "keycode": 119,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "E",
+            "keycode": 101,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "R",
+            "keycode": 114,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "T",
+            "keycode": 116,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "Y",
+            "keycode": 121,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "U",
+            "keycode": 117,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "I",
+            "keycode": 105,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "O",
+            "keycode": 111,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "P",
+            "keycode": 112,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTBRACE",
+            "keycode": 229,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "A",
+            "keycode": 97,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "S",
+            "keycode": 115,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "D",
+            "keycode": 100,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "F",
+            "keycode": 102,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "G",
+            "keycode": 103,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "H",
+            "keycode": 104,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "J",
+            "keycode": 106,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "K",
+            "keycode": 107,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "L",
+            "keycode": 108,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "SEMICOLON",
+            "keycode": 246,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "APOSTROPHE",
+            "keycode": 228,
+            "repeat_freq": 20
+          },
+          {
+            "map_to": "ENTER",
+            "type": "key",
+            "keycode": 10,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "Z",
+            "keycode": 122,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "X",
+            "keycode": 120,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "C",
+            "keycode": 99,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "V",
+            "keycode": 118,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "B",
+            "keycode": 98,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "N",
+            "keycode": 110,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "M",
+            "keycode": 109,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "UP",
+            "keycode": -1,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "SLASH",
+            "keycode": 45,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "COMMA",
+            "keycode": 44,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "DOT",
+            "keycode": 46,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "SPACE",
+            "keycode": 32,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "LEFT",
+            "keycode": -3,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "DOWN",
+            "keycode": -2,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHT",
+	    "keycode": -4,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+Q",
+            "keycode": 17,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+W",
+            "keycode": 23,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+R",
+            "keycode": 18,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+T",
+            "keycode": 20,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+Y",
+            "keycode": 25,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+U",
+            "keycode": 21,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+O",
+            "keycode": 15,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+P",
+            "keycode": 16,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+S",
+            "keycode": 19,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+D",
+            "keycode": 4,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+G",
+            "keycode": 7,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+K",
+            "keycode": 11,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+L",
+            "keycode": 12,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+B",
+            "keycode": 2,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+N",
+            "keycode": 14,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTCTRL+M",
+            "keycode": 13,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+1",
+            "keycode": 33,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+2",
+            "keycode": 34,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+3",
+            "keycode": 35,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+E",
+            "keycode": 8364,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+5",
+            "keycode": 37,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+6",
+            "keycode": 38,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+7",
+            "keycode": 47,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+8",
+            "keycode": 40,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+9",
+            "keycode": 41,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+0",
+            "keycode": 61,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+MINUS",
+            "keycode": 63,
+            "repeat_freq": "20"
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+Q",
+            "keycode": 81,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+W",
+            "keycode": 87,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+E",
+            "keycode": 69,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+R",
+            "keycode": 82,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+T",
+            "keycode": 84,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+Y",
+            "keycode": 89,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+U",
+            "keycode": 85,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+I",
+            "keycode": 73,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+O",
+            "keycode": 79,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+P",
+            "keycode": 80,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+LEFTBRACE",
+            "keycode": 197,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+A",
+            "keycode": 65,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+S",
+            "keycode": 83,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+D",
+            "keycode": 68,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+F",
+            "keycode": 70,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+G",
+            "keycode": 71,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+H",
+            "keycode": 72,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+J",
+            "keycode": 74,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+K",
+            "keycode": 75,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+L",
+            "keycode": 76,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+SEMICOLON",
+            "keycode": 214,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+APOSTROPHE",
+            "keycode": 196,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+Z",
+            "keycode": 90,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+X",
+            "keycode": 88,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+C",
+            "keycode": 67,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+V",
+            "keycode": 86,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+B",
+            "keycode": 66,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+N",
+            "keycode": 78,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+M",
+            "keycode": 77,
+            "repeat_freq": 29
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+SLASH",
+            "keycode": 95,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+COMMA",
+            "keycode": 59,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+DOT",
+            "keycode": 58,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "BACKSLASH",
+            "keycode": 39,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+2",
+            "keycode": 64,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+3",
+            "keycode": 163,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+4",
+            "keycode": 36,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "102ND",
+            "keycode": 60,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "LEFTSHIFT+102ND",
+            "keycode": 62,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+7",
+            "keycode": 123,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+8",
+            "keycode": 91,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+9",
+            "keycode": 93,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+0",
+            "keycode": 125,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+RIGHTBRACE",
+            "keycode": 126,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "RIGHTALT+MINUS",
+            "keycode": 92,
+            "repeat_freq": 20
+          },
+          {
+            "type": "key",
+            "map_to": "BTN_MIDDLE",
+            "keycode": -5,
+            "repeat_freq": 20
+          }
+        ]
+      },
+      "DBUSCaller": {
+
+      },
+      "MPlayer": {
+
+      },
+      "CommandExecutor": {
+
+      }
+    }
+  }
+}
+------------------------------------------------------
+
+
+Hope somebody will find this useful!
+
+Best regards,
+  Jari
+
+
+From matthias.blaesing at rwth-aachen.de  Sun Mar 30 20:28:38 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 30 Mar 2008 20:28:38 +0200
+Subject: [Lbrc-devel] Linux Bluetooth Remote Control --debug
+In-Reply-To: <cc6669530803241054u37314f5fu2c96c508dd4cbf1b@mail.gmail.com>
+References: <cc6669530803231332l340dc202le199f531226e6886@mail.gmail.com>
+	<1206378150.17336.11.camel@prometheus.glx>
+	<cc6669530803241054u37314f5fu2c96c508dd4cbf1b@mail.gmail.com>
+Message-ID: <1206901718.13477.14.camel@prometheus.glx>
+
+Hey,
+
+Am Montag, den 24.03.2008, 18:54 +0100 schrieb kamilek_snk:
+> Thanks very much for your replay.
+> I have Ubuntu 7.10, How install your program by using SVN ?
+
+Three things you should do first:
+
+     1. remove the debian/ubuntu package (make sure the dependencies
+        keep being installed!)
+     2. install the subversion utilities (apt-get install subversion)
+     3. make sure these packages are there: libdbus-glib-1-dev and gcc
+
+After that you can checkout the sources from the repository by:
+
+svn checkout svn://svn.berlios.de/lbrc/trunk lbrc
+
+This will create the new directory lbrc in which you will find the
+latest sources of lbrc. 
+
+Change into the directory and run build_dbus_uinput_bridge. This will
+build the uinput bridge. Then you can run LBRC-applet or LBRCdbus
+directly from the directory.
+
+Good luck
+
+Matthias
+
+PS: Please keep lbrc-devel at lists.berlios.de CC'ed, there might be
+readers, that can answer faster than me.
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080330/8ec0943b/attachment.pgp>
+

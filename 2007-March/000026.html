@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] config file format proposal
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20config%20file%20format%20proposal&In-Reply-To=%3C1173742277.10774.9.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000027.html">
+   <LINK REL="Next"  HREF="000028.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] config file format proposal</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20config%20file%20format%20proposal&In-Reply-To=%3C1173742277.10774.9.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] config file format proposal">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Tue Mar 13 00:31:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000027.html">[Lbrc-devel] config editor 2nd preview and a lot of changes
+</A></li>
+        <LI>Next message: <A HREF="000028.html">[Lbrc-devel] config file format proposal
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Am Montag, den 12.03.2007, 19:49 -0300 schrieb Iuri Diniz:
+&gt;<i> On Mon, 2007-03-12 at 19:47 +0100, Matthias Bl&#228;sing wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I would propose an approach, where the toplevel datastructure is a dict,
+</I>&gt;<i> &gt; that contains an entry for each profile, with it's (readable) name as a
+</I>&gt;<i> &gt; key. One exception from this would be a &quot;Generic&quot;/&quot;General&quot; Entry, that
+</I>&gt;<i> &gt; contains the config options. Within each profile (also a dict structure)
+</I>&gt;<i> &gt; there would be one entry per Module (UInputDispatcher, CommandExecuter,
+</I>&gt;<i> &gt; more potential Modules). For each module I think also a dict structure
+</I>&gt;<i> &gt; would be a good structure. With entries: init, actions and destruct.
+</I>&gt;<i> &gt; With init and destruct containing actions invoked on profile
+</I>&gt;<i> &gt; activation/deactivation and keycodes containing the actions to be
+</I>&gt;<i> &gt; invoked on a keypress.
+</I>&gt;<i> 
+</I>&gt;<i> I agree with the idea of one file to all things, but IMHO I think that
+</I>&gt;<i> profiles must be reside inside a 'profiles' key not at top level,
+</I>&gt;<i> because makes more sense for (possible) new entries and at same time
+</I>&gt;<i> does not force the user to not use reserved keys in any time now or
+</I>&gt;<i> future.
+</I>&gt;<i> 
+</I>&gt;<i> So are we ready to change it?
+</I>
+If there are no other opinios or thoughts to consider, than we can join
+the files and make the switch. We are in a phase where I think
+configurationfile/API stability is not our primary concern.
+
+I'm on the way to bed, so don't expect anything from me tonight. Could
+you please checkin the changes you considered towards the config file
+loading? Then I could take which changes have to be applied to the
+UinputDispatcher, CommandExecutor and dbusinterface.
+
+
+Greetings
+
+Matthias
+
+
+PS: Let's keep these things on-list - maybe there are people out there
+interested in the development, that don't want to get subscribed 
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070313/c95a58c0/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070313/c95a58c0/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000027.html">[Lbrc-devel] config editor 2nd preview and a lot of changes
+</A></li>
+	<LI>Next message: <A HREF="000028.html">[Lbrc-devel] config file format proposal
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

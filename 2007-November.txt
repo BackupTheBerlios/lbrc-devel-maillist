@@ -1,0 +1,153 @@
+From matthias.blaesing at rwth-aachen.de  Sun Nov  4 18:35:29 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 04 Nov 2007 18:35:29 +0100
+Subject: [Lbrc-devel] Future of LBRC
+Message-ID: <1194197729.1260.5.camel@prometheus.glx>
+
+Hello there,
+
+I now own a K810i from Sony. And now I tried to run LBRC and - well - I
+learnt, that the j2me implementation is just brain dead.
+
+Let me explain: I can open bluetooth connections, but can only use them
+to output data, but not receive. This would be all nice, if I had denied
+the programm access to the bluetooth apis, but I allowed access.
+
+It seems, that the application has to be signed to access, this secure
+apis ... Well ... Well ... All I found regarding this situation seems to
+indicate, that it gets expensive to get a certificate.
+
+So until I find a solution, no further development will happen from my
+side.
+
+Mfg
+
+Matthias
+
+PS: This implementation of j2me is just broken - my 2 cents.
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071104/d31edcba/attachment.pgp>
+
+From pierre.gronlier at gmail.com  Mon Nov  5 12:53:28 2007
+From: pierre.gronlier at gmail.com (pierre gronlier)
+Date: Mon, 5 Nov 2007 12:53:28 +0100
+Subject: [Lbrc-devel] Future of LBRC
+In-Reply-To: <1194197729.1260.5.camel@prometheus.glx>
+References: <1194197729.1260.5.camel@prometheus.glx>
+Message-ID: <ecc945da0711050353j29393368u372f6758a3caeed2@mail.gmail.com>
+
+Hello there,
+
+Just for your information there is a similar project to LBRC:
+http://code.google.com/p/amora/ (I haven't tested it yet, since LBRC
+is working fine for me)
+
+-- 
+pierre
+
+On 04/11/2007, Matthias Bl?sing <matthias.blaesing at rwth-aachen.de> wrote:
+> Hello there,
+>
+> I now own a K810i from Sony. And now I tried to run LBRC and - well - I
+> learnt, that the j2me implementation is just brain dead.
+>
+> Let me explain: I can open bluetooth connections, but can only use them
+> to output data, but not receive. This would be all nice, if I had denied
+> the programm access to the bluetooth apis, but I allowed access.
+>
+> It seems, that the application has to be signed to access, this secure
+> apis ... Well ... Well ... All I found regarding this situation seems to
+> indicate, that it gets expensive to get a certificate.
+>
+> So until I find a solution, no further development will happen from my
+> side.
+>
+> Mfg
+>
+> Matthias
+>
+> PS: This implementation of j2me is just broken - my 2 cents.
+>
+> --
+> Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+>
+> So long and thanks for all the fish!
+>
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+>
+>
+>
+
+
+-- 
+Pierre Gronlier
+
+From matthias.blaesing at rwth-aachen.de  Tue Nov  6 22:35:11 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 06 Nov 2007 22:35:11 +0100
+Subject: [Lbrc-devel] Update: found the bug,
+ repaired and conforming to	documented api (Future of LBRC)
+In-Reply-To: <ecc945da0711050353j29393368u372f6758a3caeed2@mail.gmail.com>
+References: <1194197729.1260.5.camel@prometheus.glx>
+	<ecc945da0711050353j29393368u372f6758a3caeed2@mail.gmail.com>
+Message-ID: <1194384911.8788.12.camel@prometheus.glx>
+
+Hello all,
+
+ok - My last email was a bit to fast send. I had another look and finaly
+found the bug in a final keyword, that the k810i does not seem to like.
+Well now the behaviour should conform more to the documented api.
+
+At the end of November I think I will find the time to do another
+release. I will also have a closer look on amora and the protocol they
+use. There a two very interesting things in it at a first glance:
+
+     1. Being able to take screenshots (the LBRC Protocol can be
+        extended to do that - actually it's just taking the shoot, do
+        some escaping, to be able to stuff it into json and write a j2me
+        counterpart to display it)
+     2. Using XTest for Keyboard and Mouse Control. Here I'm not sure
+        whether I like that - but then choice is good and maybe there
+        will be a second Plugin for Keyboard/Mousecontrol.
+
+LBRC differs especially because there is a j2me client (a python version
+should be pretty easy doable).
+
+So far
+
+Matthias
+
+Am Montag, den 05.11.2007, 12:53 +0100 schrieb pierre gronlier:
+> Hello there,
+> 
+> Just for your information there is a similar project to LBRC:
+> http://code.google.com/p/amora/ (I haven't tested it yet, since LBRC
+> is working fine for me)
+> 
+
+> 
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071106/c1616e63/attachment.pgp>
+

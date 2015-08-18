@@ -1,0 +1,322 @@
+From matthias.blaesing at rwth-aachen.de  Wed May  2 00:03:10 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 02 May 2007 00:03:10 +0200
+Subject: [Lbrc-devel] Release when?
+In-Reply-To: <1177792793.20913.4.camel@prometheus.glx>
+References: <1176323073.29183.4.camel@debian.glx>
+	<1177792793.20913.4.camel@prometheus.glx>
+Message-ID: <1178056990.24045.10.camel@prometheus.glx>
+
+Hallo again,
+
+here is what I see as my TODO list before the release:
+
+      * Change config format of MPlayer modules (seperating arguments
+        and commands is pointless and only complicates the config -
+        consider the DBUS Module the Worst-Case-Szenario)
+      * After that add MPlayer Configurator
+      * Add CommandExcecutor
+      * Review the chaos I left behind and clean up
+      * try to break LBRC and fix potential problems
+
+SO PLEASE: Test it - the Version in SVN works for me and should also
+work for you
+
+Good night,
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070502/248aa339/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Thu May  3 22:47:00 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Thu, 03 May 2007 22:47:00 +0200
+Subject: [Lbrc-devel] Release when?
+In-Reply-To: <1178056990.24045.10.camel@prometheus.glx>
+References: <1176323073.29183.4.camel@debian.glx>
+	<1177792793.20913.4.camel@prometheus.glx>
+	<1178056990.24045.10.camel@prometheus.glx>
+Message-ID: <1178225220.10013.5.camel@prometheus.glx>
+
+Ok,
+
+the MPlayer and CommandExecutor Modules were easier than expected. So we
+stand were I would like to get Bugs and Regressions fixed.
+
+Marc already reported a problem of LBRC, where the new version does not
+work correctly. Marc - could you provide me with the Model and
+Manufactor of your phone? A shallow search on the web showed, that Nokia
+et. all. were pretty lazy when implementing the specification...
+
+Greetings
+
+Matthias
+
+PS: As already stated in my last SVN commit, I declare trunk feature
+complete for next release - we're in bug fixing phase.
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070503/5a5e5798/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Wed May  9 22:57:26 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 09 May 2007 22:57:26 +0200
+Subject: [Lbrc-devel] Release of 0.4
+Message-ID: <1178744246.30338.6.camel@prometheus.glx>
+
+Hello all,
+
+today I did some tests and did some small clean ups, that caught some
+more errors, updated the build system, tried a system install, built a
+debian package for i386.
+
+I want to get a wider testbase (Marc - did you find time to test the
+j2me client again?). So I will release tomorrow or friday - If no one
+sets a block.
+
+Mfg
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070509/2b13f299/attachment.pgp>
+
+From lars.gaarden at gmail.com  Fri May 11 14:21:21 2007
+From: lars.gaarden at gmail.com (=?ISO-8859-1?Q?Lars_G=E5rden?=)
+Date: Fri, 11 May 2007 14:21:21 +0200
+Subject: [Lbrc-devel] Generic Bluetooth HID?
+Message-ID: <d776779b0705110521p55ee92e9mc7dc03a2784707f3@mail.gmail.com>
+
+This is probably a stupid question, but..
+
+Why is lbrc implementing its own protocol instead of writing a HID
+client running on mobile phones? The advantage of HID would be that it
+would look like a regular bluetooth keyboard/mouse to the computer.
+Since HID is implemented in all modern OSes, you wouldn't need an
+extra application running on the PC.
+
+..or is the reason that JSR82 doesn't expose the required
+functionality to implement a HID device?
+
+-- 
+LarsG
+
+
+From matthias.blaesing at rwth-aachen.de  Fri May 11 15:45:08 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 11 May 2007 15:45:08 +0200
+Subject: [Lbrc-devel] Generic Bluetooth HID?
+In-Reply-To: <d776779b0705110521p55ee92e9mc7dc03a2784707f3@mail.gmail.com>
+References: <d776779b0705110521p55ee92e9mc7dc03a2784707f3@mail.gmail.com>
+Message-ID: <1178891108.29242.11.camel@prometheus.glx>
+
+Hello Lars,
+
+Am Freitag, den 11.05.2007, 14:21 +0200 schrieb Lars G?rden:
+> This is probably a stupid question, but..
+
+There are no stupid questions, just stupid answers!
+
+> Why is lbrc implementing its own protocol instead of writing a HID
+> client running on mobile phones? The advantage of HID would be that it
+> would look like a regular bluetooth keyboard/mouse to the computer.
+> Since HID is implemented in all modern OSes, you wouldn't need an
+> extra application running on the PC.
+
+Actually when I started this project I had absolutely no idea what is
+necessary to implement a service like this. The basic motivation was a
+Mac Programm, that a professor at universaty used to control his
+notebook. Half a year later I was reminded by a blog entry where a
+skeleton for a simple remote control was partitally implemented.
+
+This was the start - the first idea was to just throw the keycodes from
+the phone to the pc and that was it. With the resent protocal change the
+foundation for a bi-directional communication was laid (currently the
+modules can request a list selection and react to the selection).
+
+And (something I really begin to like) there is the possibility to use
+different profile concurrently. The 0.4 version will be put out with
+modules to control applications via DBUS, has a mplayer module, can
+execute arbitrary commands and also offers Keyboard/Mouse Control.
+
+So I have one profile, with which I can control the mouse, then I switch
+to the Rhythmbox profile, adjust music and swithc back to mouse control.
+I like this greater flexibility.
+
+> ..or is the reason that JSR82 doesn't expose the required
+> functionality to implement a HID device?
+
+I really don't know! But the JSR82/J2ME implementers seem to be a bit
+lazy when it comes to completeness and more exotic functionality seems
+to be missing quite often.
+
+HTH
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070511/a1b32a8b/attachment.pgp>
+
+From lars.gaarden at gmail.com  Fri May 11 17:06:24 2007
+From: lars.gaarden at gmail.com (=?ISO-8859-1?Q?Lars_G=E5rden?=)
+Date: Fri, 11 May 2007 17:06:24 +0200
+Subject: [Lbrc-devel] Generic Bluetooth HID?
+In-Reply-To: <1178891108.29242.11.camel@prometheus.glx>
+References: <d776779b0705110521p55ee92e9mc7dc03a2784707f3@mail.gmail.com>
+	<1178891108.29242.11.camel@prometheus.glx>
+Message-ID: <d776779b0705110806h2fefc0f0q4c7d1b6990653efc@mail.gmail.com>
+
+On 5/11/07, Matthias Bl?sing <matthias.blaesing at rwth-aachen.de> wrote:
+>
+> And (something I really begin to like) there is the possibility to use
+> different profile concurrently. The 0.4 version will be put out with
+> modules to control applications via DBUS, has a mplayer module, can
+> execute arbitrary commands and also offers Keyboard/Mouse Control.
+
+Ah, that's a very good point. Hmm, perhaps you should have a talk with
+the lirc developers.
+
+
+> I really don't know! But the JSR82/J2ME implementers seem to be a bit
+> lazy when it comes to completeness and more exotic functionality seems
+> to be missing quite often.
+
+After some googling..
+
+It looks like JSR82 only allows PSM values above 0x1000. All the
+standard services like HID are below 0x1000 so looks like J2ME can't
+be used for this.
+
+PSM is, as far as I understand, the bluetooth equivalent of TCP port
+numbers. So this would be like trying to implement a mail server in
+Java, but your Java TCP/IP stack only allowing you to listen to ports
+above 1024.
+
+Oh well, seems I have to figure out how to write a native app for
+Nokia S60. Thanks for your help.
+
+-- 
+LarsG
+
+
+From cyrillevis at gmail.com  Sun May 13 12:18:07 2007
+From: cyrillevis at gmail.com (LEVIS Cyril)
+Date: Sun, 13 May 2007 12:18:07 +0200
+Subject: [Lbrc-devel] Error on LBRC
+Message-ID: <1179051487.14117.0.camel@localhost.localdomain>
+
+> Hello , I have some error on archlinux when I launch lbrc, it don't work
+> could you help me please?
+> 
+> best regards :)
+> 
+> atlas:~/Desktop/LBRC-0.4$ ./LBRCdbus.py --debug
+> /usr/lib/python2.4/site-packages/bluetooth.py:10: RuntimeWarning: Python C API version mismatch for module _bluetooth: This Python has API version 1013, module _bluetooth has version 1012.
+>   import _bluetooth
+> Traceback (most recent call last):
+>   File "./LBRCdbus.py", line 3, in <module>
+>     from LBRC.dbusinterface import LBRCdbus
+>   File "/home/atlas/Desktop/LBRC-0.4/LBRC/dbusinterface.py", line 14, in <module>
+>     from LBRC.config import config
+>   File "/home/atlas/Desktop/LBRC-0.4/LBRC/config.py", line 2, in <module>
+>     import json
+> ImportError: No module named json
+> 
+
+
+
+From matthias.blaesing at rwth-aachen.de  Sun May 13 12:43:49 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 13 May 2007 12:43:49 +0200
+Subject: [Lbrc-devel] Error on LBRC
+In-Reply-To: <1179051487.14117.0.camel@localhost.localdomain>
+References: <1179051487.14117.0.camel@localhost.localdomain>
+Message-ID: <1179053029.24034.6.camel@prometheus.glx>
+
+Hey,
+
+Am Sonntag, den 13.05.2007, 12:18 +0200 schrieb LEVIS Cyril:
+> > atlas:~/Desktop/LBRC-0.4$ ./LBRCdbus.py --debug
+> > /usr/lib/python2.4/site-packages/bluetooth.py:10: RuntimeWarning: Python C API version mismatch for module _bluetooth: This Python has API version 1013, module _bluetooth has version 1012.
+> >   import _bluetooth
+
+You should look into the python-bluez bindings - they seem to be
+compiled for the wrong python version. Is arch linux compiled from
+source, then you should rebuild and if there are prebuild packages, than
+you should inform the maintainer.
+
+> > Traceback (most recent call last):
+> >   File "./LBRCdbus.py", line 3, in <module>
+> >     from LBRC.dbusinterface import LBRCdbus
+> >   File "/home/atlas/Desktop/LBRC-0.4/LBRC/dbusinterface.py", line 14, in <module>
+> >     from LBRC.config import config
+> >   File "/home/atlas/Desktop/LBRC-0.4/LBRC/config.py", line 2, in <module>
+> >     import json
+> > ImportError: No module named json
+
+And you need the json module. In debian the module is names python-json,
+not sure what it is called on arch linux.
+
+Hope that helps
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070513/55a32a9b/attachment.pgp>
+

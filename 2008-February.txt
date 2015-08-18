@@ -1,0 +1,1130 @@
+From matthias.blaesing at rwth-aachen.de  Sat Feb  2 14:40:11 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 02 Feb 2008 14:40:11 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <1201712559.14895.13.camel@iphigenie.paessler.home>
+References: <1201712559.14895.13.camel@iphigenie.paessler.home>
+Message-ID: <1201959611.9896.5.camel@prometheus.glx>
+
+Hey,
+
+I replying now, because I was cut of the internet (the german telecom is
+not that flexible when it comes to setting up a new connection).
+
+Am Mittwoch, den 30.01.2008, 18:02 +0100 schrieb Daniel P??ler:
+> however, when i run "LBRCdbus --debug" i get this (the error message is in german, translated from: "File descriptor in bad state",
+> but i think, matthias will know ;) ) :
+> 
+> [paessler at iphigenie pts/1] LBRCdbus --debug
+> Traceback (most recent call last):
+>   File "/usr/bin/LBRCdbus", line 13, in <module>
+>     brs = Core(debug=logging.DEBUG)
+>   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line 204, in __init__
+>     self.btserver = BTServer()
+>   File "/usr/lib64/python2.5/site-packages/LBRC/BTServer.py", line 194, in __init__
+>     self.server_sock.listen(1)
+>   File "<string>", line 5, in listen
+> bluetooth.btcommon.BluetoothError: (77, 'Die Dateizugriffsnummer ist in schlechter Verfassung')
+> 
+> any idea, what's wrong there?
+
+Actually no. But could you please open a python console and run this:
+
+import bluetooth
+socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+socket.bind(("", bluetooth.PORT_ANY))
+socket.listen(1)
+
+I would consider this the minimal testcase - if this works we have to
+take a deeper look into the problem inside LBRC - if not - I suspect
+problems on the bluez level.
+
+HTH
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080202/6646bd12/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Feb  2 23:06:58 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 02 Feb 2008 23:06:58 +0100
+Subject: [Lbrc-devel] 0.6 Released (was: Preparing the next release)
+In-Reply-To: <1201181215.31249.13.camel@prometheus.glx>
+References: <1201181215.31249.13.camel@prometheus.glx>
+Message-ID: <1201990018.27056.4.camel@prometheus.glx>
+
+Hello all,
+
+the announcements on freshmeat, berlios and gnomefiles are done. So 0.6
+is out of the door and ready to be dissected. Feel free to file bugs or
+complain here ;-)
+
+This is the short changelog I compiled from svn:
+
+
+* add better compatibility on j2me part - fixes problem with Nokia 6085
+(reported and tested by Arthur Brown)
+* better structured logging (use different loggers for each part)
+* remove 2kb packet size limit for serverclient bluetooth connection
+* add FIFO support in MPlayer module
+* fixed bug that caused config file to be corrupted
+* fix bug in json parser when parsing empty objects and output better
+formated json
+
+Greetings
+
+Matthias
+
+PS: I added an experimental amd64 debian package (if it does not work,
+please say so, as it was build in an experimental setup).
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080202/9a7b76aa/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Feb  3 17:08:16 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 03 Feb 2008 17:08:16 +0100
+Subject: [Lbrc-devel] Syntax error in json.py
+Message-ID: <1202054896.23300.4.camel@prometheus.glx>
+
+Hello,
+
+Tobias Mueller (thanks!) reported a problem when running LBRC on newer
+python versions (>= 2.5). In 2.4 the use of characters outside the ascii
+range was deprecated. In 2.5 it went from deprecation to syntax error.
+Nice! Why would they wait for 3.0 to break syntax.
+
+So SVN has a fix commited - I'll try to get updated source packages and
+debian builds up in the next hour or so.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080203/fdc2e335/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Feb  3 20:09:59 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 03 Feb 2008 20:09:59 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <1202057199.19609.6.camel@iphigenie.paessler.home>
+References: <1201712559.14895.13.camel@iphigenie.paessler.home>
+	<1201959611.9896.5.camel@prometheus.glx>
+	<1202057199.19609.6.camel@iphigenie.paessler.home>
+Message-ID: <1202065799.11653.14.camel@prometheus.glx>
+
+Hey Daniel,
+
+Am Sonntag, den 03.02.2008, 17:46 +0100 schrieb Daniel P??ler:
+> 
+> for me, it looks like this does work, output is:
+> 
+> [paessler at iphigenie pts/4] python
+> Python 2.5.1 (r251:54863, Jan 10 2008, 19:09:26) 
+> [GCC 4.2.2 (Gentoo 4.2.2 p1.0)] on linux2
+> Type "help", "copyright", "credits" or "license" for more information.
+> >>> import bluetooth
+> >>> socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+> >>> socket.bind(("", bluetooth.PORT_ANY))
+> >>> socket.listen(1)
+> >>> 
+> 
+
+Jep, that looks good! But then - you also report, that 0.6 runs as
+expected. Not sure where the problem lies, but I would suspect a hick-up
+inside the bluez stack.
+
+
+> i recently installed 0.6 and now i get this:
+> 
+> 
+> [paessler at iphigenie pts/4] LBRCdbus 
+> LBRC                               : WARNING  Failed to initalize <class
+> 'LBRC.UinputDispatcher.UinputDispatcher'>
+> Value -1110949504 out of range for Int32
+> Traceback (most recent call last):
+>   File "/usr/bin/LBRCdbus", line 17, in <module>
+>     brs = Core()
+>   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> 229, in __init__
+>     self._register_listener(i)
+>   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> 277, in _register_listener
+>     self.logger.warn("Failed to initalize " + str(constructor) + "\n" +
+> str(e))
+>   File "/usr/lib64/python2.5/logging/__init__.py", line 999, in warning
+>     apply(self._log, (WARNING, msg, args), kwargs)
+>   File "/usr/lib64/python2.5/logging/__init__.py", line 1101, in _log
+>     self.handle(record)
+>   File "/usr/lib64/python2.5/logging/__init__.py", line 1111, in handle
+>     self.callHandlers(record)
+>   File "/usr/lib64/python2.5/logging/__init__.py", line 1148, in
+> callHandlers
+>     hdlr.handle(record)
+>   File "/usr/lib64/python2.5/logging/__init__.py", line 655, in handle
+>     self.emit(record)
+>   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> 203, in emit
+>     lr.fmessage)
+>   File "/usr/lib64/python2.5/site-packages/dbus/decorators.py", line
+> 309, in emit_signal
+>     message.append(signature=signature, *args)
+> OverflowError: Value -1110949504 out of range for Int32
+> 
+> 
+> could this be an amd64 issue?
+
+Ok, teh OverflowError is not an amd64 error, but it is cause by the
+signature of the dbus logging method. This is invoked with arguments,
+that can't fit into the specified int32.
+
+As you can see, the system was not able to initialize the
+UInputDispatcher (this is the module responsible for injecting
+keyboard/mouse events into the kernel). Some more information should be
+provided when run with --debug. But before that the exception has to be
+tracked down.
+
+As the dbus method call is the problem (its located in line 166 in
+dbusinterface.py) we should have a look at that. You find the dbus
+signature in line 166 it should read:
+
+@dbus.service.signal(DBUSIFACE, signature='sisssssidsiisisss')
+
+Replacing every "i" inside the signiture string with an "x" changes the
+signature to expect an int64, which should do it. But then we won't know
+which argument is the problem. So if you find the time could you
+exchange each "i" individually and check whether LBRCdbus works - as in:
+It does not crash? And then please report the argument that causes the
+error.
+
+Thanks in advance
+
+Matthias
+
+PS: I really hope we can track this down on the python level. There were
+problems with amd64 that were caused, because the kernel interface was
+64bit, but the userland was 32bit. To circumvent this, a small
+C-Programm was created, that is compiled with 64bit and connects to the
+dbus and translates.
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080203/d58aa9c9/attachment.pgp>
+
+From paessler at gmx.de  Mon Feb  4 12:41:00 2008
+From: paessler at gmx.de (Daniel Paessler)
+Date: Mon, 04 Feb 2008 12:41:00 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <1202065799.11653.14.camel@prometheus.glx>
+References: <1201712559.14895.13.camel@iphigenie.paessler.home>
+	<1201959611.9896.5.camel@prometheus.glx>
+	<1202057199.19609.6.camel@iphigenie.paessler.home>
+	<1202065799.11653.14.camel@prometheus.glx>
+Message-ID: <1202125260.28167.3.camel@daniel.cbs>
+
+
+Am Sonntag, den 03.02.2008, 20:09 +0100 schrieb Matthias Bl?sing:
+
+> Hey Daniel,
+> 
+> Am Sonntag, den 03.02.2008, 17:46 +0100 schrieb Daniel P??ler:
+> > 
+> > for me, it looks like this does work, output is:
+> > 
+> > [paessler at iphigenie pts/4] python
+> > Python 2.5.1 (r251:54863, Jan 10 2008, 19:09:26) 
+> > [GCC 4.2.2 (Gentoo 4.2.2 p1.0)] on linux2
+> > Type "help", "copyright", "credits" or "license" for more information.
+> > >>> import bluetooth
+> > >>> socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+> > >>> socket.bind(("", bluetooth.PORT_ANY))
+> > >>> socket.listen(1)
+> > >>> 
+> > 
+> 
+> Jep, that looks good! But then - you also report, that 0.6 runs as
+> expected. Not sure where the problem lies, but I would suspect a hick-up
+> inside the bluez stack.
+> 
+> 
+> > i recently installed 0.6 and now i get this:
+> > 
+> > 
+> > [paessler at iphigenie pts/4] LBRCdbus 
+> > LBRC                               : WARNING  Failed to initalize <class
+> > 'LBRC.UinputDispatcher.UinputDispatcher'>
+> > Value -1110949504 out of range for Int32
+> > Traceback (most recent call last):
+> >   File "/usr/bin/LBRCdbus", line 17, in <module>
+> >     brs = Core()
+> >   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> > 229, in __init__
+> >     self._register_listener(i)
+> >   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> > 277, in _register_listener
+> >     self.logger.warn("Failed to initalize " + str(constructor) + "\n" +
+> > str(e))
+> >   File "/usr/lib64/python2.5/logging/__init__.py", line 999, in warning
+> >     apply(self._log, (WARNING, msg, args), kwargs)
+> >   File "/usr/lib64/python2.5/logging/__init__.py", line 1101, in _log
+> >     self.handle(record)
+> >   File "/usr/lib64/python2.5/logging/__init__.py", line 1111, in handle
+> >     self.callHandlers(record)
+> >   File "/usr/lib64/python2.5/logging/__init__.py", line 1148, in
+> > callHandlers
+> >     hdlr.handle(record)
+> >   File "/usr/lib64/python2.5/logging/__init__.py", line 655, in handle
+> >     self.emit(record)
+> >   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> > 203, in emit
+> >     lr.fmessage)
+> >   File "/usr/lib64/python2.5/site-packages/dbus/decorators.py", line
+> > 309, in emit_signal
+> >     message.append(signature=signature, *args)
+> > OverflowError: Value -1110949504 out of range for Int32
+> > 
+> > 
+> > could this be an amd64 issue?
+> 
+> Ok, teh OverflowError is not an amd64 error, but it is cause by the
+> signature of the dbus logging method. This is invoked with arguments,
+> that can't fit into the specified int32.
+> 
+> As you can see, the system was not able to initialize the
+> UInputDispatcher (this is the module responsible for injecting
+> keyboard/mouse events into the kernel). Some more information should be
+> provided when run with --debug. But before that the exception has to be
+> tracked down.
+> 
+> As the dbus method call is the problem (its located in line 166 in
+> dbusinterface.py) we should have a look at that. You find the dbus
+> signature in line 166 it should read:
+> 
+> @dbus.service.signal(DBUSIFACE, signature='sisssssidsiisisss')
+> 
+> Replacing every "i" inside the signiture string with an "x" changes the
+> signature to expect an int64, which should do it. But then we won't know
+> which argument is the problem. So if you find the time could you
+> exchange each "i" individually and check whether LBRCdbus works - as in:
+> It does not crash? And then please report the argument that causes the
+> error.
+> 
+> Thanks in advance
+> 
+> Matthias
+> 
+> PS: I really hope we can track this down on the python level. There were
+> problems with amd64 that were caused, because the kernel interface was
+> 64bit, but the userland was 32bit. To circumvent this, a small
+> C-Programm was created, that is compiled with 64bit and connects to the
+> dbus and translates.
+
+
+i only can access my machine remote from work at the moment. but
+changing the mentioned line to
+
+@dbus.service.signal(DBUSIFACE, signature='sisssssidsixsisss')
+
+seems to work, as it gives no error. of course i can't try bluetooth
+now, but i will do so this evening.
+thanks for your quick answer ;)
+
+daniel
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080204/7385bec4/attachment.html>
+
+From paessler at gmx.de  Mon Feb  4 18:36:27 2008
+From: paessler at gmx.de (Daniel =?ISO-8859-1?Q?P=E4=DFler?=)
+Date: Mon, 04 Feb 2008 18:36:27 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <1202125260.28167.3.camel@daniel.cbs>
+References: <1201712559.14895.13.camel@iphigenie.paessler.home>
+	<1201959611.9896.5.camel@prometheus.glx>
+	<1202057199.19609.6.camel@iphigenie.paessler.home>
+	<1202065799.11653.14.camel@prometheus.glx>
+	<1202125260.28167.3.camel@daniel.cbs>
+Message-ID: <1202146588.31943.7.camel@iphigenie.paessler.home>
+
+
+Am Montag, den 04.02.2008, 12:41 +0100 schrieb Daniel Paessler:
+> 
+> Am Sonntag, den 03.02.2008, 20:09 +0100 schrieb Matthias Bl?sing: 
+> > Hey Daniel,
+> > 
+> > Am Sonntag, den 03.02.2008, 17:46 +0100 schrieb Daniel P??ler:
+> > > 
+> > > for me, it looks like this does work, output is:
+> > > 
+> > > [paessler at iphigenie pts/4] python
+> > > Python 2.5.1 (r251:54863, Jan 10 2008, 19:09:26) 
+> > > [GCC 4.2.2 (Gentoo 4.2.2 p1.0)] on linux2
+> > > Type "help", "copyright", "credits" or "license" for more information.
+> > > >>> import bluetooth
+> > > >>> socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+> > > >>> socket.bind(("", bluetooth.PORT_ANY))
+> > > >>> socket.listen(1)
+> > > >>> 
+> > > 
+> > 
+> > Jep, that looks good! But then - you also report, that 0.6 runs as
+> > expected. Not sure where the problem lies, but I would suspect a hick-up
+> > inside the bluez stack.
+> > 
+> > 
+> > > i recently installed 0.6 and now i get this:
+> > > 
+> > > 
+> > > [paessler at iphigenie pts/4] LBRCdbus 
+> > > LBRC                               : WARNING  Failed to initalize <class
+> > > 'LBRC.UinputDispatcher.UinputDispatcher'>
+> > > Value -1110949504 out of range for Int32
+> > > Traceback (most recent call last):
+> > >   File "/usr/bin/LBRCdbus", line 17, in <module>
+> > >     brs = Core()
+> > >   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> > > 229, in __init__
+> > >     self._register_listener(i)
+> > >   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> > > 277, in _register_listener
+> > >     self.logger.warn("Failed to initalize " + str(constructor) + "\n" +
+> > > str(e))
+> > >   File "/usr/lib64/python2.5/logging/__init__.py", line 999, in warning
+> > >     apply(self._log, (WARNING, msg, args), kwargs)
+> > >   File "/usr/lib64/python2.5/logging/__init__.py", line 1101, in _log
+> > >     self.handle(record)
+> > >   File "/usr/lib64/python2.5/logging/__init__.py", line 1111, in handle
+> > >     self.callHandlers(record)
+> > >   File "/usr/lib64/python2.5/logging/__init__.py", line 1148, in
+> > > callHandlers
+> > >     hdlr.handle(record)
+> > >   File "/usr/lib64/python2.5/logging/__init__.py", line 655, in handle
+> > >     self.emit(record)
+> > >   File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line
+> > > 203, in emit
+> > >     lr.fmessage)
+> > >   File "/usr/lib64/python2.5/site-packages/dbus/decorators.py", line
+> > > 309, in emit_signal
+> > >     message.append(signature=signature, *args)
+> > > OverflowError: Value -1110949504 out of range for Int32
+> > > 
+> > > 
+> > > could this be an amd64 issue?
+> > 
+> > Ok, teh OverflowError is not an amd64 error, but it is cause by the
+> > signature of the dbus logging method. This is invoked with arguments,
+> > that can't fit into the specified int32.
+> > 
+> > As you can see, the system was not able to initialize the
+> > UInputDispatcher (this is the module responsible for injecting
+> > keyboard/mouse events into the kernel). Some more information should be
+> > provided when run with --debug. But before that the exception has to be
+> > tracked down.
+> > 
+> > As the dbus method call is the problem (its located in line 166 in
+> > dbusinterface.py) we should have a look at that. You find the dbus
+> > signature in line 166 it should read:
+> > 
+> > @dbus.service.signal(DBUSIFACE, signature='sisssssidsiisisss')
+> > 
+> > Replacing every "i" inside the signiture string with an "x" changes the
+> > signature to expect an int64, which should do it. But then we won't know
+> > which argument is the problem. So if you find the time could you
+> > exchange each "i" individually and check whether LBRCdbus works - as in:
+> > It does not crash? And then please report the argument that causes the
+> > error.
+> > 
+> > Thanks in advance
+> > 
+> > Matthias
+> > 
+> > PS: I really hope we can track this down on the python level. There were
+> > problems with amd64 that were caused, because the kernel interface was
+> > 64bit, but the userland was 32bit. To circumvent this, a small
+> > C-Programm was created, that is compiled with 64bit and connects to the
+> > dbus and translates.
+> 
+> i only can access my machine remote from work at the moment. but
+> changing the mentioned line to
+> 
+> @dbus.service.signal(DBUSIFACE, signature='sisssssidsixsisss')
+> 
+> seems to work, as it gives no error. of course i can't try bluetooth
+> now, but i will do so this evening.
+> thanks for your quick answer ;)
+> 
+> daniel 
+
+
+ok, i'm at home now and what should i say? it works ;) thank you again
+for your help.
+one thing i figured out is, when the connection is lost between the
+devices, the j2me application on my se k750i hangs and i have to power
+off my phone to get rid of it...
+maybe there's a way to kind of "park " the logical connection on lost of
+physical connection or something, or at least disconnect properly.
+
+daniel
+
+
+
+From matthias.blaesing at rwth-aachen.de  Tue Feb  5 21:48:35 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 05 Feb 2008 21:48:35 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <1202146588.31943.7.camel@iphigenie.paessler.home>
+References: <1201712559.14895.13.camel@iphigenie.paessler.home>
+	<1201959611.9896.5.camel@prometheus.glx>
+	<1202057199.19609.6.camel@iphigenie.paessler.home>
+	<1202065799.11653.14.camel@prometheus.glx>
+	<1202125260.28167.3.camel@daniel.cbs>
+	<1202146588.31943.7.camel@iphigenie.paessler.home>
+Message-ID: <1202244515.14568.27.camel@prometheus.glx>
+
+Hey,
+
+> one thing i figured out is, when the connection is lost between the
+> devices, the j2me application on my se k750i hangs and i have to power
+> off my phone to get rid of it...
+> maybe there's a way to kind of "park " the logical connection on lost of
+> physical connection or something, or at least disconnect properly.
+
+this is very strange. This is part of the j2me bluetooth layer. What
+basicly happens is this:
+
+1. RFCOMM Port is openend on server
+2. j2me part creates a connection to this port
+3a. The server part uses asynchronous-IO (whether this is done in kernel
+space or on the gobject layer I don't know - and we don't have to care
+as it doesn't change anything)
+3b. The j2me part uses two threads - thread one listens on the created
+streamreader and blocks when there is nothing to read. The other thread
+handles the sending part and the display and keypress part
+4. When the connection is shut down - either side can close the socket
+connection. Then
+5a. gobject signals this with a special event mask and an empty read =>
+when this happens we shut down the pc side
+5b. the j2me part should notice the shutdown, currently by to
+conditions. The first: We get notified, that the read call succeeded,
+but nothing was read (this is the documented behaviour). The second:
+Nokia seems to raise an IOException instead. We catch that and exit
+gracefully. See LBRCSender.java for this.
+
+Then there is the question - how is your connection lost. I tested the
+connection through concrete laced with steel (not sure whether this is
+the right term for the german "Stahlbeton"). I noticed, that the RFCOMM
+stack tries for some time (for me this was something in the range of
+15-30s) to send again and again. But at some time the connection should
+be torn down and this should(!) be signaled by an empty read.
+
+This should happen regardless, whether the connection was broken
+intentionally (either on server or on client side) or whether it was an
+accident. The only thing were I could really change something is when
+the connection is intentionally closed.
+
+I can't "park" the connection, as this is dealt with on a layer I have
+no further control over (j2me bluetooth experts come forward if I've
+overlooked something).
+
+You could implement the connection on a lower layer, where you would
+have to deal with connection states, data delivery and integrety and so
+forth your self. I'm not sure whether it's worth it. And it could be,
+that the access to these layers is blocked by j2me security settings.
+This gets very fast very messy.
+
+Greetings
+
+Matthias 
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080205/6844488a/attachment.pgp>
+
+From serggb at gmail.com  Wed Feb 20 21:48:56 2008
+From: serggb at gmail.com (Sergio GB)
+Date: Wed, 20 Feb 2008 21:48:56 +0100
+Subject: [Lbrc-devel] LBRC 0.6.1 help
+Message-ID: <24cfa2930802201248v1bf5530bq9e6beb6c46ead789@mail.gmail.com>
+
+Hi,
+
+I have this error executing LBRC:
+
+2008-02-20 21:46:43,378 DBUS.LBRC.Listener.UInputDispatcher ERROR    No
+device node found, that looks like a uinput device node - is the kernel
+module loaded?
+2008-02-20 21:46:43,379 DBUS.dbus.connection ERROR    Unable to set
+arguments (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5)) according
+to signature u'ssq': <type 'exceptions.TypeError'>: Expected a string or
+unicode object
+2008-02-20 21:46:43,379 DBUS.LBRC WARNING  Failed to initalize <class '
+LBRC.UinputDispatcher.UinputDispatcher'>
+Expected a string or unicode object
+
+At first install it works, and it works a lot of times but now appears this
+error.
+
+Can you help me please?
+
+Sorry my english.
+
+Thanks
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080220/87e7f05f/attachment.html>
+
+From matthias.blaesing at rwth-aachen.de  Sat Feb 23 23:27:52 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 23 Feb 2008 23:27:52 +0100
+Subject: [Lbrc-devel] LBRC 0.6.1 help
+In-Reply-To: <24cfa2930802201248v1bf5530bq9e6beb6c46ead789@mail.gmail.com>
+References: <24cfa2930802201248v1bf5530bq9e6beb6c46ead789@mail.gmail.com>
+Message-ID: <1203805672.24588.7.camel@prometheus.glx>
+
+Hey Sergio,
+
+Am Mittwoch, den 20.02.2008, 21:48 +0100 schrieb Sergio GB:
+> I have this error executing LBRC: 
+> 2008-02-20 21:46:43,378 DBUS.LBRC.Listener.UInputDispatcher ERROR    No device node found, that looks like a uinput device node - is the kernel module loaded?
+> 2008-02-20 21:46:43,379 DBUS.dbus.connection ERROR    Unable to set arguments (None, 'Linux Bluetooth Remote Control', dbus.UInt16(5)) according to signature u'ssq': <type 'exceptions.TypeError'>: Expected a string or unicode object
+> 2008-02-20 21:46:43,379 DBUS.LBRC WARNING  Failed to initalize <class 'LBRC.UinputDispatcher.UinputDispatcher'> 
+> Expected a string or unicode object
+> 
+Ok, what you see, is an error in the initalisation of the handler
+modules. To be more concrete, the UInputDispatcher (the handler
+responsible to inject keyboard and mouse events into the kernel) can not
+be initalized, because no suitable device can be found. Without more
+information it is difficult to hunt down the problem. 
+
+So please do a debug run. You can either run the Applet or only the
+backend component. The backend component would suffice. To do this you
+don't invoke LBRC-applet, but LBRCdbus. Both programms accept --debug as
+arguments and spill out many many more messages. So please run a session
+with
+
+LBRCdbus --debug
+
+and post the output. It may be wise to attach it to the message and not
+to put it into the body.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080223/c5a43fcb/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Feb 23 23:39:28 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 23 Feb 2008 23:39:28 +0100
+Subject: [Lbrc-devel] LBRC 0.6.1 help
+In-Reply-To: <1203805672.24588.7.camel@prometheus.glx>
+References: <24cfa2930802201248v1bf5530bq9e6beb6c46ead789@mail.gmail.com>
+	<1203805672.24588.7.camel@prometheus.glx>
+Message-ID: <1203806368.24588.18.camel@prometheus.glx>
+
+Hey again,
+
+I had another look at the code and I think the problem is, that you have
+the uinput module not loaded or your distribution places the device file
+some place strange. But I think its the first idea, because you
+mentioned, that it worked already.
+
+You can check for yourself:
+
+mblaesing at prometheus:~/workspace/LBRCserver$ /sbin/lsmod | grep uinput
+uinput                  8960  0 
+mblaesing at prometheus:~/workspace/LBRCserver$ 
+
+running "/sbin/lsmod | grep uinput" should yield to something similar on
+your system. If not you found your reasen. If the modules was loaded,
+try to locate the device file inside /dev. LBRC checks /dev/input/uinput
+and /dev/misc/uinput and if it does not find the file there, it decends
+through the whole /dev tree and checks for files called uinput. If it is
+not found, it asumes there is not uinput device. You can supply it with
+one, but in any normal distribution the dev files are created by udev
+and that implies if the uinput module is loaded, that a dev file is
+created.
+
+If you did not understand what I wrote above - no problem - do:
+
+find /dev -iname "uinput"
+
+If you don't get a result: Either the uinput module is not loaded, you
+use static dev files and the correct device file is missing or you use
+udev and your rules are really messed.
+
+Maybe this helps
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080223/9dfc3d6a/attachment.pgp>
+
+From marek at exel.pl  Sun Feb 24 16:26:24 2008
+From: marek at exel.pl (Marek Denis)
+Date: Sun, 24 Feb 2008 16:26:24 +0100
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+Message-ID: <20080224162624.4fc65e9c.marek@exel.pl>
+
+Hi folks,
+
+I'm new to the list and generally to the LBRC software :) 
+
+So far, I am trying to run LBRC software on my laptop with gentoo-linux installed.
+Let me provide some sys info:
+
+User: root (i had some problems while trying non root user)
+Python 2.4.4
+dev-python/dbus-python-0.80.2
+uinput module loaded
+dbus-launch started
+
+This the output i get while trying to run LBRCdbus (ver 0.6.1)
+
+Traceback (most recent call last):
+  File "./LBRCdbus", line 17, in ?
+    brs = Core()
+  File "/home/marek/Desktop/lbrc-0.6.1/LBRC/dbusinterface.py", line 218, in __init__
+    self.btserver = BTServer()
+  File "/home/marek/Desktop/lbrc-0.6.1/LBRC/BTServer.py", line 190, in __init__
+    self.bluez_db = dinterface(dbus.SystemBus(), 'org.bluez', '/org/bluez', 'org.bluez.Database')
+  File "/home/marek/Desktop/lbrc-0.6.1/LBRC/__init__.py", line 20, in dinterface
+    proxy_obj = bus.get_object(service, obj_path)
+  File "/usr/lib/python2.4/site-packages/dbus/_dbus.py", line 410, in get_object
+    follow_name_owner_changes=follow_name_owner_changes)
+  File "/usr/lib/python2.4/site-packages/dbus/proxies.py", line 230, in __init__
+    _dbus_bindings.UInt32(0))
+  File "/usr/lib/python2.4/site-packages/dbus/proxies.py", line 169, in __call__
+    reply_message = self._connection.send_message_with_reply_and_block(message, timeout)
+dbus.DBusException: org.freedesktop.DBus.Error.ServiceUnknown The name org.bluez was not provided by any .service files
+
+To be honest, I feel a little bit confused which .service file is mentioned here. I suppose there is problem with dbus od dbus-python but I don't have any idea where i should start any research. Google also doesn't know much about it (I mean, as far as I am concerned noone had similar problem :)
+Any help would be appreciated
+
+
+Thanks in advance
+
+Marek
+
+
+
+From iuridiniz at yahoo.com.br  Tue Feb 26 15:27:40 2008
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Tue, 26 Feb 2008 11:27:40 -0300
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+In-Reply-To: <20080224162624.4fc65e9c.marek@exel.pl>
+References: <20080224162624.4fc65e9c.marek@exel.pl>
+Message-ID: <1204036060.22550.31.camel@cego>
+
+I think you need bluetooth services
+
+
+What's the output generated from:
+
+dbus-send --system --print-reply
+--dest=org.freedesktop.DBus /org/freedesktop/DBus
+org.freedesktop.DBus.ListNames
+
+
+
+On Sun, 2008-02-24 at 16:26 +0100, Marek Denis wrote:
+> Hi folks,
+> 
+> I'm new to the list and generally to the LBRC software :) 
+> 
+> So far, I am trying to run LBRC software on my laptop with gentoo-linux installed.
+> Let me provide some sys info:
+> 
+> User: root (i had some problems while trying non root user)
+> Python 2.4.4
+> dev-python/dbus-python-0.80.2
+> uinput module loaded
+> dbus-launch started
+> 
+> This the output i get while trying to run LBRCdbus (ver 0.6.1)
+> 
+> Traceback (most recent call last):
+>   File "./LBRCdbus", line 17, in ?
+>     brs = Core()
+>   File "/home/marek/Desktop/lbrc-0.6.1/LBRC/dbusinterface.py", line 218, in __init__
+>     self.btserver = BTServer()
+>   File "/home/marek/Desktop/lbrc-0.6.1/LBRC/BTServer.py", line 190, in __init__
+>     self.bluez_db = dinterface(dbus.SystemBus(), 'org.bluez', '/org/bluez', 'org.bluez.Database')
+>   File "/home/marek/Desktop/lbrc-0.6.1/LBRC/__init__.py", line 20, in dinterface
+>     proxy_obj = bus.get_object(service, obj_path)
+>   File "/usr/lib/python2.4/site-packages/dbus/_dbus.py", line 410, in get_object
+>     follow_name_owner_changes=follow_name_owner_changes)
+>   File "/usr/lib/python2.4/site-packages/dbus/proxies.py", line 230, in __init__
+>     _dbus_bindings.UInt32(0))
+>   File "/usr/lib/python2.4/site-packages/dbus/proxies.py", line 169, in __call__
+>     reply_message = self._connection.send_message_with_reply_and_block(message, timeout)
+> dbus.DBusException: org.freedesktop.DBus.Error.ServiceUnknown The name org.bluez was not provided by any .service files
+> 
+> To be honest, I feel a little bit confused which .service file is mentioned here. I suppose there is problem with dbus od dbus-python but I don't have any idea where i should start any research. Google also doesn't know much about it (I mean, as far as I am concerned noone had similar problem :)
+> Any help would be appreciated
+> 
+> 
+> Thanks in advance
+> 
+> Marek
+> 
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080226/ab84eb88/attachment.pgp>
+
+From marek at exel.pl  Tue Feb 26 22:55:17 2008
+From: marek at exel.pl (Marek Denis)
+Date: Tue, 26 Feb 2008 22:55:17 +0100
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+In-Reply-To: <1204036060.22550.31.camel@cego>
+References: <20080224162624.4fc65e9c.marek@exel.pl>
+	<1204036060.22550.31.camel@cego>
+Message-ID: <20080226225517.d30efe25.marek@exel.pl>
+
+On Tue, 26 Feb 2008 11:27:40 -0300
+Iuri Diniz <iuridiniz at yahoo.com.br> wrote:
+
+> I think you need bluetooth services
+>
+what exactly? I have working bluetooth services (I am able to send and receive files from my mobile, so it works...) 
+ 
+> 
+> What's the output generated from:
+> 
+> dbus-send --system --print-reply
+> --dest=org.freedesktop.DBus /org/freedesktop/DBus
+> org.freedesktop.DBus.ListNames
+
+this is the output. As I wrote previously I am a bit confised and don't have any idea where I can do ANY of search...
+
+localhost ~ # dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.ListNames
+method return sender=org.freedesktop.DBus -> dest=:1.3
+   array [
+      string "org.freedesktop.DBus"
+      string ":1.3"
+      string ":1.0"
+      string ":1.1"
+   ]
+
+
+regards
+
+Marek
+
+
+
+From iuridiniz at yahoo.com.br  Tue Feb 26 23:36:12 2008
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Tue, 26 Feb 2008 19:36:12 -0300
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+In-Reply-To: <20080226225517.d30efe25.marek@exel.pl>
+References: <20080224162624.4fc65e9c.marek@exel.pl>
+	<1204036060.22550.31.camel@cego>
+	<20080226225517.d30efe25.marek@exel.pl>
+Message-ID: <b211fe280802261436h60721dffw86ab662b63ecb6f8@mail.gmail.com>
+
+On Tue, Feb 26, 2008 at 6:55 PM, Marek Denis <marek at exel.pl> wrote:
+
+> >
+> > What's the output generated from:
+> >
+> > dbus-send --system --print-reply
+> > --dest=org.freedesktop.DBus /org/freedesktop/DBus
+> > org.freedesktop.DBus.ListNames
+>
+> this is the output. As I wrote previously I am a bit confised and don't
+> have any idea where I can do ANY of search...
+>
+> localhost ~ # dbus-send --system --print-reply --dest=org.freedesktop.DBus/org/freedesktop/DBus
+> org.freedesktop.DBus.ListNames
+> method return sender=org.freedesktop.DBus -> dest=:1.3
+>   array [
+>      string "org.freedesktop.DBus"
+>      string ":1.3"
+>      string ":1.0"
+>      string ":1.1"
+>   ]
+>
+>
+Well, since as you say your bluetooth is working I think your bluetooth does
+not register itself on DBus, it's expected something like this:
+
+  array [
+     string "org.freedesktop.DBus"
+     string "org.bluez"
+  ]
+
+I don't know the cause, but could you start DBus system before bluetooth and
+see if there's org.bluez on the output?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080226/07481a7d/attachment.html>
+
+From iuridiniz at gmail.com  Tue Feb 26 23:47:11 2008
+From: iuridiniz at gmail.com (Iuri Diniz)
+Date: Tue, 26 Feb 2008 19:47:11 -0300
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+In-Reply-To: <b211fe280802261436h60721dffw86ab662b63ecb6f8@mail.gmail.com>
+References: <20080224162624.4fc65e9c.marek@exel.pl>
+	<1204036060.22550.31.camel@cego>
+	<20080226225517.d30efe25.marek@exel.pl>
+	<b211fe280802261436h60721dffw86ab662b63ecb6f8@mail.gmail.com>
+Message-ID: <b211fe280802261447g51fc951eod890bf4f31e34d64@mail.gmail.com>
+
+Here, output of my system running Ubuntu 7.10 and Gnome 2.20.1
+
+$ dbus-send --system --print-reply
+--dest=org.freedesktop.DBus/org/freedesktop/DBus
+org.freedesktop.DBus.ListNames
+
+method return sender=org.freedesktop.DBus -> dest=:1.34 reply_serial=2
+   array [
+      string "org.freedesktop.DBus"
+      string ":1.7"
+      string ":1.8"
+      string ":1.9"
+      string "org.freedesktop.SystemToolsBackends"
+      string "org.freedesktop.NetworkManagerInfo"
+      string ":1.20"
+      string "org.freedesktop.Avahi"
+      string ":1.21"
+      string ":1.10"
+      string "org.bluez"
+      string ":1.22"
+      string "org.freedesktop.NetworkManager"
+      string "org.freedesktop.ConsoleKit"
+      string ":1.34"
+      string ":1.23"
+      string ":1.12"
+      string "com.redhat.dhcp"
+      string ":1.13"
+      string ":1.0"
+      string ":1.25"
+      string ":1.14"
+      string ":1.1"
+      string ":1.15"
+      string ":1.2"
+      string "org.freedesktop.Hal"
+      string "com.redhat.NewPrinterNotification"
+      string ":1.16"
+      string ":1.3"
+      string ":1.17"
+      string ":1.4"
+      string ":1.18"
+      string ":1.5"
+      string ":1.19"
+      string ":1.6"
+   ]
+
+All services with a valid name were registered on my system DBus.
+The name org.bluez I think is registered by hcid daemon
+So start system DBus before it and see what happens
+
+
+
+On Tue, Feb 26, 2008 at 7:36 PM, Iuri Diniz <iuridiniz at yahoo.com.br> wrote:
+
+>
+>
+> On Tue, Feb 26, 2008 at 6:55 PM, Marek Denis <marek at exel.pl> wrote:
+>
+> > >
+> > > What's the output generated from:
+> > >
+> > > dbus-send --system --print-reply
+> > > --dest=org.freedesktop.DBus /org/freedesktop/DBus
+> > > org.freedesktop.DBus.ListNames
+> >
+> > this is the output. As I wrote previously I am a bit confised and don't
+> > have any idea where I can do ANY of search...
+> >
+> > localhost ~ # dbus-send --system --print-reply --dest=
+> > org.freedesktop.DBus /org/freedesktop/DBus
+> > org.freedesktop.DBus.ListNames
+> > method return sender=org.freedesktop.DBus -> dest=:1.3
+> >   array [
+> >      string "org.freedesktop.DBus"
+> >      string ":1.3"
+> >      string ":1.0"
+> >      string ":1.1"
+> >   ]
+> >
+> >
+> Well, since as you say your bluetooth is working I think your bluetooth
+> does not register itself on DBus, it's expected something like this:
+>
+>   array [
+>      string "org.freedesktop.DBus"
+>      string "org.bluez"
+>   ]
+>
+> I don't know the cause, but could you start DBus system before bluetooth
+> and see if there's org.bluez on the output?
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080226/2fc4259d/attachment.html>
+
+From iuridiniz at yahoo.com.br  Tue Feb 26 23:47:36 2008
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Tue, 26 Feb 2008 19:47:36 -0300
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+In-Reply-To: <b211fe280802261436h60721dffw86ab662b63ecb6f8@mail.gmail.com>
+References: <20080224162624.4fc65e9c.marek@exel.pl>
+	<1204036060.22550.31.camel@cego>
+	<20080226225517.d30efe25.marek@exel.pl>
+	<b211fe280802261436h60721dffw86ab662b63ecb6f8@mail.gmail.com>
+Message-ID: <b211fe280802261447h5f45169je97700aa2c39df14@mail.gmail.com>
+
+Here, output of my system running Ubuntu 7.10 and Gnome 2.20.1
+
+$ dbus-send --system --print-reply
+--dest=org.freedesktop.DBus/org/freedesktop/DBus
+org.freedesktop.DBus.ListNames
+
+method return sender=org.freedesktop.DBus -> dest=:1.34 reply_serial=2
+   array [
+      string "org.freedesktop.DBus"
+      string ":1.7"
+      string ":1.8"
+      string ":1.9"
+      string "org.freedesktop.SystemToolsBackends"
+      string "org.freedesktop.NetworkManagerInfo"
+      string ":1.20"
+      string "org.freedesktop.Avahi"
+      string ":1.21"
+      string ":1.10"
+      string "org.bluez"
+      string ":1.22"
+      string "org.freedesktop.NetworkManager"
+      string "org.freedesktop.ConsoleKit"
+      string ":1.34"
+      string ":1.23"
+      string ":1.12"
+      string "com.redhat.dhcp"
+      string ":1.13"
+      string ":1.0"
+      string ":1.25"
+      string ":1.14"
+      string ":1.1"
+      string ":1.15"
+      string ":1.2"
+      string "org.freedesktop.Hal"
+      string "com.redhat.NewPrinterNotification"
+      string ":1.16"
+      string ":1.3"
+      string ":1.17"
+      string ":1.4"
+      string ":1.18"
+      string ":1.5"
+      string ":1.19"
+      string ":1.6"
+   ]
+
+All services with a valid name were registered on my system DBus.
+The name org.bluez I think is registered by hcid daemon
+So start system DBus before it and see what happens
+
+
+On Tue, Feb 26, 2008 at 7:36 PM, Iuri Diniz <iuridiniz at yahoo.com.br> wrote:
+
+>
+>
+> On Tue, Feb 26, 2008 at 6:55 PM, Marek Denis <marek at exel.pl> wrote:
+>
+> > >
+> > > What's the output generated from:
+> > >
+> > > dbus-send --system --print-reply
+> > > --dest=org.freedesktop.DBus /org/freedesktop/DBus
+> > > org.freedesktop.DBus.ListNames
+> >
+> > this is the output. As I wrote previously I am a bit confised and don't
+> > have any idea where I can do ANY of search...
+> >
+> > localhost ~ # dbus-send --system --print-reply --dest=
+> > org.freedesktop.DBus /org/freedesktop/DBus
+> > org.freedesktop.DBus.ListNames
+> > method return sender=org.freedesktop.DBus -> dest=:1.3
+> >   array [
+> >      string "org.freedesktop.DBus"
+> >      string ":1.3"
+> >      string ":1.0"
+> >      string ":1.1"
+> >   ]
+> >
+> >
+> Well, since as you say your bluetooth is working I think your bluetooth
+> does not register itself on DBus, it's expected something like this:
+>
+>   array [
+>      string "org.freedesktop.DBus"
+>      string "org.bluez"
+>   ]
+>
+> I don't know the cause, but could you start DBus system before bluetooth
+> and see if there's org.bluez on the output?
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080226/80c0bbb0/attachment.html>
+

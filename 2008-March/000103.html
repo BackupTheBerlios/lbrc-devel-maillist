@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] lbrc and nokia E70
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20lbrc%20and%20nokia%20E70&In-Reply-To=%3C1205256178.8872.18.camel%40jabberwock%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000102.html">
+   <LINK REL="Next"  HREF="000104.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] lbrc and nokia E70</H1>
+    <B>Chris Picton</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20lbrc%20and%20nokia%20E70&In-Reply-To=%3C1205256178.8872.18.camel%40jabberwock%3E"
+       TITLE="[Lbrc-devel] lbrc and nokia E70">chrisp at tangent.co.za
+       </A><BR>
+    <I>Tue Mar 11 18:22:58 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000102.html">[Lbrc-devel] lbrc and nokia E70
+</A></li>
+        <LI>Next message: <A HREF="000104.html">[Lbrc-devel] lbrc and nokia E70
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#103">[ date ]</a>
+              <a href="thread.html#103">[ thread ]</a>
+              <a href="subject.html#103">[ subject ]</a>
+              <a href="author.html#103">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+&gt;<i> &gt; Also, my phone has a # key, but I see no option for # in the input.h
+</I>&gt;<i> &gt; file.  How would I handle this?
+</I>&gt;<i> 
+</I>&gt;<i> Yeah! I just noticed this problem ... this caused by the fact, that most
+</I>&gt;<i> keycodes have nice names - I didn't think about the fact, that the
+</I>&gt;<i> keycodes don't uniquely correspond to symbols (compare an english and a
+</I>&gt;<i> german keyboard). The keycode stays with the key, but the symbol
+</I>&gt;<i> changes.
+</I>&gt;<i> 
+</I>&gt;<i> You can get the code by running xev and pressing the key you want to
+</I>&gt;<i> generate. Then you have to look into consts.py to find the right name.
+</I>&gt;<i> Yes I know - I hate it too -- there has to be a way around this...
+</I>
+This appears to cause a problem:
+
+My config now has:
+
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+3&quot;,
+            &quot;keycode&quot;: 35,
+            &quot;repeat_freq&quot;: 0
+          }
+
+
+The # key is above my 3 on my wireless keyboard (it is US layout)
+
+However
+
+If I disconnect my wireless keyboard, my actual notebook keyboard is in
+GBr layout.  If I switch gnome to this layout, the # key is by itself
+above Enter, and above the 3 key, I have the &#163; symbol.
+
+When my keyboard layout is in US mode, # on the phone inputs #.
+When my keyboard layout is GBr, # on the phone gives &#163;.
+
+I can see that this is because you are inputting raw key data, not the
+final character, but short of reading the gnome keyboard/language
+layout, I am not sure how this can be overcome.
+
+
+Chris
+
+
+---------------------+-------------------------------------------------------
+        Chris Picton | PGP Key ID: 9D28A988 (wwwkeys.pgp.net)
+  Technical Director | PGP Key Fingerprint:
+     Tangent Systems | 2B46 29EA D530 79EC D9EA 3ED0 229D 6DD6 9D28 A988
+        011 447 8096 | 
+<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">chrisp at tangent.co.za</A> | <A HREF="http://www.tangent.co.za/keys/chrisp.asc">http://www.tangent.co.za/keys/chrisp.asc</A>
+---------------------+-------------------------------------------------------
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080311/e525f245/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080311/e525f245/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000102.html">[Lbrc-devel] lbrc and nokia E70
+</A></li>
+	<LI>Next message: <A HREF="000104.html">[Lbrc-devel] lbrc and nokia E70
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#103">[ date ]</a>
+              <a href="thread.html#103">[ thread ]</a>
+              <a href="subject.html#103">[ subject ]</a>
+              <a href="author.html#103">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] config editor 2nd preview and a lot of changes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20config%20editor%202nd%20preview%20and%20a%20lot%20of%20changes&In-Reply-To=%3C1173694751.10629.11.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000021.html">
+   <LINK REL="Next"  HREF="000024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] config editor 2nd preview and a lot of changes</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20config%20editor%202nd%20preview%20and%20a%20lot%20of%20changes&In-Reply-To=%3C1173694751.10629.11.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] config editor 2nd preview and a lot of changes">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Mon Mar 12 11:19:11 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000021.html">[Lbrc-devel] config editor 2nd preview and a lot of changes
+</A></li>
+        <LI>Next message: <A HREF="000024.html">[Lbrc-devel] config file format proposal
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey,
+
+I'll just comment through out your email:
+
+Am Sonntag, den 11.03.2007, 22:14 -0300 schrieb Iuri Diniz: 
+&gt;<i> 2. Request for changes
+</I>&gt;<i> 
+</I>&gt;<i> a) IMHO I think key 'name' is not necessary in profile.conf since that
+</I>&gt;<i> key name itself is auto descriptive
+</I>
+Actually I think you are correct, but I would use the current name as
+the key to the profile:
+
+&gt;<i>  &quot;nokia_6230i_maus1&quot;: {
+</I>&gt;<i>     &quot;name&quot;: &quot;Nokia 6230i Mausprofil&quot;,
+</I>&gt;<i>     &quot;keys&quot;: [
+</I>&gt;<i> 
+</I>&gt;<i> will be:
+</I>&gt;<i> 
+</I>&gt;<i>  &quot;nokia_6230i_maus1&quot;: {
+</I>&gt;<i>     &quot;keys&quot;: [
+</I>
+Or: 
+&quot;Nokia 6230i Mausprofil&quot;: { 
+    &quot;keys&quot;: [
+
+&gt;<i> b) I think that system profiles.conf must be located in /etc rather
+</I>&gt;<i> than /usr/share/lbrc/
+</I>
+I agree with that - but then we need another name. Or to be more precise
+I would then propose lbrc_profiles.conf - I don't think that we need our
+own subdir in /etc. (Maybe config.conf and profiles.conf should be
+joined?)
+
+
+&gt;<i> c) I think that hardcoded /usr/lbrc/* in LBRC/__init__.py is not
+</I>&gt;<i> portable, so it's necessary to setup.py change the __init.py or
+</I>&gt;<i> fictional config.py that has the correct location of directories.
+</I>
+The locations of the datafiles were inspired by the FHS. This suggest
+(as far as I understand it) for datafiles, that can be used on all
+architectures (read: images, glade files, ...) these two places:
+
+/usr/share/&lt;application&gt; or
+/usr/local/share/&lt;application&gt;
+
+Architecture dependend libraries or internal binaries (so possibly the
+dbus&lt;-&gt;uinput bridge to come) should live in 
+
+/usr/lib/ or when more files are used:
+/usr/lib/&lt;application&gt;
+/usr/local/lib/ or when more files are used:
+/usr/local/lib/&lt;application&gt;
+
+With the uinput we are bound to the Linux Kernel. Principally we are
+able to run on any platform offering a bluez Interface (and pybluez
+bindings) and 
+
+&gt;<i> 3. a lot of changes:
+</I>&gt;<i> 
+</I>&gt;<i> I have done a lot of changes on LBRC code, some I think that need
+</I>&gt;<i> approval by Matthias, I want feedback of that changes, see the complete
+</I>&gt;<i> list:
+</I>&gt;<i> 
+</I>&gt;<i> LBRC-applet:
+</I>&gt;<i>  * removed a unused import
+</I>
+you got a go!
+
+&gt;<i> LBRC/UinputDispatcher.py:
+</I>&gt;<i>  * renamed key 'uinputdevice' to 'uinput-device' (needs approval)
+</I>
+no problem with that - but is there a reason?
+
+&gt;<i>  * FIXME comment to remind that the device /dev/input/event* must be
+</I>&gt;<i> destroyed at end of execution
+</I>
+As you mentioned in your replay - you don't have to. The device(s) will
+be deleted from the kernel, when the uinput device is closed, so the
+destruction is implicit at programm termination.
+
+&gt;<i> LBRC/__init__.py
+</I>&gt;<i>  * some FIXME comments 
+</I>&gt;<i>  * renamed 'get_configfile' to 'get_userconfigfile' (needs approval)
+</I>&gt;<i>  * new function get_systemconfigfile in contrast to get_userconfigfile
+</I>
+I asume you consider the profiles.conf a configfile? Then yes I'm ok
+with it.
+
+&gt;<i>  * some spelling changes
+</I>&gt;<i>  * functions write_config/read_config to parse config files (json)
+</I>&gt;<i>  * no more 'get_datafiles' and now get_datafile and get_configfiles
+</I>&gt;<i> (needs approval)
+</I>
+I'm ok with this (asuming profiles.conf becomes a config file)
+
+&gt;<i> LBRC/dbusinterface.py:
+</I>&gt;<i>  * new method to force reload config files (needed by config editor)
+</I>&gt;<i>  * FIXME comment to remind a error when there's no profiles in
+</I>&gt;<i> profiles.conf
+</I>&gt;<i>  * renamed key 'defaultprofile' to 'default-profile' (needs approval)
+</I>
+Can live with that - not sure why though!
+
+&gt;<i>  * moved json read/write code to LBRC/__init__.py
+</I>
+Good to go.
+
+&gt;<i> LBRC_gtk_gui/applet.py
+</I>&gt;<i>  * get_datafiles doesn't not exist anymore.
+</I>
+as you stated - it has to go in!
+
+&gt;<i> LBRC_gtk_gui/config.glade
+</I>&gt;<i>  * corrected a misspelled word (update your translations)
+</I>&gt;<i>  * added default height to window
+</I>&gt;<i>  * Disabling some buttons by default
+</I>&gt;<i> 
+</I>&gt;<i> LBRC_gtk_gui/config.py
+</I>&gt;<i>  * can read profiles.conf and config.conf now :-)
+</I>
+Ok to commit!
+
+&gt;<i> pot/extract_locale
+</I>&gt;<i>  * added LBRC_gtk_gui/config.py
+</I>&gt;<i> 
+</I>&gt;<i> pot/LBRC.pot
+</I>&gt;<i>  * news strings to translate
+</I>&gt;<i> 
+</I>&gt;<i> pot/pt_BR.pot
+</I>&gt;<i>  * updated pt_BR translation.
+</I>
+Ok to commit!
+
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070312/4209d5ee/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070312/4209d5ee/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000021.html">[Lbrc-devel] config editor 2nd preview and a lot of changes
+</A></li>
+	<LI>Next message: <A HREF="000024.html">[Lbrc-devel] config file format proposal
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

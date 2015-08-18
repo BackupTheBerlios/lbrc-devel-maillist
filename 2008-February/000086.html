@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3C1202065799.11653.14.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000085.html">
+   <LINK REL="Next"  HREF="000087.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3C1202065799.11653.14.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sun Feb  3 20:09:59 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000085.html">[Lbrc-devel] Syntax error in json.py
+</A></li>
+        <LI>Next message: <A HREF="000087.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey Daniel,
+
+Am Sonntag, den 03.02.2008, 17:46 +0100 schrieb Daniel P&#228;&#223;ler:
+&gt;<i> 
+</I>&gt;<i> for me, it looks like this does work, output is:
+</I>&gt;<i> 
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">paessler at iphigenie</A> pts/4] python
+</I>&gt;<i> Python 2.5.1 (r251:54863, Jan 10 2008, 19:09:26) 
+</I>&gt;<i> [GCC 4.2.2 (Gentoo 4.2.2 p1.0)] on linux2
+</I>&gt;<i> Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+</I>&gt;<i> &gt;&gt;&gt; import bluetooth
+</I>&gt;<i> &gt;&gt;&gt; socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+</I>&gt;<i> &gt;&gt;&gt; socket.bind((&quot;&quot;, bluetooth.PORT_ANY))
+</I>&gt;<i> &gt;&gt;&gt; socket.listen(1)
+</I>&gt;<i> &gt;&gt;&gt; 
+</I>&gt;<i> 
+</I>
+Jep, that looks good! But then - you also report, that 0.6 runs as
+expected. Not sure where the problem lies, but I would suspect a hick-up
+inside the bluez stack.
+
+
+&gt;<i> i recently installed 0.6 and now i get this:
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">paessler at iphigenie</A> pts/4] LBRCdbus 
+</I>&gt;<i> LBRC                               : WARNING  Failed to initalize &lt;class
+</I>&gt;<i> 'LBRC.UinputDispatcher.UinputDispatcher'&gt;
+</I>&gt;<i> Value -1110949504 out of range for Int32
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>   File &quot;/usr/bin/LBRCdbus&quot;, line 17, in &lt;module&gt;
+</I>&gt;<i>     brs = Core()
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line
+</I>&gt;<i> 229, in __init__
+</I>&gt;<i>     self._register_listener(i)
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line
+</I>&gt;<i> 277, in _register_listener
+</I>&gt;<i>     self.logger.warn(&quot;Failed to initalize &quot; + str(constructor) + &quot;\n&quot; +
+</I>&gt;<i> str(e))
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/logging/__init__.py&quot;, line 999, in warning
+</I>&gt;<i>     apply(self._log, (WARNING, msg, args), kwargs)
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/logging/__init__.py&quot;, line 1101, in _log
+</I>&gt;<i>     self.handle(record)
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/logging/__init__.py&quot;, line 1111, in handle
+</I>&gt;<i>     self.callHandlers(record)
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/logging/__init__.py&quot;, line 1148, in
+</I>&gt;<i> callHandlers
+</I>&gt;<i>     hdlr.handle(record)
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/logging/__init__.py&quot;, line 655, in handle
+</I>&gt;<i>     self.emit(record)
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line
+</I>&gt;<i> 203, in emit
+</I>&gt;<i>     lr.fmessage)
+</I>&gt;<i>   File &quot;/usr/lib64/python2.5/site-packages/dbus/decorators.py&quot;, line
+</I>&gt;<i> 309, in emit_signal
+</I>&gt;<i>     message.append(signature=signature, *args)
+</I>&gt;<i> OverflowError: Value -1110949504 out of range for Int32
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> could this be an amd64 issue?
+</I>
+Ok, teh OverflowError is not an amd64 error, but it is cause by the
+signature of the dbus logging method. This is invoked with arguments,
+that can't fit into the specified int32.
+
+As you can see, the system was not able to initialize the
+UInputDispatcher (this is the module responsible for injecting
+keyboard/mouse events into the kernel). Some more information should be
+provided when run with --debug. But before that the exception has to be
+tracked down.
+
+As the dbus method call is the problem (its located in line 166 in
+dbusinterface.py) we should have a look at that. You find the dbus
+signature in line 166 it should read:
+
+@dbus.service.signal(DBUSIFACE, signature='sisssssidsiisisss')
+
+Replacing every &quot;i&quot; inside the signiture string with an &quot;x&quot; changes the
+signature to expect an int64, which should do it. But then we won't know
+which argument is the problem. So if you find the time could you
+exchange each &quot;i&quot; individually and check whether LBRCdbus works - as in:
+It does not crash? And then please report the argument that causes the
+error.
+
+Thanks in advance
+
+Matthias
+
+PS: I really hope we can track this down on the python level. There were
+problems with amd64 that were caused, because the kernel interface was
+64bit, but the userland was 32bit. To circumvent this, a small
+C-Programm was created, that is compiled with 64bit and connects to the
+dbus and translates.
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080203/d58aa9c9/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080203/d58aa9c9/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000085.html">[Lbrc-devel] Syntax error in json.py
+</A></li>
+	<LI>Next message: <A HREF="000087.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

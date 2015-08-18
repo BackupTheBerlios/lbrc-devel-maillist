@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Testversion of a DBUS-&gt;UINPUT Bridge
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Testversion%20of%20a%20DBUS-%3EUINPUT%20Bridge&In-Reply-To=%3C1173314719.11592.12.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000013.html">
+   <LINK REL="Next"  HREF="000015.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Testversion of a DBUS-&gt;UINPUT Bridge</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Testversion%20of%20a%20DBUS-%3EUINPUT%20Bridge&In-Reply-To=%3C1173314719.11592.12.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Testversion of a DBUS-&gt;UINPUT Bridge">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Thu Mar  8 01:45:19 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000013.html">[Lbrc-devel] Update on development
+</A></li>
+        <LI>Next message: <A HREF="000015.html">[Lbrc-devel] Testversion of a DBUS-&gt;UINPUT Bridge
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello all,
+
+as I promised, I tried to implement a DBUS-&gt;UINPUT Bridge written in C,
+that listens on the DBUS and pushes the events into the kernel,
+hopefully avoiding the caveats that lie in using a pure python version.
+
+This is not the final &quot;product&quot;, but I would like you (especially Marc)
+to test it. I put it at <A HREF="http://lbrc.berlios.de/test_dbusbridge.tgz.">http://lbrc.berlios.de/test_dbusbridge.tgz.</A>
+
+Please note: You will need the devel packages of dbus-glib installed (on
+debian this is called: libdbus-glib-1-dev) and the gcc compiler
+
+The steps to test:
+
+     1. download it
+     2. open 2 terminals
+     3. extract the package and change into the new dir
+        &quot;test_dbusbridge&quot; in both terminals
+     4. run &quot;./build&quot; in one of them (this is a small bash script, that
+        builds the test dbus server)
+     5. You will find a &quot;example-service&quot; created, run it as
+        &quot;./example-service&quot; you should see the string &quot;service running&quot;
+        printed into the terminal
+     6. switch to other terminal and adjust uinputdevice in test.py
+        according to your system and
+     7. run &quot;python test.py&quot; in this terminal window you should see the
+        &quot;hello&quot; printed, as if you typed it on your keyboard.
+
+In the other terminal this should be printed parallel:
+&quot;UInput Device: /dev/input/uinput
+Devicename:    BlueRemote
+Successfully created UINPUT device.
+Closed UINPUT dev&quot;
+
+When your finished, switch back to the first terminal and stop the
+service by pressing CTRL-C. You are done, when you wrote your report ;-)
+
+I'm crossing my fingers, that this works - it would introduce a new
+dependency (read: to install from source you need the dbus-glib bindings
+and a c-compiler, but as I was to switch to packaging, this should be
+doable)
+
+I also finished controls for the visibility of the BlueZ Stack. This
+only a change for the gui, it won't go into the core, as there are
+enought methods to control the visibility.
+
+Mfg
+
+Matthias
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070308/7113f2f5/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070308/7113f2f5/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000013.html">[Lbrc-devel] Update on development
+</A></li>
+	<LI>Next message: <A HREF="000015.html">[Lbrc-devel] Testversion of a DBUS-&gt;UINPUT Bridge
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

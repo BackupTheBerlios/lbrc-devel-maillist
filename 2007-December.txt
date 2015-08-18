@@ -1,0 +1,201 @@
+From felix.rubio at bsc.es  Sun Dec  9 11:34:21 2007
+From: felix.rubio at bsc.es (Felix Rubio Dalmau)
+Date: Sun, 09 Dec 2007 11:34:21 +0100
+Subject: [Lbrc-devel] Hi
+Message-ID: <1197196461.6375.7.camel@blackmamba>
+
+My name is Felix. I've tried to install LBRC and with the application
+that runs on the phone I've been successfull, but not with the part that
+runs on my computer. The error message I get when I try to
+run ./LBRCdbus.py is:
+
+##################################3
+Traceback (most recent call last):
+  File "./LBRCdbus.py", line 8, in ?
+    brs = LBRCdbus()
+  File "/home/felix/software/LBRC-0.4/LBRC/dbusinterface.py", line 26,
+in __init__
+    bus_name = dbus.service.BusName('custom.LBRC',
+bus=dbus.SessionBus())
+  File "/var/lib/python-support/python2.4/dbus/_dbus.py", line 213, in
+__new__
+    mainloop=mainloop)
+  File "/var/lib/python-support/python2.4/dbus/_dbus.py", line 102, in
+__new__
+    bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+  File "/var/lib/python-support/python2.4/dbus/bus.py", line 125, in
+__new__
+    bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.NoReply: Did
+not receive a reply. Possible causes include: the remote application did
+not send a reply, the message bus security policy blocked the reply, the
+reply timeout expired, or the network connection was broken.
+#####################################
+
+Do you know what this means? Any help would be appreciated, 'cause I
+need your application to work in order to manage slideshows with it.
+
+Thank you very much.
+
+Felix Rubio Dalmau
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071209/9f0b45b8/attachment.html>
+
+From felixrubiodalmau at yahoo.es  Sun Dec  9 13:00:44 2007
+From: felixrubiodalmau at yahoo.es (Felix Rubio Dalmau)
+Date: Sun, 09 Dec 2007 13:00:44 +0100
+Subject: [Lbrc-devel] Hi
+Message-ID: <1197201644.22380.3.camel@blackmamba>
+
+It's me another time. I've solved the problems I had running LBRC as
+root user, but I can't run it as a regular user yet. What should I do to
+do it?
+
+Thanks!!!!!
+
+Felix
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071209/2cddfc72/attachment.html>
+
+From mcanaleta at gmail.com  Sun Dec  9 13:22:56 2007
+From: mcanaleta at gmail.com (Marc Canaleta)
+Date: Sun, 9 Dec 2007 13:22:56 +0100
+Subject: [Lbrc-devel] Hi
+In-Reply-To: <1197201644.22380.3.camel@blackmamba>
+References: <1197201644.22380.3.camel@blackmamba>
+Message-ID: <22c3c0150712090422t706e479by9da502001597cef@mail.gmail.com>
+
+Hi,
+
+The uinput device (I think it is usually located ad /dev/input/uinput) must
+have read and write permissions for the user. You can do it with the chmod
+command, but the comfortable way is doing it at boot time. I'm not at my
+linux box at the moment, but it depends on your dev filesystem manager (in
+my case its udev).
+
+I hope it solves your problem!
+
+Marc Canaleta
+mcanaleta at gmail.com
+
+2007/12/9, Felix Rubio Dalmau <felixrubiodalmau at yahoo.es>:
+>
+>  It's me another time. I've solved the problems I had running LBRC as root
+> user, but I can't run it as a regular user yet. What should I do to do it?
+>
+> Thanks!!!!!
+>
+> Felix
+>
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071209/c4b30c8e/attachment.html>
+
+From matthias.blaesing at rwth-aachen.de  Wed Dec 26 22:54:07 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 26 Dec 2007 22:54:07 +0100
+Subject: [Lbrc-devel] [Announce] LBRC 0.5
+Message-ID: <1198706047.26346.11.camel@prometheus.glx>
+
+Greetings,
+
+finally after more than half a year I announce the 0.5 version of LBRC.
+There were some very deep changes, that are reflected in this short
+summary taken from the changelog (the svn log is quite a bit longer):
+
+    * handle non-existing config more gracefully (was a crasher)
+    * MPlayer allows to select files and play them
+    * add a module to aid presentation control (stopwatch and log
+      of duration of slides)
+    * make CommanExecutor more robust
+    * add --debug to dbus backend and to the frontend
+    * better compatibility with bluetooth socket implementations
+    * add visual feed back to VolumeContol Applet
+    * move VolumeControl to gstreamer (should enable easy control of 
+      OSS and Pulseaudio)
+    * switch to a simpler and more clearly licensed JSON Parser
+
+This also means, that some personal configs won't work anymore - you
+have to test yourself.
+
+These are the things I will try to get done for the next release:
+
+      * Add gui for yet missing config of volumecontrol plugins
+      * Add module to show arbitrary name=>value pairs (I'm thinking
+        about using this to provide feedback for music control)
+
+Other things I try to work on:
+      * Get the package into debian (there seems to be the problem of
+        the missing free wtk, not sure how fast this can be resolved) --
+        but this would enable the use on nearly every platform, as
+        currently the dbus-uinput bridge has to be rebuild on each
+        platform
+      * improve documentation (I would really appreciate help there -- a
+        howto or getting started guide would really help -- I will
+        primarily have a look at the modules)
+      * Get bugs out of existing modules and complete feature set (for
+        ex. OSS+Pulseaudio for VolumeControl)
+
+So I wish you a happy new year!
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071226/0ecd1b81/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Thu Dec 27 23:30:53 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Thu, 27 Dec 2007 23:30:53 +0100
+Subject: [Lbrc-devel] [Announce] LBRC 0.5
+In-Reply-To: <1198706047.26346.11.camel@prometheus.glx>
+References: <1198706047.26346.11.camel@prometheus.glx>
+Message-ID: <1198794653.526.9.camel@prometheus.glx>
+
+Hello again,
+
+if you notice a delay, between connection the phone and being able to do
+something useful, then you hit a python-bluetooth bug. It is caused by
+the name lookup for a device running into a timeout.
+
+This was easily fixed by switching to the bluez dbus api to do the job.
+So if your facing this problem either apply the attached patch or
+checkout svn-trunk. I'll try to fix some more problems, do some of the
+improvements I announced and get another version out in the middle of
+January.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: dbus_lookup_name.patch
+Type: text/x-patch
+Size: 1804 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071227/b504b8b2/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071227/b504b8b2/attachment.pgp>
+

@@ -1,0 +1,1830 @@
+From matthias.blaesing at rwth-aachen.de  Wed Jan  9 10:46:28 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 09 Jan 2008 10:46:28 +0100
+Subject: [Lbrc-devel] Error with newer version of python-bluetooth
+Message-ID: <1199871988.21886.2.camel@prometheus.glx>
+
+Hello,
+
+There was a problem with newer versions of python-bluetooth (the
+version, that recently hit debian unstable). LBRC used a deprecated API
+call to determine a free rfcomm channel. I commited a fix for this to
+svn and you find the solution attached to this email. So if you
+experience crashes at startup this might cure it - if not, where is your
+bug report??? ;-)
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: revision221.diff
+Type: text/x-patch
+Size: 700 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080109/f51f652f/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080109/f51f652f/attachment.pgp>
+
+From k at mo.ubal.to  Fri Jan 11 03:58:23 2008
+From: k at mo.ubal.to (tloudev)
+Date: Fri, 11 Jan 2008 03:58:23 +0100 (CET)
+Subject: [Lbrc-devel] LBRCdbus --debug output
+Message-ID: <Pine.LNX.4.64.0801110216150.24572@poblijon.ubal.to>
+
+hi there,
+
+kino lbrc-0.5 # LBRCdbus --debug
+Traceback (most recent call last):
+   File "/usr/bin/LBRCdbus", line 13, in <module>
+     brs = Core(debug=logging.DEBUG)
+   File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 195, 
+in __init__
+     bus_name = dbus.service.BusName(DBUSNAME, bus=dbus.SessionBus())
+   File "/usr/lib/python2.5/site-packages/dbus/_dbus.py", line 213, in 
+__new__
+     mainloop=mainloop)
+   File "/usr/lib/python2.5/site-packages/dbus/_dbus.py", line 102, in 
+__new__
+     bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+   File "/usr/lib/python2.5/site-packages/dbus/bus.py", line 125, in 
+__new__
+     bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+dbus.exceptions.DBusException: 
+org.freedesktop.DBus.Error.Spawn.ExecFailed: Failed to execute dbus-launch 
+to autolaunch D-Bus session
+
+kino lbrc-0.5 # dbus-launch
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-0xZhPbuZti,guid=ae56e520cd8400329d6d79004786d176
+DBUS_SESSION_BUS_PID=14834
+
+I'm using gentoo linux with kernel 2.6.23 and dbus-python 0.82.3
+
+thank you for any help.
+   Ondrej Pachner
+
+
+--
+
+Check my PGP public key at http://poblijon.ubal.to/~tloudev/pgp.pub
+
+
+
+From matthias.blaesing at rwth-aachen.de  Fri Jan 11 12:01:42 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 11 Jan 2008 12:01:42 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+Message-ID: <1200049302.24740.13.camel@prometheus.glx>
+
+Hello Ondrej,
+
+I will only comment on the problems with the newer bindings (the 0.8
+version, as that is the version also present in debian unstable).
+
+This looks like you are trying to run LBRC as root. Firstly: I don't
+know why this is so popular, but I would strongly advise against it.
+
+But the basic problem would stay - namely: There is no dbus daemon
+running. Or at least it can't be accessed. If no dbus daemon is launched
+automaticly - you have to do it yourself (its explained in more detail
+in the manual pages of dbus-launch).
+
+dbus-launch will invoke a new session bus and will print the enviroment
+variables necessary for the programms, that want to use the bus. You
+have to set these variables yourself, as a programm can't modify the
+environment of the calling parent.
+
+So you can either run dbus-launch and manually export the variables or
+use the shell to help you:
+
+test at prometheus:~$ eval `dbus-launch`
+test at prometheus:~$ export DBUS_SESSION_BUS_ADDRESS
+test at prometheus:~$ export DBUS_SESSION_BUS_PID
+
+The first command calls dbus-launch and evaluates the output - in this
+case it sets environment variables. The next to lines make sure, that
+the just set variables are passed down into the environment of child
+prozesses.
+
+Hope that helps
+
+Matthias
+
+PS: please keep lbrc-devel as CC - this is a common problem, so another
+user might be interested.
+
+
+Am Freitag, den 11.01.2008, 10:48 +0100 schrieb tloudev:
+> -----BEGIN PGP SIGNED MESSAGE-----
+> Hash: SHA1
+> 
+> hi,
+> I'm trying to run LBRC v0.5, but I have several problems runnin LBRCdbus
+> with dbus-python >=0.80 the proram exits with:
+> kino lbrc-0.5 # LBRCdbus --debug
+> Traceback (most recent call last):
+>    File "/usr/bin/LBRCdbus", line 13, in <module>
+>      brs = Core(debug=logging.DEBUG)
+>    File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 195,
+> in __init__
+>      bus_name = dbus.service.BusName(DBUSNAME, bus=dbus.SessionBus())
+>    File "/usr/lib/python2.5/site-packages/dbus/_dbus.py", line 213, in
+> __new__
+>      mainloop=mainloop)
+>    File "/usr/lib/python2.5/site-packages/dbus/_dbus.py", line 102, in
+> __new__
+>      bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+>    File "/usr/lib/python2.5/site-packages/dbus/bus.py", line 125, in
+> __new__
+>      bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+> dbus.exceptions.DBusException: 
+> org.freedesktop.DBus.Error.Spawn.ExecFailed:
+> Failed to execute dbus-launch to autolaunch D-Bus session
+> 
+> 
+> with dbus-python-0.71:
+> kino lbrc-0.5 # LBRCdbus
+> Traceback (most recent call last):
+>    File "/usr/bin/LBRCdbus", line 3, in <module>
+>      from LBRC.dbusinterface import Core
+>    File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 27, 
+> in <module>
+>      class DBUSProfileControl(dbus.service.Object):
+>    File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 33, 
+> in DBUSProfileControl
+>      @dbus.service.signal(DBUSIFACE, signature='ss')
+>    File "/usr/lib/python2.5/site-packages/dbus/decorators.py", line 64, in 
+> decorator
+>      sig = tuple(dbus_bindings.Signature(signature))
+>    File "dbus_bindings.pyx", line 84, in dbus_bindings.SignatureIter.next
+> TypeError: exceptions must be strings, classes, or instances, not type
+> 
+> the file dbus_bindings.pyx doesn't exist, there's only dbus_bindings.so
+> I'm using gentoo linux with 2.6.23 kernel
+> thank you for any help
+>     Ondrej Pachner
+> 
+> 
+> 
+> - --
+> 
+> Check my PGP public key at http://poblijon.ubal.to/~tloudev/pgp.pub
+> 
+> -----BEGIN PGP SIGNATURE-----
+> Version: GnuPG v1.4.5 (GNU/Linux)
+> 
+> iD8DBQFHhztcFM6HvNRuG3ARAleWAKDpv8CVQ3hIhdmoHrPMHDAn9uyy+gCcCCVQ
+> 7j0nNYeUMBjJGD6pbsagUkQ=
+> =KSA2
+> -----END PGP SIGNATURE-----
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080111/79804bee/attachment.pgp>
+
+From k at mo.ubal.to  Fri Jan 11 13:09:51 2008
+From: k at mo.ubal.to (tloudev)
+Date: Fri, 11 Jan 2008 13:09:51 +0100 (CET)
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <1200049302.24740.13.camel@prometheus.glx>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+Message-ID: <Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+
+hi Matthias,
+so the correct version of the dbus-python should be >=0.80.. OK.
+right now it seems much better in this case, but I have another error, 
+probably between the chair and the keyboard again :-)
+
+    O.P.
+
+kino lbrc-0.5 # cat .lbrc.conf
+{
+     "uinputdevice": "/dev/misc/uinput",
+     "defaultprofile": "nokia_6230i_maus1"
+}
+kino lbrc-0.5 # LBRCdbus --debug
+Traceback (most recent call last):
+   File "/usr/bin/LBRCdbus", line 13, in <module>
+     brs = Core(debug=logging.DEBUG)
+   File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 204, 
+in __init__
+     self.btserver = BTServer()
+   File "/usr/lib/python2.5/site-packages/LBRC/BTServer.py", line 185, in 
+__init__
+     self.config = config()
+   File "/usr/lib/python2.5/site-packages/LBRC/config.py", line 42, in 
+__init__
+     self.reread()
+   File "/usr/lib/python2.5/site-packages/LBRC/config.py", line 72, in 
+reread
+     self.profile_index.extend([('user', profile_name) for profile_name in 
+self.user['profiles']])
+KeyError: 'profiles'
+
+I'd like to change the profile, but Idon't know where can I find other 
+profiles available.
+kino lbrc-0.5 # find ./ -name "*nokia*"
+./doc/mappings/nokia_6230i.txt
+./doc/mappings/nokia_n70.txt
+kino lbrc-0.5 # grep -r "nokia" *
+config.conf:    "defaultprofile": "nokia_6230i_maus1"
+doc/bluez-dbus-api.txt:Copyright (C) 2005-2006  Johan Hedberg 
+<johan.hedberg at nokia.com>
+doc/config.conf:    "defaultprofile": "nokia_6230i_maus1"
+
+
+On Fri, 11 Jan 2008, Matthias Bl?sing wrote:
+> I will only comment on the problems with the newer bindings (the 0.8
+> version, as that is the version also present in debian unstable).
+> This looks like you are trying to run LBRC as root. Firstly: I don't
+> know why this is so popular, but I would strongly advise against it.
+
+yes of course... Just a tuning phase to avoid permission problems.
+
+> But the basic problem would stay - namely: There is no dbus daemon
+> running. Or at least it can't be accessed. If no dbus daemon is launched
+> automaticly - you have to do it yourself (its explained in more detail
+> in the manual pages of dbus-launch).
+
+hmm... interesting.. I start dbus from /etc/init.d at the boot time and 
+accd to ps axuw it's running.
+101       3582  0.0  0.1   2180   832 ?        Ss   13:28   0:00 
+/usr/bin/dbus-daemon --system
+
+> dbus-launch will invoke a new session bus and will print the enviroment
+> variables necessary for the programms, that want to use the bus. You
+> have to set these variables yourself, as a programm can't modify the
+> environment of the calling parent.
+> So you can either run dbus-launch and manually export the variables or
+> use the shell to help you:
+> test at prometheus:~$ eval `dbus-launch`
+> test at prometheus:~$ export DBUS_SESSION_BUS_ADDRESS
+> test at prometheus:~$ export DBUS_SESSION_BUS_PID
+
+>> I'm trying to run LBRC v0.5, but I have several problems runnin 
+LBRCdbus
+>> with dbus-python >=0.80 the proram exits with:
+>> kino lbrc-0.5 # LBRCdbus --debug
+>> Traceback (most recent call last):
+>>    File "/usr/bin/LBRCdbus", line 13, in <module>
+>>      brs = Core(debug=logging.DEBUG)
+>>    File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 195,
+>> in __init__
+>>      bus_name = dbus.service.BusName(DBUSNAME, bus=dbus.SessionBus())
+>>    File "/usr/lib/python2.5/site-packages/dbus/_dbus.py", line 213, in
+>> __new__
+>>      mainloop=mainloop)
+>>    File "/usr/lib/python2.5/site-packages/dbus/_dbus.py", line 102, in
+>> __new__
+>>      bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+>>    File "/usr/lib/python2.5/site-packages/dbus/bus.py", line 125, in
+>> __new__
+>>      bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+>> dbus.exceptions.DBusException:
+>> org.freedesktop.DBus.Error.Spawn.ExecFailed:
+>> Failed to execute dbus-launch to autolaunch D-Bus session
+
+
+
+--
+
+Check my PGP public key at http://poblijon.ubal.to/~tloudev/pgp.pub
+
+
+
+From matthias.blaesing at rwth-aachen.de  Fri Jan 11 16:12:29 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 11 Jan 2008 16:12:29 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+Message-ID: <1200064349.16013.28.camel@prometheus.glx>
+
+Hello again,
+
+ok - you just hit a bug and undocumented behaviour. I'm not how much the
+Format of lbrc.conf has changed, but your config looks strange.
+
+Your problem is, that if there is a user config file, lbrc expects a
+profiles section to be present. Well I commited a fix for this into svn.
+
+To help you with 0.5 try this as .lbrc.conf:
+
+{
+  "generic-config": {
+	"uinputdevice": "/dev/misc/uinput"
+  },
+  "profiles": {}
+}
+
+This sets the uinputdevice, defines an custom profiles section, that is
+empty. Existing profiles can find in the lbrc.conf, that is installed
+systemwide. If you execute LBRC from the source directory it is directly
+in the base directory. If it is installed please use find.
+
+And then you mentioned the dbus daemon started by init.d. There are
+diffent "dbuses". The one you mentioned is the system bus, that is used
+for system-wide services. The one we use is called the session bus. This
+is created, when dbus-launch is called. Here connect all services, that
+belong to one session. I hope the clears it a bit.
+
+Greetings
+
+Matthias
+
+Am Freitag, den 11.01.2008, 13:09 +0100 schrieb tloudev:
+> hi Matthias,
+> so the correct version of the dbus-python should be >=0.80.. OK.
+> right now it seems much better in this case, but I have another error, 
+> probably between the chair and the keyboard again :-)
+> 
+>     O.P.
+> 
+> kino lbrc-0.5 # cat .lbrc.conf
+> {
+>      "uinputdevice": "/dev/misc/uinput",
+>      "defaultprofile": "nokia_6230i_maus1"
+> }
+> [Traceback into config.py]
+> 
+> I'd like to change the profile, but Idon't know where can I find other 
+> profiles available.
+> kino lbrc-0.5 # find ./ -name "*nokia*"
+> ./doc/mappings/nokia_6230i.txt
+> ./doc/mappings/nokia_n70.txt
+> kino lbrc-0.5 # grep -r "nokia" *
+> config.conf:    "defaultprofile": "nokia_6230i_maus1"
+> doc/bluez-dbus-api.txt:Copyright (C) 2005-2006  Johan Hedberg 
+> <johan.hedberg at nokia.com>
+> doc/config.conf:    "defaultprofile": "nokia_6230i_maus1"
+> 
+> 
+> On Fri, 11 Jan 2008, Matthias Bl?sing wrote:
+> > I will only comment on the problems with the newer bindings (the 0.8
+> > version, as that is the version also present in debian unstable).
+> > This looks like you are trying to run LBRC as root. Firstly: I don't
+> > know why this is so popular, but I would strongly advise against it.
+> 
+> yes of course... Just a tuning phase to avoid permission problems.
+> 
+> > But the basic problem would stay - namely: There is no dbus daemon
+> > running. Or at least it can't be accessed. If no dbus daemon is launched
+> > automaticly - you have to do it yourself (its explained in more detail
+> > in the manual pages of dbus-launch).
+> 
+> hmm... interesting.. I start dbus from /etc/init.d at the boot time and 
+> accd to ps axuw it's running.
+> 101       3582  0.0  0.1   2180   832 ?        Ss   13:28   0:00 
+> /usr/bin/dbus-daemon --system
+> 
+> > dbus-launch will invoke a new session bus and will print the enviroment
+> > variables necessary for the programms, that want to use the bus. You
+> > have to set these variables yourself, as a programm can't modify the
+> > environment of the calling parent.
+> > So you can either run dbus-launch and manually export the variables or
+> > use the shell to help you:
+> > test at prometheus:~$ eval `dbus-launch`
+> > test at prometheus:~$ export DBUS_SESSION_BUS_ADDRESS
+> > test at prometheus:~$ export DBUS_SESSION_BUS_PID
+> 
+> >> I'm trying to run LBRC v0.5, but I have several problems runnin 
+> LBRCdbus
+> >> with dbus-python >=0.80 the proram exits with:
+> >> kino lbrc-0.5 # LBRCdbus --debug
+> >> Traceback (most recent call last):
+> >>    File "/usr/bin/LBRCdbus", line 13, in <module>
+> >>      brs = Core(debug=logging.DEBUG)
+> >>    File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 195,
+> >> in __init__
+> >>      bus_name = dbus.service.BusName(DBUSNAME, bus=dbus.SessionBus())
+> >>    File "/usr/lib/python2.5/site-packages/dbus/_dbus.py", line 213, in
+> >> __new__
+> >>      mainloop=mainloop)
+> >>    File "/usr/lib/python2.5/site-packages/dbus/_dbus.py", line 102, in
+> >> __new__
+> >>      bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+> >>    File "/usr/lib/python2.5/site-packages/dbus/bus.py", line 125, in
+> >> __new__
+> >>      bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+> >> dbus.exceptions.DBusException:
+> >> org.freedesktop.DBus.Error.Spawn.ExecFailed:
+> >> Failed to execute dbus-launch to autolaunch D-Bus session
+> 
+> 
+> 
+> --
+> 
+> Check my PGP public key at http://poblijon.ubal.to/~tloudev/pgp.pub
+> 
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080111/4767d901/attachment.pgp>
+
+From k at mo.ubal.to  Fri Jan 11 17:09:47 2008
+From: k at mo.ubal.to (tloudev)
+Date: Fri, 11 Jan 2008 17:09:47 +0100 (CET)
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <1200064349.16013.28.camel@prometheus.glx>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+	<1200064349.16013.28.camel@prometheus.glx>
+Message-ID: <Pine.LNX.4.64.0801111656590.24572@poblijon.ubal.to>
+
+hi,
+solvin one problem causes another problem visible..
+I have rfcomm kernel module loaded, bluetooth started, but:
+kino / # /etc/init.d/bluetooth start
+  * Starting Bluetooth ...
+  *     Starting hcid ...   [ ok ]
+  *     Starting rfcomm ... [ ok ]
+kino / # hciconfig -a
+hci0:   Type: USB
+         BD Address: 11:11:11:11:11:11 ACL MTU: 672:3 SCO MTU: 48:1
+         UP RUNNING PSCAN ISCAN
+         RX bytes:284954058 acl:15 sco:5587243 events:130 errors:0
+         TX bytes:1982 acl:15 sco:0 commands:91 errors:0
+         Features: 0xff 0x3e 0x85 0x38 0x18 0x18 0x00 0x00
+         Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+         Link policy: RSWITCH HOLD SNIFF PARK
+         Link mode: ACCEPT MASTER
+         Name: 'kino'
+         Class: 0x080100
+         Service Classes: Capturing
+         Device Class: Computer, Uncategorized
+         HCI Ver: 2.0 (0x3) HCI Rev: 0x1f4 LMP Ver: 2.0 (0x3) LMP Subver: 
+0x1f4
+         Manufacturer: CONWISE Technology Corporation Ltd (66)
+
+kino / # LBRCdbus
+Traceback (most recent call last):
+   File "/usr/bin/LBRCdbus", line 15, in <module>
+     brs = Core()
+   File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 204, 
+in __init__
+     self.btserver = BTServer()
+   File "/usr/lib/python2.5/site-packages/LBRC/BTServer.py", line 193, in 
+__init__
+     self.port = bluetooth.get_available_port( bluetooth.RFCOMM )
+AttributeError: 'module' object has no attribute 'get_available_port'
+
+BTW is there some way to add the LBRC service to the standard bluez 
+configuration? Can I run other bt services simultaneously?
+    O.P.
+
+
+On Fri, 11 Jan 2008, Matthias Bl?sing wrote:
+
+> Hello again,
+> ok - you just hit a bug and undocumented behaviour. I'm not how much the
+> Format of lbrc.conf has changed, but your config looks strange.
+> Your problem is, that if there is a user config file, lbrc expects a
+> profiles section to be present. Well I commited a fix for this into svn.
+> To help you with 0.5 try this as .lbrc.conf:
+>
+> {
+>  "generic-config": {
+> 	"uinputdevice": "/dev/misc/uinput"
+>  },
+>  "profiles": {}
+> }
+>
+> This sets the uinputdevice, defines an custom profiles section, that is
+> empty. Existing profiles can find in the lbrc.conf, that is installed
+> systemwide. If you execute LBRC from the source directory it is directly
+> in the base directory. If it is installed please use find.
+>
+> And then you mentioned the dbus daemon started by init.d. There are
+> diffent "dbuses". The one you mentioned is the system bus, that is used
+> for system-wide services. The one we use is called the session bus. This
+> is created, when dbus-launch is called. Here connect all services, that
+> belong to one session. I hope the clears it a bit.
+>
+> Greetings
+>
+> Matthias
+>
+> Am Freitag, den 11.01.2008, 13:09 +0100 schrieb tloudev:
+>> hi Matthias,
+>> so the correct version of the dbus-python should be >=0.80.. OK.
+>> right now it seems much better in this case, but I have another error,
+>> probably between the chair and the keyboard again :-)
+>>
+>>     O.P.
+
+
+From matthias.blaesing at rwth-aachen.de  Fri Jan 11 17:38:35 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 11 Jan 2008 17:38:35 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <Pine.LNX.4.64.0801111656590.24572@poblijon.ubal.to>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+	<1200064349.16013.28.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111656590.24572@poblijon.ubal.to>
+Message-ID: <1200069515.5999.9.camel@prometheus.glx>
+
+Hi,
+
+this concrete problem is fixed in svn. Not sure how good your at reading
+patches, but this is the needed fix:
+
+Index: LBRC/BTServer.py
+===================================================================
+--- LBRC/BTServer.py	(Revision 220)
++++ LBRC/BTServer.py	(Revision 221)
+@@ -189,9 +189,9 @@
+ 
+         self.server_io_watch = None
+ 
+-        self.port = bluetooth.get_available_port( bluetooth.RFCOMM )
+         self.server_sock = bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+-        self.server_sock.bind(("", self.port))
++        self.server_sock.bind(("", bluetooth.PORT_ANY))
++        (addr, self.port) = self.server_sock.getsockname();
+         self.server_sock.listen(1)
+         
+         self.bluez_db = dinterface(dbus.SystemBus(), 'org.bluez', '/org/bluez', 'org.bluez.Database')
+
+As I stated in the message I send when commiting this patch, it was
+caused by python-bluez dropping a deprecated api. This caught my
+attention, when debian got a new version of python-dbus.
+
+Towards your question regarding other bluetooth services. Yes you can
+run any other service in parallel. Think of the bluez (or bluetooth in
+general) services as server processes - ok there are not that many
+rfcomm channels, but ports on tcp/ip can be compared to L2CAP sockts
+which are the basis for rfcomm and other protocolls.
+
+Greetings
+
+Matthias
+
+
+Am Freitag, den 11.01.2008, 17:09 +0100 schrieb tloudev:
+> hi,
+> solvin one problem causes another problem visible..
+> I have rfcomm kernel module loaded, bluetooth started, but:
+> kino / # /etc/init.d/bluetooth start
+>   * Starting Bluetooth ...
+>   *     Starting hcid ...   [ ok ]
+>   *     Starting rfcomm ... [ ok ]
+> kino / # hciconfig -a
+> hci0:   Type: USB
+>          BD Address: 11:11:11:11:11:11 ACL MTU: 672:3 SCO MTU: 48:1
+>          UP RUNNING PSCAN ISCAN
+>          RX bytes:284954058 acl:15 sco:5587243 events:130 errors:0
+>          TX bytes:1982 acl:15 sco:0 commands:91 errors:0
+>          Features: 0xff 0x3e 0x85 0x38 0x18 0x18 0x00 0x00
+>          Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+>          Link policy: RSWITCH HOLD SNIFF PARK
+>          Link mode: ACCEPT MASTER
+>          Name: 'kino'
+>          Class: 0x080100
+>          Service Classes: Capturing
+>          Device Class: Computer, Uncategorized
+>          HCI Ver: 2.0 (0x3) HCI Rev: 0x1f4 LMP Ver: 2.0 (0x3) LMP Subver: 
+> 0x1f4
+>          Manufacturer: CONWISE Technology Corporation Ltd (66)
+> 
+> kino / # LBRCdbus
+> Traceback (most recent call last):
+>    File "/usr/bin/LBRCdbus", line 15, in <module>
+>      brs = Core()
+>    File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 204, 
+> in __init__
+>      self.btserver = BTServer()
+>    File "/usr/lib/python2.5/site-packages/LBRC/BTServer.py", line 193, in 
+> __init__
+>      self.port = bluetooth.get_available_port( bluetooth.RFCOMM )
+> AttributeError: 'module' object has no attribute 'get_available_port'
+> 
+> BTW is there some way to add the LBRC service to the standard bluez 
+> configuration? Can I run other bt services simultaneously?
+>     O.P.
+> 
+> 
+> On Fri, 11 Jan 2008, Matthias Bl?sing wrote:
+> 
+> > Hello again,
+> > ok - you just hit a bug and undocumented behaviour. I'm not how much the
+> > Format of lbrc.conf has changed, but your config looks strange.
+> > Your problem is, that if there is a user config file, lbrc expects a
+> > profiles section to be present. Well I commited a fix for this into svn.
+> > To help you with 0.5 try this as .lbrc.conf:
+> >
+> > {
+> >  "generic-config": {
+> > 	"uinputdevice": "/dev/misc/uinput"
+> >  },
+> >  "profiles": {}
+> > }
+> >
+> > This sets the uinputdevice, defines an custom profiles section, that is
+> > empty. Existing profiles can find in the lbrc.conf, that is installed
+> > systemwide. If you execute LBRC from the source directory it is directly
+> > in the base directory. If it is installed please use find.
+> >
+> > And then you mentioned the dbus daemon started by init.d. There are
+> > diffent "dbuses". The one you mentioned is the system bus, that is used
+> > for system-wide services. The one we use is called the session bus. This
+> > is created, when dbus-launch is called. Here connect all services, that
+> > belong to one session. I hope the clears it a bit.
+> >
+> > Greetings
+> >
+> > Matthias
+> >
+> > Am Freitag, den 11.01.2008, 13:09 +0100 schrieb tloudev:
+> >> hi Matthias,
+> >> so the correct version of the dbus-python should be >=0.80.. OK.
+> >> right now it seems much better in this case, but I have another error,
+> >> probably between the chair and the keyboard again :-)
+> >>
+> >>     O.P.
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080111/e1e50a94/attachment.pgp>
+
+From k at mo.ubal.to  Fri Jan 11 18:34:36 2008
+From: k at mo.ubal.to (tloudev)
+Date: Fri, 11 Jan 2008 18:34:36 +0100 (CET)
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <1200069515.5999.9.camel@prometheus.glx>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+	<1200064349.16013.28.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111656590.24572@poblijon.ubal.to>
+	<1200069515.5999.9.camel@prometheus.glx>
+Message-ID: <Pine.LNX.4.64.0801111745480.24572@poblijon.ubal.to>
+
+hi,
+patches are OK, only the python language is a real nightmare :-)
+
+but.. HEAKAPAAA! IT WORKS! I can get events! Thank you!
+
+and the last question is: whire is the FIFO? I'm runnin mplayer from the 
+startup scripts with some window geometry and display settins, so it's 
+totally non-interactive. I need to run it with some -input FIFO parameter, 
+but accordin to /proc/XXXX/fd/ and netstat -lpn I can't locate the output 
+fifo from LBRC. I suppose it's conected some way to the current virtual 
+terminal, but where is the output goin in non-interactive mode?
+thank you
+    Ondrej Pachner
+
+
+
+
+On Fri, 11 Jan 2008, Matthias Bl?sing wrote:
+
+> Hi,
+>
+> this concrete problem is fixed in svn. Not sure how good your at reading
+> patches, but this is the needed fix:
+>
+> Index: LBRC/BTServer.py
+> ===================================================================
+> --- LBRC/BTServer.py	(Revision 220)
+> +++ LBRC/BTServer.py	(Revision 221)
+> @@ -189,9 +189,9 @@
+>
+>         self.server_io_watch = None
+>
+> -        self.port = bluetooth.get_available_port( bluetooth.RFCOMM )
+>         self.server_sock = bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+> -        self.server_sock.bind(("", self.port))
+> +        self.server_sock.bind(("", bluetooth.PORT_ANY))
+> +        (addr, self.port) = self.server_sock.getsockname();
+>         self.server_sock.listen(1)
+>
+>         self.bluez_db = dinterface(dbus.SystemBus(), 'org.bluez', '/org/bluez', 'org.bluez.Database')
+>
+> As I stated in the message I send when commiting this patch, it was
+> caused by python-bluez dropping a deprecated api. This caught my
+> attention, when debian got a new version of python-dbus.
+>
+> Towards your question regarding other bluetooth services. Yes you can
+> run any other service in parallel. Think of the bluez (or bluetooth in
+> general) services as server processes - ok there are not that many
+> rfcomm channels, but ports on tcp/ip can be compared to L2CAP sockts
+> which are the basis for rfcomm and other protocolls.
+>
+> Greetings
+>
+> Matthias
+
+
+From matthias.blaesing at rwth-aachen.de  Fri Jan 11 21:44:05 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 11 Jan 2008 21:44:05 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+In-Reply-To: <Pine.LNX.4.64.0801111745480.24572@poblijon.ubal.to>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+	<1200064349.16013.28.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111656590.24572@poblijon.ubal.to>
+	<1200069515.5999.9.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111745480.24572@poblijon.ubal.to>
+Message-ID: <1200084245.2565.3.camel@prometheus.glx>
+
+Hey,
+
+Am Freitag, den 11.01.2008, 18:34 +0100 schrieb tloudev:
+> and the last question is: whire is the FIFO? I'm runnin mplayer from the 
+> startup scripts with some window geometry and display settins, so it's 
+> totally non-interactive. I need to run it with some -input FIFO parameter, 
+> but accordin to /proc/XXXX/fd/ and netstat -lpn I can't locate the output 
+> fifo from LBRC. I suppose it's conected some way to the current virtual 
+> terminal, but where is the output goin in non-interactive mode?
+
+the mplayer module uses it's own mplayer instance, that is started from
+inside the module and feeds the commands into it via stdin. I have to
+look into this, as the last time I tried to use the fifo it did not do
+what I would have expected. I think the main problem was, that I fifo
+could not be closed and opened again - but that's the vague recollection
+of the events happening a year ago or so.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080111/fe12c3ca/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Jan 12 20:36:05 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 12 Jan 2008 20:36:05 +0100
+Subject: [Lbrc-devel] LBRC Installation successful but Service is not
+	discovered.
+In-Reply-To: <1200114081.11528.6.camel@uruk.bastardsonofgod.com>
+References: <1200114081.11528.6.camel@uruk.bastardsonofgod.com>
+Message-ID: <1200166565.8662.13.camel@prometheus.glx>
+
+Hello Arthur,
+
+you commented, that the documentation for LBRC on the webspace is a bit
+thin - thats quite right, but then - I try to get LBRC stable and that
+costs enough time. I'll happily include input for the webspace and the
+overall documentation though!
+
+Am Freitag, den 11.01.2008, 20:01 -0900 schrieb Arthur Brown:
+> [LBRC-Log of successfull run: http://pastebin.ca/851741]
+
+This looks quite good. What you can see is LBRC coming up and
+initializing the VolumeControl Profile. (So far so good)
+
+> When I run the client application
+> on my Nokia 6085, I am able to see the server, but when I select it I am
+> told the the LBRC service is not found.
+
+This is bad - bad because if you can see the server, but there seems not
+to be a service record for LBRC. Could you please start LBRCdbus and
+provide me with the output of "sdptool browse local"? There all the
+advertised services of the local bluetooth adapter are listed.
+
+>  I notice that DBUSCaller kills
+> itself when it fails to find the profile it was looking for, but I don't
+> know enough about ordinary dbus behavior or your program to know if this
+> was intended, unfortunately.
+
+Can you describe a bit more precise, I mean: what do mean by "DBUSCaller
+kills itself"?
+
+Greetins
+
+Matthias
+
+PS: Please direct your mails to lbrc-devel at lists.berlios.de, as there
+the mails are archived. You don't need to subscribe - I'll CC the list
+and direct the answers to you.
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080112/18bcf737/attachment.pgp>
+
+From a.brown at acetylene-computing.com  Sat Jan 12 22:51:54 2008
+From: a.brown at acetylene-computing.com (Arthur Brown)
+Date: Sat, 12 Jan 2008 12:51:54 -0900
+Subject: [Lbrc-devel] LBRC Installation successful but Service is not
+	discovered.
+Message-ID: <1200174714.11528.13.camel@uruk.bastardsonofgod.com>
+
+Hello,
+
+This is the output of"sdptool browse local" after calling LBRCdbus from
+console:
+
+enkidu at uruk:~$ sdptool browse local
+Browsing FF:FF:FF:00:00:00 ...
+Service Name: LBRC
+Service RecHandle: 0x10000
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 1
+
+Service Name: LBRC
+Service RecHandle: 0x10001
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 2
+
+Despite that, the LBRC service is still not being found by my cellphone
+when I select the server. Is there a means of monitoring the raw data
+sent to and from the server when it is queried for the service? I think
+that this might reveal more about the problem. Thanks again,
+
+Arthur
+
+
+
+From matthias.blaesing at rwth-aachen.de  Sat Jan 12 23:50:20 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 12 Jan 2008 23:50:20 +0100
+Subject: [Lbrc-devel] LBRC Installation successful but Service is
+	not	discovered.
+In-Reply-To: <1200174714.11528.13.camel@uruk.bastardsonofgod.com>
+References: <1200174714.11528.13.camel@uruk.bastardsonofgod.com>
+Message-ID: <1200178220.4890.9.camel@prometheus.glx>
+
+Hey,
+
+you can capture the bluetooth traffic - but that does not help much -
+you only see the packes as they go to air, and there you see the
+encrypted traffic (at least in all solutions I have seen).
+
+Could you try a newer build of the j2me client from:
+
+http://www.doppel-helix.eu/LBRC.jad and
+http://www.doppel-helix.eu/LBRC.jar
+
+I have a suspicion, that Nokia might report Norecords, but find them
+anyway. Please report the complete displayer error message.
+
+Another problem could be, that the service search by uuid is broken on
+your phone - that would be the next step.
+
+Greetings
+
+Matthias
+
+
+
+Am Samstag, den 12.01.2008, 12:51 -0900 schrieb Arthur Brown:
+> [sdptool lists LBRC as service]
+
+> Despite that, the LBRC service is still not being found by my cellphone
+> when I select the server. Is there a means of monitoring the raw data
+> sent to and from the server when it is queried for the service? I think
+> that this might reveal more about the problem. Thanks again,
+> 
+> Arthur
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080112/037571ea/attachment.pgp>
+
+From a.brown at acetylene-computing.com  Sun Jan 13 00:05:30 2008
+From: a.brown at acetylene-computing.com (Arthur Brown)
+Date: Sat, 12 Jan 2008 14:05:30 -0900
+Subject: [Lbrc-devel] LBRC Installation successful but Service is
+	not	discovered.
+In-Reply-To: <1200178220.4890.9.camel@prometheus.glx>
+References: <1200174714.11528.13.camel@uruk.bastardsonofgod.com>
+	<1200178220.4890.9.camel@prometheus.glx>
+Message-ID: <1200179130.11528.19.camel@uruk.bastardsonofgod.com>
+
+The full content of the error using the newer build of the client
+software follows:
+
+LBRC Service not found! Length of service list: 0
+
+
+If my phone is unable to search for services by uuid, would it be
+possible to force it to assume that the service is present on a
+predefined channel?
+
+Arthur
+
+
+
+From matthias.blaesing at rwth-aachen.de  Sun Jan 13 19:32:01 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 13 Jan 2008 19:32:01 +0100
+Subject: [Lbrc-devel] MPlayer module with FIFO support (was: DBUS	Daemon
+ not running)
+In-Reply-To: <1200084245.2565.3.camel@prometheus.glx>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+	<1200064349.16013.28.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111656590.24572@poblijon.ubal.to>
+	<1200069515.5999.9.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111745480.24572@poblijon.ubal.to>
+	<1200084245.2565.3.camel@prometheus.glx>
+Message-ID: <1200249121.24065.10.camel@prometheus.glx>
+
+Hey again,
+
+I think, that I have a solution. I attached a patch against the MPlayer
+module shipped with LBRC 0.5 (will commit today or tomorrow into svn).
+
+Please apply the attached patch and create a profile like the one below.
+
+The minimal config - only defining the profile for MPlayer:
+
+{
+  "generic-config": {
+    "default-profile": [
+      "user",
+      "MPlayer-FIFO"
+    ]
+  },
+  "profiles": {
+    "MPlayer-FIFO": {
+        "MPlayer":{
+          "init": [
+            {
+              "command": "connect_fifo /home/mblaesing/test"
+            }
+          ],
+          "destruct": [
+            {
+              "command": "disconnect_fifo"
+            }
+          ],
+          "actions": [
+            {
+              "command": "vo_fullscreen",
+              "keycode": "35"
+            },
+            {
+              "command": "remote_fileselect",
+              "keycode": "51"
+            },
+            {
+              "command": "pause",
+              "keycode": "50"
+            },
+            {
+              "command": "volume -5",
+              "keycode": "55"
+            },
+            {
+              "command": "mute",
+              "keycode": "56"
+            },
+            {
+              "command": "volume 5",
+              "keycode": "57"
+            }
+          ]
+        }
+    }
+  }
+}
+
+When this profile is activated (see init section) it connects to the
+fifo you specified when mplayer was started. For the test I fired
+mplayer up as: "mplayer -input file=/home/mblaesing/test -idle".
+
+As you can see you have to give the fifo you want to use. The module
+will check for the existens of the refered file/directory, but can not
+check whether it is really a fifo, so take care.
+
+When this profile is deactivated (see destruct section) it disconnects
+from fifo.
+
+While the profile is active I defined these actions:
+
+# => Switch to/from fullscreen
+2 => Un/Pause playing
+3 => Present a list of file (defaults to home dir), select and it 
+     will be played (you can navigate the directory tree)
+7 => Volume down 5%
+8 => Toggle mute
+9 => Volume up 5%
+
+As you can see - most commands directly map to mplayer slave commands.
+For the ones, that differ, please refer to the head of the Mplayer
+module for now.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: MPlayer-FIFO.patch
+Type: text/x-patch
+Size: 2847 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080113/4caefc85/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080113/4caefc85/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Jan 13 19:49:28 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 13 Jan 2008 19:49:28 +0100
+Subject: [Lbrc-devel] LBRC Installation successful but Service
+	is	not	discovered.
+In-Reply-To: <1200179130.11528.19.camel@uruk.bastardsonofgod.com>
+References: <1200174714.11528.13.camel@uruk.bastardsonofgod.com>
+	<1200178220.4890.9.camel@prometheus.glx>
+	<1200179130.11528.19.camel@uruk.bastardsonofgod.com>
+Message-ID: <1200250168.24065.22.camel@prometheus.glx>
+
+Hey Arthur,
+
+Am Samstag, den 12.01.2008, 14:05 -0900 schrieb Arthur Brown:
+> The full content of the error using the newer build of the client
+> software follows:
+> 
+> LBRC Service not found! Length of service list: 0
+
+Ok, It didn't find anything with the service search parameters LBRC
+provides. 
+
+> If my phone is unable to search for services by uuid, would it be
+> possible to force it to assume that the service is present on a
+> predefined channel?
+
+There are two approaches that have both their pros and cons.
+
+     1. Let's search on UUID basis as we currently do - if now records
+        are returned, initiate a new search, based on a broader
+        selection, that hopefully also reports our service, then step
+        through all the services and select LBRC service by identifying
+        it by its name (ugly)
+     2. Try to connect, if we fail ask user whether he wants to supply
+        the RFCOMM channel we have to use. Then we have two options for
+        the PC side: Report the dynamically acquired channel number, so
+        that the user can enter it - or let a static number be supplied.
+
+I'm not sure where to go - it could be, that I'm just missing something
+in the advertisement for the service, that makes your phone drop the
+record. Maybe I'll get a good idea over night ...
+
+Greetings
+
+Matthias
+ 
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080113/87eaa37e/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Fri Jan 18 15:30:55 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 18 Jan 2008 15:30:55 +0100
+Subject: [Lbrc-devel] LBRC Installation successful but Service
+	is	not	discovered.
+In-Reply-To: <1200179130.11528.19.camel@uruk.bastardsonofgod.com>
+References: <1200174714.11528.13.camel@uruk.bastardsonofgod.com>
+	<1200178220.4890.9.camel@prometheus.glx>
+	<1200179130.11528.19.camel@uruk.bastardsonofgod.com>
+Message-ID: <1200666655.28165.5.camel@prometheus.glx>
+
+Hey again,
+
+I did another build of the j2me client. This time, all services should
+have been reported, that are browseable. This would include services
+like obex file service. This list is now filtered by the service name (I
+think this is ugly as hell, but ...)
+
+So could you please test again:
+
+
+http://www.doppel-helix.eu/LBRC.jad and
+http://www.doppel-helix.eu/LBRC.jar
+
+Thanks
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080118/b44cbd52/attachment.pgp>
+
+From a.brown at acetylene-computing.com  Fri Jan 18 19:54:26 2008
+From: a.brown at acetylene-computing.com (Arthur Brown)
+Date: Fri, 18 Jan 2008 09:54:26 -0900
+Subject: [Lbrc-devel] LBRC Installation successful but Service
+	is	not	discovered.
+In-Reply-To: <1200666655.28165.5.camel@prometheus.glx>
+References: <1200174714.11528.13.camel@uruk.bastardsonofgod.com>
+	<1200178220.4890.9.camel@prometheus.glx>
+	<1200179130.11528.19.camel@uruk.bastardsonofgod.com>
+	<1200666655.28165.5.camel@prometheus.glx>
+Message-ID: <1200682466.6941.4.camel@memphis>
+
+During the scan process of the new client file, I receive an error
+stating: "Error adding device!", but then it connected to the service.
+Everything seems to be in working order. Could I see the source of your
+new client file? Thanks for your help,
+
+ Arthur
+
+
+
+
+
+From matthias.blaesing at rwth-aachen.de  Sat Jan 19 14:07:32 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 19 Jan 2008 14:07:32 +0100
+Subject: [Lbrc-devel] LBRC Installation successful but Service is
+	not	discovered.
+In-Reply-To: <1200682466.6941.4.camel@memphis>
+References: <1200174714.11528.13.camel@uruk.bastardsonofgod.com>
+	<1200178220.4890.9.camel@prometheus.glx>
+	<1200179130.11528.19.camel@uruk.bastardsonofgod.com>
+	<1200666655.28165.5.camel@prometheus.glx>
+	<1200682466.6941.4.camel@memphis>
+Message-ID: <1200748052.15494.4.camel@prometheus.glx>
+
+Hello,
+
+Am Freitag, den 18.01.2008, 09:54 -0900 schrieb Arthur Brown:
+> During the scan process of the new client file, I receive an error
+> stating: "Error adding device!", but then it connected to the service.
+
+This is one of the many things I currently don't fully undestand - I had
+this error too, started the scan again and everything worked ok.
+
+> Everything seems to be in working order. Could I see the source of your
+> new client file? Thanks for your help,
+
+Sure - it's not in svn currently, but I'll have another look at it and
+commit, so that the fix will get into the next release. I attached the
+relevant file - have a look at lines 81-87 and 164-169.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: LBRCDeviceSelect.java
+Type: text/x-java
+Size: 6297 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080119/897963a8/attachment.java>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080119/897963a8/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Jan 19 23:16:12 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 19 Jan 2008 23:16:12 +0100
+Subject: [Lbrc-devel] Configfile format
+Message-ID: <1200780972.21038.15.camel@prometheus.glx>
+
+Hello,
+
+I had a look at the GUI configuration system as I wanted to update it
+with the new modules ... Well I haven't done anything yet.
+
+I want to get away from the per Module Lists towards an interface, that
+is centered around the display of a typical mobile, where the user can
+map keys to actions. The relevant module sections will be created on
+that basis. So far so nice I think.
+
+But then -- json is all nice and shiny, but for an config file, I would
+like to be able to put comments into the file -- sure I can comment an
+json file, but the comments will be lost, when the file is first time
+parsed and changed in LBRC. And I'm not to happy how the internal
+configuration is handled currently. Gconf with it's notification system
+for changes would be really nice -- but then this would add a hard
+dependency on gconf. Would anyone here place a veto?
+
+Alternativly I would consider switching to XML and using the DOM as the
+main interface to the config. Then making use of inotify/dnotify on the
+linux platform would lead to similar results. An DOM approach would
+enable as to keep comments (they are just leafs in the tree) and they
+would survive the parsing.
+
+I have not yet thought about a potential DTD - I'm not sure whether to
+consider the module to be integral parts of LBRC, than there would be
+the possibility to take the internal structure of each module into
+account - or to consider modules to be very exchangeable, than there
+would be the need for a generic DTD.
+
+And I finaly I think, that keeping an XML document correctly formated is
+much easier, than json. Before the change to the json serializer, I
+considered it imposible to manual do changes to the personal json
+config.
+
+Suggestions or opionions with respect to the config system? What do you
+think?
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080119/911ff18c/attachment.pgp>
+
+From k at mo.ubal.to  Sun Jan 20 19:17:21 2008
+From: k at mo.ubal.to (tloudev)
+Date: Sun, 20 Jan 2008 19:17:21 +0100 (CET)
+Subject: [Lbrc-devel] MPlayer module with FIFO support (was: DBUS	Daemon
+ not running)
+In-Reply-To: <1200249121.24065.10.camel@prometheus.glx>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+	<1200064349.16013.28.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111656590.24572@poblijon.ubal.to>
+	<1200069515.5999.9.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111745480.24572@poblijon.ubal.to>
+	<1200084245.2565.3.camel@prometheus.glx>
+	<1200249121.24065.10.camel@prometheus.glx>
+Message-ID: <Pine.LNX.4.64.0801201911560.30866@poblijon.ubal.to>
+
+hi,
+thank you a lot, I'm testing it right now and seems to be OK.
+now the next question is, how to handle dvds inserted into the dvd-rom. I 
+mean how to select some chapter from dvd, because it's not on filesystem. 
+Maybe some "scan" of dvd and if it is present, touch files dvd://n for 
+each chapter? but how to touch filename including "/" .. hmm..
+Do you have any hint?
+    O.P.
+
+  On Sun, 13 Jan 2008, Matthias Bl?sing wrote:
+
+> Hey again,
+>
+> I think, that I have a solution. I attached a patch against the MPlayer
+> module shipped with LBRC 0.5 (will commit today or tomorrow into svn).
+>
+> Please apply the attached patch and create a profile like the one below.
+>
+> The minimal config - only defining the profile for MPlayer:
+>
+> {
+>  "generic-config": {
+>    "default-profile": [
+>      "user",
+>      "MPlayer-FIFO"
+>    ]
+>  },
+>  "profiles": {
+>    "MPlayer-FIFO": {
+>        "MPlayer":{
+>          "init": [
+>            {
+>              "command": "connect_fifo /home/mblaesing/test"
+>            }
+>          ],
+>          "destruct": [
+>            {
+>              "command": "disconnect_fifo"
+>            }
+>          ],
+>          "actions": [
+>            {
+>              "command": "vo_fullscreen",
+>              "keycode": "35"
+>            },
+>            {
+>              "command": "remote_fileselect",
+>              "keycode": "51"
+>            },
+>            {
+>              "command": "pause",
+>              "keycode": "50"
+>            },
+>            {
+>              "command": "volume -5",
+>              "keycode": "55"
+>            },
+>            {
+>              "command": "mute",
+>              "keycode": "56"
+>            },
+>            {
+>              "command": "volume 5",
+>              "keycode": "57"
+>            }
+>          ]
+>        }
+>    }
+>  }
+> }
+>
+> When this profile is activated (see init section) it connects to the
+> fifo you specified when mplayer was started. For the test I fired
+> mplayer up as: "mplayer -input file=/home/mblaesing/test -idle".
+>
+> As you can see you have to give the fifo you want to use. The module
+> will check for the existens of the refered file/directory, but can not
+> check whether it is really a fifo, so take care.
+>
+> When this profile is deactivated (see destruct section) it disconnects
+> from fifo.
+>
+> While the profile is active I defined these actions:
+>
+> # => Switch to/from fullscreen
+> 2 => Un/Pause playing
+> 3 => Present a list of file (defaults to home dir), select and it
+>     will be played (you can navigate the directory tree)
+> 7 => Volume down 5%
+> 8 => Toggle mute
+> 9 => Volume up 5%
+>
+> As you can see - most commands directly map to mplayer slave commands.
+> For the ones, that differ, please refer to the head of the Mplayer
+> module for now.
+>
+> Greetings
+>
+> Matthias
+>
+>
+
+
+--
+
+Check my PGP public key at http://poblijon.ubal.to/~tloudev/pgp.pub
+
+
+
+From matthias.blaesing at rwth-aachen.de  Sun Jan 20 19:30:16 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 20 Jan 2008 19:30:16 +0100
+Subject: [Lbrc-devel] MPlayer module with FIFO support (was:	DBUS	Daemon
+ not running)
+In-Reply-To: <Pine.LNX.4.64.0801201911560.30866@poblijon.ubal.to>
+References: <Pine.LNX.4.64.0801111043530.24572@poblijon.ubal.to>
+	<1200049302.24740.13.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111241230.24572@poblijon.ubal.to>
+	<1200064349.16013.28.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111656590.24572@poblijon.ubal.to>
+	<1200069515.5999.9.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801111745480.24572@poblijon.ubal.to>
+	<1200084245.2565.3.camel@prometheus.glx>
+	<1200249121.24065.10.camel@prometheus.glx>
+	<Pine.LNX.4.64.0801201911560.30866@poblijon.ubal.to>
+Message-ID: <1200853816.10474.4.camel@prometheus.glx>
+
+Hey,
+
+have a look at slave.txt which is part of mplayer documentation. The
+commands, that are not specially treated are directly passed to the
+mplayer process.
+
+I just tested this:
+
+mkfifo test2
+mplayer -dvd-device <dvd-device> -idle -input file=test2
+
+and run these commands:
+
+mblaesing at prometheus:~$ echo "loadfile dvd://" > test2
+mblaesing at prometheus:~$ echo "loadfile dvd://2" > test2
+mblaesing at prometheus:~$ echo "loadfile dvd://4" > test2
+
+This plays the first, second and forth title of the dvd, when the
+corresponding echo line was executed.
+
+Greetings
+
+Matthias
+
+Am Sonntag, den 20.01.2008, 19:17 +0100 schrieb tloudev:
+> hi,
+> thank you a lot, I'm testing it right now and seems to be OK.
+> now the next question is, how to handle dvds inserted into the dvd-rom. I 
+> mean how to select some chapter from dvd, because it's not on filesystem. 
+> Maybe some "scan" of dvd and if it is present, touch files dvd://n for 
+> each chapter? but how to touch filename including "/" .. hmm..
+> Do you have any hint?
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080120/dad06205/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Thu Jan 24 14:26:55 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Thu, 24 Jan 2008 14:26:55 +0100
+Subject: [Lbrc-devel] Preparing the next release
+Message-ID: <1201181215.31249.13.camel@prometheus.glx>
+
+Hey all,
+
+I would like to the the next release out of the door in the next few
+days. It will be mostly a bugfix release, as there are some bigger
+things I'm trying out, that will take longer to finish and I don't know
+when they will be ready (MusicControl, Text+NumberInput).
+
+I have one thing that I will fix before release: The 2kB limit for the
+packet size was lifted on the j2me part - the python server checks never
+the less.
+
+So is there anything left? If you want to test and were running LRBC out
+of the dir created by the source tar ball, you can do the same with the
+latest svn version:
+
+svn co checkout http://svn.berlios.de/svnroot/repos/lbrc/trunk lbrc-trunk
+
+This will create a directory lbrc-trunk inside the current directory,
+which contains the same things, as the tar-ball (+svn directories).
+
+If you have an installed version, you have to launsch LBRCdbus yourself,
+prior to running LBRC-applet - if you don't do this, the installed
+LBRCdbus will be launched.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080124/d5bca540/attachment.pgp>
+
+From nitinm76 at yahoo.com  Sat Jan 26 09:36:42 2008
+From: nitinm76 at yahoo.com (Nitin Mahajan)
+Date: Sat, 26 Jan 2008 08:36:42 +0000 (GMT)
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+Message-ID: <996035.24907.qm@web50107.mail.re2.yahoo.com>
+
+Hello!
+
+I was trying to setup LBRC on my ubuntu 7.10. Till
+builds everything was fine.
+
+While I run # ./LBRCdbus --debug
+
+I get the following errors. 
+ 
+Traceback (most recent call last):
+  File "./LBRCdbus", line 13, in <module>
+    brs = Core(debug=logging.DEBUG)
+  File
+"/home/nitin/downloads/lbrc-0.5/LBRC/dbusinterface.py",
+line 195, in __init__
+    bus_name = dbus.service.BusName(DBUSNAME,
+bus=dbus.SessionBus())
+  File
+"/var/lib/python-support/python2.5/dbus/_dbus.py",
+line 218, in __new__
+    mainloop=mainloop)
+  File
+"/var/lib/python-support/python2.5/dbus/_dbus.py",
+line 107, in __new__
+    bus = BusConnection.__new__(subclass, bus_type,
+mainloop=mainloop)
+  File
+"/var/lib/python-support/python2.5/dbus/bus.py", line
+121, in __new__
+    bus = cls._new_for_bus(address_or_type,
+mainloop=mainloop)
+dbus.exceptions.DBusException:
+org.freedesktop.DBus.Error.NoReply: Did not receive a
+reply. Possible causes include: the remote application
+did not send a reply, the message bus security policy
+blocked the reply, the reply timeout expired, or the
+network connection was broken.
+
+I am not familiar with D-BUS and Python. Can someone
+please help me?
+
+I wish to use NOKIA E-Series phones like E-70, E61,
+E61i with this. Whether the default mappings for keys
+would work or there will have to be new key mappings
+or these phones?
+
+Thanking in advance
+
+regards
+
+-Nitin
+
+
+Send instant messages to your online friends http://uk.messenger.yahoo.com 
+
+
+From matthias.blaesing at rwth-aachen.de  Sat Jan 26 10:24:14 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 26 Jan 2008 10:24:14 +0100
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+In-Reply-To: <996035.24907.qm@web50107.mail.re2.yahoo.com>
+References: <996035.24907.qm@web50107.mail.re2.yahoo.com>
+Message-ID: <1201339454.7372.11.camel@prometheus.glx>
+
+Hello Nitin,
+
+I think you run into a problem, because the dbus session bus is not
+running.
+
+I assume, that you try to run LBRC as root (I saw the hash indicating
+the root prompt). Apart from the fact that this is strongly discouraged
+from a security point of view, you are faced with the problem, that for
+root no dbus session bus is started (normaly). 
+
+This can be done like this:
+
+eval `dbus-launch`
+export DBUS_SESSION_BUS_ADDRESS
+export DBUS_SESSION_BUS_PID
+
+The first line runs dbus-launch, which output Variables, that can be
+used to access the session bus. They are passed into the calling shell
+by evaluating the output. After that we have to make sure the variables
+are passed to our child processes so we export the variables.
+
+After that try to run LBRC again - it should at least come up at all.
+
+Towards the mappings - All the default Keys (that is number and *,#)
+should work without a problem. Problems could arise with special keys
+(the steering cross or the photo button or something like this). But
+even these seem to be pretty similar even between manufactures. So give
+it a try and it should be trivial to tweak the existing profiles.
+
+HTH
+
+Matthias
+
+Am Samstag, den 26.01.2008, 08:36 +0000 schrieb Nitin Mahajan:
+> Hello!
+> 
+> I was trying to setup LBRC on my ubuntu 7.10. Till
+> builds everything was fine.
+> 
+> While I run # ./LBRCdbus --debug
+> 
+> I get the following errors. 
+>  
+> Traceback (most recent call last):
+>   File "./LBRCdbus", line 13, in <module>
+>     brs = Core(debug=logging.DEBUG)
+>   File
+> "/home/nitin/downloads/lbrc-0.5/LBRC/dbusinterface.py",
+> line 195, in __init__
+>     bus_name = dbus.service.BusName(DBUSNAME,
+> bus=dbus.SessionBus())
+>   File
+> "/var/lib/python-support/python2.5/dbus/_dbus.py",
+> line 218, in __new__
+>     mainloop=mainloop)
+>   File
+> "/var/lib/python-support/python2.5/dbus/_dbus.py",
+> line 107, in __new__
+>     bus = BusConnection.__new__(subclass, bus_type,
+> mainloop=mainloop)
+>   File
+> "/var/lib/python-support/python2.5/dbus/bus.py", line
+> 121, in __new__
+>     bus = cls._new_for_bus(address_or_type,
+> mainloop=mainloop)
+> dbus.exceptions.DBusException:
+> org.freedesktop.DBus.Error.NoReply: Did not receive a
+> reply. Possible causes include: the remote application
+> did not send a reply, the message bus security policy
+> blocked the reply, the reply timeout expired, or the
+> network connection was broken.
+> 
+> I am not familiar with D-BUS and Python. Can someone
+> please help me?
+> 
+> I wish to use NOKIA E-Series phones like E-70, E61,
+> E61i with this. Whether the default mappings for keys
+> would work or there will have to be new key mappings
+> or these phones?
+> 
+> Thanking in advance
+> 
+> regards
+> 
+> -Nitin
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080126/c123766d/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Jan 26 12:29:40 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 26 Jan 2008 12:29:40 +0100
+Subject: [Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+In-Reply-To: <347313.9960.qm@web50108.mail.re2.yahoo.com>
+References: <347313.9960.qm@web50108.mail.re2.yahoo.com>
+Message-ID: <1201346980.19481.6.camel@prometheus.glx>
+
+Hey again,
+
+Am Samstag, den 26.01.2008, 10:45 +0000 schrieb Nitin Mahajan:
+> Textinput for characters is not happening.
+
+I'm not sure what to make out of that sentence, but if you mean that you
+activated the Keyboard Profile (I just realise, that the current name is
+not optimal - will be fixed in the next release) and can't control the
+mouse/keyboard, there are some possible problems.
+
+Please run LBRCdbus with --debug and have a look at/provide us with the
+output, after you pressed some of the keys on the mobile.
+
+Greetings
+
+Matthias
+
+PS: Please keep lbrc-devel in the CC (or even better send the emails
+directly to lbrc-devel, as they are archived there and I'm obviously
+subscibed)
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080126/fdeef751/attachment.pgp>
+
+From paessler at gmx.de  Wed Jan 30 18:02:38 2008
+From: paessler at gmx.de (Daniel =?ISO-8859-1?Q?P=E4=DFler?=)
+Date: Wed, 30 Jan 2008 18:02:38 +0100
+Subject: [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+Message-ID: <1201712559.14895.13.camel@iphigenie.paessler.home>
+
+hi to all,
+
+i'm new to this list, so hello to all members ;)
+today i tried to get LBRC working, but got the same errors as tloudev:
+
+> kino / # LBRCdbus
+> Traceback (most recent call last):
+>    File "/usr/bin/LBRCdbus", line 15, in <module>
+>      brs = Core()
+>    File "/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py", line 204, 
+> in __init__
+>      self.btserver = BTServer()
+>    File "/usr/lib/python2.5/site-packages/LBRC/BTServer.py", line 193, in 
+> __init__
+>      self.port = bluetooth.get_available_port( bluetooth.RFCOMM )
+> AttributeError: 'module' object has no attribute 'get_available_port'
+
+after some trying and reading the list, i patched BTServer.py as suggested by matthias.
+bluetooth is up and running, uinput is loaded and /dev/input/uinput is rw for all users.
+however, when i run "LBRCdbus --debug" i get this (the error message is in german, translated from: "File descriptor in bad state",
+but i think, matthias will know ;) ) :
+
+[paessler at iphigenie pts/1] LBRCdbus --debug
+Traceback (most recent call last):
+  File "/usr/bin/LBRCdbus", line 13, in <module>
+    brs = Core(debug=logging.DEBUG)
+  File "/usr/lib64/python2.5/site-packages/LBRC/dbusinterface.py", line 204, in __init__
+    self.btserver = BTServer()
+  File "/usr/lib64/python2.5/site-packages/LBRC/BTServer.py", line 194, in __init__
+    self.server_sock.listen(1)
+  File "<string>", line 5, in listen
+bluetooth.btcommon.BluetoothError: (77, 'Die Dateizugriffsnummer ist in schlechter Verfassung')
+
+any idea, what's wrong there?
+
+thanks
+
+daniel
+
+
+
+From matthias.blaesing at rwth-aachen.de  Wed Jan 30 22:59:22 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 30 Jan 2008 22:59:22 +0100
+Subject: [Lbrc-devel] CPU-Architectures
+Message-ID: <1201730362.27374.3.camel@prometheus.glx>
+
+Hello,
+
+as I'm currently try to setup an amd64 build machine (emulated inside
+qemu) I would like to ask you on which platforms you would lbrc to run
+natively. Natively in the sense, that uinputbridge requires to be build
+on each platform and I plan to only build debian packages for the amd64
+and x86 platform. If someine steps and tells me hes running lbrc on an
+mach64 or something I'll try to get a build, but before I try this I
+would like to know whether there is demand.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080130/ae0aa4d5/attachment.pgp>
+

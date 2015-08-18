@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] N80 internet edition firmware
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20N80%20internet%20edition%20firmware&In-Reply-To=%3C4284163a0808020232x6fe0328bi1f6448734678b078%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000132.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] N80 internet edition firmware</H1>
+    <B>Peter Nagy</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20N80%20internet%20edition%20firmware&In-Reply-To=%3C4284163a0808020232x6fe0328bi1f6448734678b078%40mail.gmail.com%3E"
+       TITLE="[Lbrc-devel] N80 internet edition firmware">nagper at gmail.com
+       </A><BR>
+    <I>Sat Aug  2 11:32:15 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000132.html">[Lbrc-devel] N80 internet edition firmware
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#131">[ date ]</a>
+              <a href="thread.html#131">[ thread ]</a>
+              <a href="subject.html#131">[ subject ]</a>
+              <a href="author.html#131">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi!
+
+Does LBRC works with N80 internet edition? With an older firmware It
+worked but after upgrading my mobile firmware I have the following
+problem:
+
+LBRCdbus --debug:
+
+LBRC.BTServer                      : DEBUG    Trying to register service:
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;record&gt;
+        &lt;attribute id=&quot;0x0001&quot;&gt;
+             &lt;uuid value=&quot;9c6c8dce-9545-11dc-a3c1-0011d8388a56&quot; /&gt;
+        &lt;/attribute&gt;
+        &lt;attribute id=&quot;0x0004&quot;&gt;
+                &lt;sequence&gt;
+                        &lt;sequence&gt;
+                                &lt;uuid value=&quot;0x0100&quot; /&gt;
+                        &lt;/sequence&gt;
+                        &lt;sequence&gt;
+                                &lt;uuid value=&quot;0x0003&quot; /&gt;
+                                &lt;uint8 value=&quot;1&quot; /&gt;
+                        &lt;/sequence&gt;
+                &lt;/sequence&gt;
+        &lt;/attribute&gt;
+        &lt;attribute id=&quot;0x0100&quot;&gt;
+            &lt;text value=&quot;LBRC&quot; name=&quot;name&quot;/&gt;
+        &lt;/attribute&gt;
+&lt;/record&gt;
+
+LBRC.Listener.UInputDispatcher     : DEBUG    __init__ begin
+LBRC.Listener.UInputDispatcher     : DEBUG    __init__ of baseclass done
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing
+/dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a
+suitable uinput device node: /dev/input/uinput
+LBRC                               : DEBUG    Initiablized Event
+Listener: &lt;class 'LBRC.UinputDispatcher.UinputDispatcher'&gt;
+LBRC.Listener.CommandExecutor      : DEBUG    __init__ begin
+LBRC.Listener.CommandExecutor      : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: &lt;class 'LBRC.CommandExecutor.CommandExecutor'&gt;
+LBRC.Listener.DBUSCaller           : DEBUG    __init__ begin
+LBRC.Listener.DBUSCaller           : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: &lt;class 'LBRC.DBUSCaller.DBUSCaller'&gt;
+LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ begin
+LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: &lt;class 'LBRC.ProfileSwitcher.ProfileSwitcher'&gt;
+LBRC.Listener.MPlayer              : DEBUG    __init__ begin
+LBRC.Listener.MPlayer              : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: &lt;class 'LBRC.MPlayer.MPlayer'&gt;
+LBRC.Listener.PresentationCompanion: DEBUG    __init__ begin
+LBRC.Listener.PresentationCompanion: DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: &lt;class 'LBRC.PresentationCompanion.PresentationCompanion'&gt;
+LBRC.Listener.VolumeControl        : DEBUG    __init__ begin
+LBRC.Listener.VolumeControl        : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: &lt;class 'LBRC.VolumeControl.VolumeControl'&gt;
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC.Listener.UInputDispatcher     : DEBUG    set_profile(system,
+Volume Control)
+LBRC.Listener.UInputDispatcher     : DEBUG
+_interpret_profile(system, Volume Control)
+LBRC.Listener.UInputDispatcher     : DEBUG    Error fetching config
+section for system profile from Volume Control config
+LBRC.Listener.UInputDispatcher     : DEBUG    No actions were defined
+LBRC.Listener.CommandExecutor      : DEBUG    set_profile called
+LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile called
+LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating init
+LBRC.Listener.CommandExecutor      : DEBUG    failure while
+interprating destruct
+LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating actions
+LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile finished
+LBRC.Listener.CommandExecutor      : DEBUG    set_profile finished
+LBRC.Listener.DBUSCaller           : DEBUG    set_profile called
+LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile called
+LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating init
+LBRC.Listener.DBUSCaller           : DEBUG    failure while
+interprating destruct
+LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating actions
+LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile finished
+LBRC.Listener.DBUSCaller           : DEBUG    set_profile finished
+LBRC.Listener.PresentationCompanion: DEBUG    set_profile called
+LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile called
+LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating init
+LBRC.Listener.PresentationCompanion: DEBUG    failure while
+interprating destruct
+LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating actions
+LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile finished
+LBRC.Listener.PresentationCompanion: DEBUG    set_profile finished
+LBRC.Listener.VolumeControl        : DEBUG    set_profile called
+LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile called
+LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile finished
+LBRC.Listener.VolumeCommand        : DEBUG    Command: {'SetDefault':
+{'sound_system': 'alsa'}}
+LBRC.Listener.VolumeCommand        : DEBUG    Setting defaults
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowChannels': [{'channel': 'Master'}, {'channel': 'PCM'}]}
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowVolumeControl': True}
+LBRC.Listener.VolumeCommand        : DEBUG    Getting BT Connection
+LBRC.Listener.VolumeCommand        : DEBUG    Got: None
+LBRC.Listener.VolumeCommand        : DEBUG    Calling VolumeUpdate
+LBRC.Listener.VolumeControl        : DEBUG    set_profile finished
+LBRC                               : DEBUG    Reload config
+
+
+...this is only the initilaziation of LBRC. I think I can't connect to
+LBRC because whilst connecting it doesn't say anything.
+
+
+syslog:
+
+Aug  2 10:06:37 nagper-desktop NetworkManager: &lt;debug&gt;
+[1217667997.793594] nm_hal_device_added(): New device added (hal udi
+is '/org/freedesktop/Hal/devices/bluetooth_acl_12d18da1c4').
+Aug  2 10:06:47 nagper-desktop NetworkManager: &lt;debug&gt;
+[1217668007.114549] nm_hal_device_removed(): Device removed (hal udi
+is '/org/freedesktop/Hal/devices/bluetooth_acl_12d18da1c4').
+
+/var/log/messages:
+
+Aug  2 10:05:38 nagper-desktop kernel: [ 5294.513633] input: Linux
+Bluetooth Remote Control as /devices/virtual/input/input10
+Aug  2 10:05:56 nagper-desktop kernel: [ 5312.250784] input: Linux
+Bluetooth Remote Control as /devices/virtual/input/input11
+
+S60 java application:
+1. Starting the application -&gt; &quot;scanning for devices&quot; -&gt; Found:
+&quot;nagper-desktop-0&quot;
+2. Clicking on it -&gt; Checking for service -&gt; LBRC Service not found!
+Length of service list: 0&quot;
+
+
+I've tried it with an up-to-date ubuntu (Hardy) and with an Ubuntu
+(Hardy) Live CD (without updates)
+I've tried the SVN version of LBRC as well.
+I'll try other live CD-s to be sure it is because of the mobile
+firmware upgrade.
+
+
+Thanks!
+Peter
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000132.html">[Lbrc-devel] N80 internet edition firmware
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#131">[ date ]</a>
+              <a href="thread.html#131">[ thread ]</a>
+              <a href="subject.html#131">[ subject ]</a>
+              <a href="author.html#131">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

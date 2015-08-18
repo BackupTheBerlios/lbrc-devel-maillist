@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Ubuntu LBRCdbus failure
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Ubuntu%20LBRCdbus%20failure&In-Reply-To=%3C1210016306.15729.2.camel%40sycorax%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000117.html">
+   <LINK REL="Next"  HREF="000119.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Ubuntu LBRCdbus failure</H1>
+    <B>Risto Karjalainen</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Ubuntu%20LBRCdbus%20failure&In-Reply-To=%3C1210016306.15729.2.camel%40sycorax%3E"
+       TITLE="[Lbrc-devel] Ubuntu LBRCdbus failure">risto.karjalainen at uta.fi
+       </A><BR>
+    <I>Mon May  5 21:38:26 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000117.html">[Lbrc-devel] Ubuntu LBRCdbus failure
+</A></li>
+        <LI>Next message: <A HREF="000119.html">[Lbrc-devel] Release of 0.6.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#118">[ date ]</a>
+              <a href="thread.html#118">[ thread ]</a>
+              <a href="subject.html#118">[ subject ]</a>
+              <a href="author.html#118">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, 2008-05-05 at 21:18 +0200, Matthias Bl&#228;sing wrote:
+&gt;<i> could you have a look at line 167 of dbusinterface.py.
+</I>&gt;<i> 
+</I>&gt;<i> It should read:
+</I>&gt;<i> 
+</I>&gt;<i> @dbus.service.signal(DBUSIFACE, signature='sisssssidsiisisss')
+</I>&gt;<i> 
+</I>&gt;<i> change that to:
+</I>&gt;<i> 
+</I>&gt;<i> @dbus.service.signal(DBUSIFACE, signature='sisssssidsixsisss')
+</I>
+This did indeed fix it. Thanks.
+
+Regards, 
+Risto Karjalainen
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000117.html">[Lbrc-devel] Ubuntu LBRCdbus failure
+</A></li>
+	<LI>Next message: <A HREF="000119.html">[Lbrc-devel] Release of 0.6.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#118">[ date ]</a>
+              <a href="thread.html#118">[ thread ]</a>
+              <a href="subject.html#118">[ subject ]</a>
+              <a href="author.html#118">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

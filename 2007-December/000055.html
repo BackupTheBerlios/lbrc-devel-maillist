@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] [Announce] LBRC 0.5
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20%5BAnnounce%5D%20LBRC%200.5&In-Reply-To=%3C1198794653.526.9.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000054.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] [Announce] LBRC 0.5</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20%5BAnnounce%5D%20LBRC%200.5&In-Reply-To=%3C1198794653.526.9.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] [Announce] LBRC 0.5">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Thu Dec 27 23:30:53 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000054.html">[Lbrc-devel] [Announce] LBRC 0.5
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello again,
+
+if you notice a delay, between connection the phone and being able to do
+something useful, then you hit a python-bluetooth bug. It is caused by
+the name lookup for a device running into a timeout.
+
+This was easily fixed by switching to the bluez dbus api to do the job.
+So if your facing this problem either apply the attached patch or
+checkout svn-trunk. I'll try to fix some more problems, do some of the
+improvements I announced and get another version out in the middle of
+January.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: dbus_lookup_name.patch
+Type: text/x-patch
+Size: 1804 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071227/b504b8b2/attachment.bin">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071227/b504b8b2/attachment.bin</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071227/b504b8b2/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071227/b504b8b2/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000054.html">[Lbrc-devel] [Announce] LBRC 0.5
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

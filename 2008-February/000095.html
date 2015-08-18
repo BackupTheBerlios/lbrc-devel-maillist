@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20org.freedesktop.DBus.Error.ServiceUnknown&In-Reply-To=%3C20080226225517.d30efe25.marek%40exel.pl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000094.html">
+   <LINK REL="Next"  HREF="000096.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown</H1>
+    <B>Marek Denis</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20org.freedesktop.DBus.Error.ServiceUnknown&In-Reply-To=%3C20080226225517.d30efe25.marek%40exel.pl%3E"
+       TITLE="[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown">marek at exel.pl
+       </A><BR>
+    <I>Tue Feb 26 22:55:17 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000094.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+        <LI>Next message: <A HREF="000096.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, 26 Feb 2008 11:27:40 -0300
+Iuri Diniz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">iuridiniz at yahoo.com.br</A>&gt; wrote:
+
+&gt;<i> I think you need bluetooth services
+</I>&gt;<i>
+</I>what exactly? I have working bluetooth services (I am able to send and receive files from my mobile, so it works...) 
+ 
+&gt;<i> 
+</I>&gt;<i> What's the output generated from:
+</I>&gt;<i> 
+</I>&gt;<i> dbus-send --system --print-reply
+</I>&gt;<i> --dest=org.freedesktop.DBus /org/freedesktop/DBus
+</I>&gt;<i> org.freedesktop.DBus.ListNames
+</I>
+this is the output. As I wrote previously I am a bit confised and don't have any idea where I can do ANY of search...
+
+localhost ~ # dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.ListNames
+method return sender=org.freedesktop.DBus -&gt; dest=:1.3
+   array [
+      string &quot;org.freedesktop.DBus&quot;
+      string &quot;:1.3&quot;
+      string &quot;:1.0&quot;
+      string &quot;:1.1&quot;
+   ]
+
+
+regards
+
+Marek
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000094.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+	<LI>Next message: <A HREF="000096.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

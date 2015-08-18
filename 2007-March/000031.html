@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Paths and the mess with distutils
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Paths%20and%20the%20mess%20with%20distutils&In-Reply-To=%3C1174173191.10498.8.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000030.html">
+   <LINK REL="Next"  HREF="000032.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Paths and the mess with distutils</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Paths%20and%20the%20mess%20with%20distutils&In-Reply-To=%3C1174173191.10498.8.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Paths and the mess with distutils">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sun Mar 18 00:13:11 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000030.html">[Lbrc-devel] Paths and the mess with distutils
+</A></li>
+        <LI>Next message: <A HREF="000032.html">[Lbrc-devel] Updates on the weekend
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I implemented it, but considering it again, I don't see a real benefit.
+The problem of getting the bin-dir into the path of the user stays, the
+modules won't be in the standard search path, ...
+
+Without some serious knowledge about the distributions (currently only
+gobolinux (mentioned by Iuri) and SuSE (at least sometime a few months
+ago) are known to install to locations not following the FHS under /usr)
+there is no real benefit of it. Ok, it is now configurable (but this
+will stay a build time adjustment!)
+
+Mfg
+
+Matthias
+
+PS: Who on earth does gobolinux manage it's libs, includes, ... ? When I
+understand the concept correctly gtk, each python module, ... resides in
+it's own directory - great i don't wanna see the necessary
+LD_LIBRARY_PATHS/ld.so.confs ...
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+&quot;Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren.&quot;
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070318/89453f2c/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070318/89453f2c/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000030.html">[Lbrc-devel] Paths and the mess with distutils
+</A></li>
+	<LI>Next message: <A HREF="000032.html">[Lbrc-devel] Updates on the weekend
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

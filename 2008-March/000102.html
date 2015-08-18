@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] lbrc and nokia E70
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20lbrc%20and%20nokia%20E70&In-Reply-To=%3C1205249072.13436.23.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000101.html">
+   <LINK REL="Next"  HREF="000103.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] lbrc and nokia E70</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20lbrc%20and%20nokia%20E70&In-Reply-To=%3C1205249072.13436.23.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] lbrc and nokia E70">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Tue Mar 11 16:24:32 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000101.html">[Lbrc-devel] [Fwd: Re:  Dbus problem]
+</A></li>
+        <LI>Next message: <A HREF="000103.html">[Lbrc-devel] lbrc and nokia E70
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#102">[ date ]</a>
+              <a href="thread.html#102">[ thread ]</a>
+              <a href="subject.html#102">[ subject ]</a>
+              <a href="author.html#102">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey Chris,
+
+I fully quoted your email, because I direct a copy to the lbrc-devel
+mailinglists, so that the answer gets archived. I would also advise you
+to write your mails directly to the list, as there are more people, that
+can help.
+
+Am Dienstag, den 11.03.2008, 15:05 +0200 schrieb Chris Picton:
+&gt;<i> Hi
+</I>&gt;<i> 
+</I>&gt;<i> I am testing lbrc, and I like what I see so far, but I have a problem:
+</I>&gt;<i> 
+</I>&gt;<i> My phone has a full keyboard, and I have been trying to make a profile
+</I>&gt;<i> for it.
+</I>&gt;<i> 
+</I>&gt;<i> I see in input.h that there are mappings for uppercase letters only:  My
+</I>&gt;<i> config has:
+</I>&gt;<i> 
+</I>&gt;<i>           {
+</I>&gt;<i>             &quot;type&quot;: &quot;key&quot;,
+</I>&gt;<i>             &quot;map_to&quot;: &quot;A&quot;,
+</I>&gt;<i>             &quot;keycode&quot;: 97,
+</I>&gt;<i>             &quot;repeat_freq&quot;: 0
+</I>&gt;<i>           },
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> This works, and sends through a lowercase 'a' when I press 'a' on my
+</I>&gt;<i> phone
+</I>&gt;<i> 
+</I>&gt;<i> If I press shift-a on my phone, I get a different keycode (65).
+</I>&gt;<i> 
+</I>&gt;<i> How will I map this in my profile?
+</I>
+You have to create a new entry  for that keycode. You have to change the
+mapping. The problem is caused by the fact, that the input system is
+modelled after the way a keyboard works - the board doe not send three
+different codes for one key when you press shift or Alt-Gr. The phone
+shows a different behaviour (or more probable - the software layer wants
+to be intelligent).
+
+The UInput Module is intelligent enough to handle these cases. You can
+define whole keycode sequences, that should be send to the kernel.
+
+map_to = &quot;A&quot; whould then be: 
+map_to = &quot;LEFTSHIFT+A&quot; or 
+map_to = &quot;RIGHTSHIFT+A&quot;
+
+You can concatenate as many keys as you want (or at least as many keys,
+as the kernel buffer can hold - I have no idea where the limits lie ;-)
+
+&gt;<i> Also, my phone has a # key, but I see no option for # in the input.h
+</I>&gt;<i> file.  How would I handle this?
+</I>
+Yeah! I just noticed this problem ... this caused by the fact, that most
+keycodes have nice names - I didn't think about the fact, that the
+keycodes don't uniquely correspond to symbols (compare an english and a
+german keyboard). The keycode stays with the key, but the symbol
+changes.
+
+You can get the code by running xev and pressing the key you want to
+generate. Then you have to look into consts.py to find the right name.
+Yes I know - I hate it too -- there has to be a way around this...
+
+For # this should be on a german locale I get keycode 51 and this is
+COMMA.
+
+&gt;<i> Thanks for the app - it looks like I will use it a lot to control my
+</I>&gt;<i> mythtv server.
+</I>
+Nice ;-)
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080311/1524a007/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080311/1524a007/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000101.html">[Lbrc-devel] [Fwd: Re:  Dbus problem]
+</A></li>
+	<LI>Next message: <A HREF="000103.html">[Lbrc-devel] lbrc and nokia E70
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#102">[ date ]</a>
+              <a href="thread.html#102">[ thread ]</a>
+              <a href="subject.html#102">[ subject ]</a>
+              <a href="author.html#102">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

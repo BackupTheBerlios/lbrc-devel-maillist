@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] config file format proposal
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20config%20file%20format%20proposal&In-Reply-To=%3C1173725265.21647.23.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000023.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] config file format proposal</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20config%20file%20format%20proposal&In-Reply-To=%3C1173725265.21647.23.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] config file format proposal">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Mon Mar 12 19:47:45 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000023.html">[Lbrc-devel] config editor 2nd preview and a lot of changes
+</A></li>
+        <LI>Next message: <A HREF="000025.html">[Lbrc-devel] config editor 2nd preview and a lot of changes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey again,
+
+when were at it - we should rethink the configurationfile dilemma.
+Currently we are faced with two files we have to take into account
+(profiles.conf and config.conf), where in config.conf only two options
+are really used.
+
+I would propose an approach, where the toplevel datastructure is a dict,
+that contains an entry for each profile, with it's (readable) name as a
+key. One exception from this would be a &quot;Generic&quot;/&quot;General&quot; Entry, that
+contains the config options. Within each profile (also a dict structure)
+there would be one entry per Module (UInputDispatcher, CommandExecuter,
+more potential Modules). For each module I think also a dict structure
+would be a good structure. With entries: init, actions and destruct.
+With init and destruct containing actions invoked on profile
+activation/deactivation and keycodes containing the actions to be
+invoked on a keypress.
+
+I think the init/destruct sections make most sense for the
+CommandExecuter or a potential DBUS/MPlayer Module. For an example see
+the attached textfile.
+
+Please take this as an RFC
+
+Mfg
+
+Matthias
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+-------------- next part --------------
+{
+&quot;Generic&quot;: 
+	{
+	'uinputdevice': '&lt;device&gt;',
+	'defaultprofile': '&lt;profile&gt;'
+	}
+&quot;Nokia 6230i Mausprofil&quot;:
+	{
+	&quot;UinputDispatcher&quot;:
+		{
+		&quot;actions&quot;:
+			[
+			    {
+                    &quot;keycode&quot;: &quot;50&quot;,
+                    &quot;type&quot;: &quot;key&quot;,
+                    &quot;map_to&quot;: &quot;UP&quot;,
+                    &quot;repeat_freq&quot;: &quot;20&quot;
+                },
+                {
+                    &quot;keycode&quot;: &quot;4294967286&quot;,
+                    &quot;type&quot;: &quot;mousebutton&quot;,
+                    &quot;map_to&quot;: &quot;LEFT&quot;
+                }
+                {
+                    &quot;keycode&quot;:  &quot;4294967294&quot;,
+                    &quot;type&quot;: &quot;mouseaxis&quot;,
+                    &quot;map_to&quot;: &quot;+Y&quot;
+                }
+			]
+		},
+    CommandExecutor:
+        {
+        &quot;init&quot;:
+            [
+                {
+                    &quot;command&quot;: &quot;&lt;command1&gt;&quot;,
+                    &quot;arguments&quot;: 
+                        [
+                            &quot;&lt;arg1&gt;&quot;,
+                            &quot;&lt;arg2&gt;&quot;,
+                            &quot;&lt;arg3&gt;&quot;
+                        ]
+                }
+            ],
+        &quot;actions&quot;:
+            [
+                {
+                    &quot;keycode&quot;: &quot;&lt;keycode&gt;&quot;,
+                    &quot;mapping&quot;: &quot;&lt;mapping&gt;&quot;,
+                    &quot;command&quot;: &quot;&lt;command2&gt;&quot;,
+                    &quot;arguments&quot;:
+                        [
+                            &quot;&lt;arg1&gt;&quot;,
+                            &quot;&lt;arg2&gt;&quot;,
+                            &quot;&lt;arg3&gt;&quot;
+                        ]
+                }
+            ]
+        },
+        &quot;destruct&quot;:
+            [
+                 {
+                    &quot;command&quot;: &quot;&lt;command3&gt;&quot;,
+                    &quot;arguments&quot;: 
+                        [
+                            &quot;&lt;arg1&gt;&quot;,
+                            &quot;&lt;arg2&gt;&quot;,
+                            &quot;&lt;arg3&gt;&quot;
+                        ]
+                }
+            ]
+	}
+}
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070312/ae93875e/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070312/ae93875e/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000023.html">[Lbrc-devel] config editor 2nd preview and a lot of changes
+</A></li>
+	<LI>Next message: <A HREF="000025.html">[Lbrc-devel] config editor 2nd preview and a lot of changes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

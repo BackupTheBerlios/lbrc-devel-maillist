@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Generic Bluetooth HID?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Generic%20Bluetooth%20HID%3F&In-Reply-To=%3C1178891108.29242.11.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000043.html">
+   <LINK REL="Next"  HREF="000045.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Generic Bluetooth HID?</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Generic%20Bluetooth%20HID%3F&In-Reply-To=%3C1178891108.29242.11.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Generic Bluetooth HID?">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Fri May 11 15:45:08 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000043.html">[Lbrc-devel] Generic Bluetooth HID?
+</A></li>
+        <LI>Next message: <A HREF="000045.html">[Lbrc-devel] Generic Bluetooth HID?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#44">[ date ]</a>
+              <a href="thread.html#44">[ thread ]</a>
+              <a href="subject.html#44">[ subject ]</a>
+              <a href="author.html#44">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Lars,
+
+Am Freitag, den 11.05.2007, 14:21 +0200 schrieb Lars G&#229;rden:
+&gt;<i> This is probably a stupid question, but..
+</I>
+There are no stupid questions, just stupid answers!
+
+&gt;<i> Why is lbrc implementing its own protocol instead of writing a HID
+</I>&gt;<i> client running on mobile phones? The advantage of HID would be that it
+</I>&gt;<i> would look like a regular bluetooth keyboard/mouse to the computer.
+</I>&gt;<i> Since HID is implemented in all modern OSes, you wouldn't need an
+</I>&gt;<i> extra application running on the PC.
+</I>
+Actually when I started this project I had absolutely no idea what is
+necessary to implement a service like this. The basic motivation was a
+Mac Programm, that a professor at universaty used to control his
+notebook. Half a year later I was reminded by a blog entry where a
+skeleton for a simple remote control was partitally implemented.
+
+This was the start - the first idea was to just throw the keycodes from
+the phone to the pc and that was it. With the resent protocal change the
+foundation for a bi-directional communication was laid (currently the
+modules can request a list selection and react to the selection).
+
+And (something I really begin to like) there is the possibility to use
+different profile concurrently. The 0.4 version will be put out with
+modules to control applications via DBUS, has a mplayer module, can
+execute arbitrary commands and also offers Keyboard/Mouse Control.
+
+So I have one profile, with which I can control the mouse, then I switch
+to the Rhythmbox profile, adjust music and swithc back to mouse control.
+I like this greater flexibility.
+
+&gt;<i> ..or is the reason that JSR82 doesn't expose the required
+</I>&gt;<i> functionality to implement a HID device?
+</I>
+I really don't know! But the JSR82/J2ME implementers seem to be a bit
+lazy when it comes to completeness and more exotic functionality seems
+to be missing quite often.
+
+HTH
+
+Matthias
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+&quot;Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren.&quot;
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070511/a1b32a8b/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070511/a1b32a8b/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000043.html">[Lbrc-devel] Generic Bluetooth HID?
+</A></li>
+	<LI>Next message: <A HREF="000045.html">[Lbrc-devel] Generic Bluetooth HID?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#44">[ date ]</a>
+              <a href="thread.html#44">[ thread ]</a>
+              <a href="subject.html#44">[ subject ]</a>
+              <a href="author.html#44">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

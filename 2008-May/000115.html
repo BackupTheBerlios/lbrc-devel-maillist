@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Ubuntu LBRCdbus failure
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Ubuntu%20LBRCdbus%20failure&In-Reply-To=%3C1209937643.25362.6.camel%40sycorax%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000116.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Ubuntu LBRCdbus failure</H1>
+    <B>Risto Karjalainen</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Ubuntu%20LBRCdbus%20failure&In-Reply-To=%3C1209937643.25362.6.camel%40sycorax%3E"
+       TITLE="[Lbrc-devel] Ubuntu LBRCdbus failure">risto.karjalainen at uta.fi
+       </A><BR>
+    <I>Sun May  4 23:47:23 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000116.html">[Lbrc-devel] Ubuntu LBRCdbus failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I am running an Ubuntu system on a amd64. I installed LBRC with dkpg
+from the 64 bit .deb. I have checked that my uinput is readable. When I
+try to run LBRCdbus, I get the following error:
+
+
+LBRC                               : WARNING  Failed to initalize &lt;class
+'LBRC.UinputDispatcher.UinputDispatcher'&gt;
+Value 342701792 out of range for Int32
+Traceback (most recent call last):
+  File &quot;/usr/bin/LBRCdbus&quot;, line 17, in &lt;module&gt;
+    brs = Core()
+  File &quot;/var/lib/python-support/python2.5/LBRC/dbusinterface.py&quot;, line
+229, in __init__
+    self._register_listener(i)
+  File &quot;/var/lib/python-support/python2.5/LBRC/dbusinterface.py&quot;, line
+277, in _register_listener
+    self.logger.warn(&quot;Failed to initalize &quot; + str(constructor) + &quot;\n&quot; +
+str(e))
+  File &quot;/usr/lib/python2.5/logging/__init__.py&quot;, line 999, in warning
+    apply(self._log, (WARNING, msg, args), kwargs)
+  File &quot;/usr/lib/python2.5/logging/__init__.py&quot;, line 1101, in _log
+    self.handle(record)
+  File &quot;/usr/lib/python2.5/logging/__init__.py&quot;, line 1111, in handle
+    self.callHandlers(record)
+  File &quot;/usr/lib/python2.5/logging/__init__.py&quot;, line 1148, in
+callHandlers
+    hdlr.handle(record)
+  File &quot;/usr/lib/python2.5/logging/__init__.py&quot;, line 655, in handle
+    self.emit(record)
+  File &quot;/var/lib/python-support/python2.5/LBRC/dbusinterface.py&quot;, line
+203, in emit
+    lr.fmessage)
+  File &quot;/var/lib/python-support/python2.5/dbus/decorators.py&quot;, line 309,
+in emit_signal
+    message.append(signature=signature, *args)
+OverflowError: Value 342701792 out of range for Int32
+
+
+
+Regards,
+Risto Karjalainen
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000116.html">[Lbrc-devel] Ubuntu LBRCdbus failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

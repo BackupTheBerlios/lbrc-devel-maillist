@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Error with newer version of python-bluetooth
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Error%20with%20newer%20version%20of%20python-bluetooth&In-Reply-To=%3C1199871988.21886.2.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000057.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Error with newer version of python-bluetooth</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Error%20with%20newer%20version%20of%20python-bluetooth&In-Reply-To=%3C1199871988.21886.2.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Error with newer version of python-bluetooth">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Wed Jan  9 10:46:28 CET 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000057.html">[Lbrc-devel] LBRCdbus --debug output
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+There was a problem with newer versions of python-bluetooth (the
+version, that recently hit debian unstable). LBRC used a deprecated API
+call to determine a free rfcomm channel. I commited a fix for this to
+svn and you find the solution attached to this email. So if you
+experience crashes at startup this might cure it - if not, where is your
+bug report??? ;-)
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: revision221.diff
+Type: text/x-patch
+Size: 700 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080109/f51f652f/attachment.bin">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080109/f51f652f/attachment.bin</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080109/f51f652f/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080109/f51f652f/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000057.html">[Lbrc-devel] LBRCdbus --debug output
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

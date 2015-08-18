@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Update: found the bug, repaired and conforming to	documented api (Future of LBRC)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Update%3A%20found%20the%20bug%2C%0A%20repaired%20and%20conforming%20to%09documented%20api%20%28Future%20of%20LBRC%29&In-Reply-To=%3C1194384911.8788.12.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000049.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Update: found the bug, repaired and conforming to	documented api (Future of LBRC)</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Update%3A%20found%20the%20bug%2C%0A%20repaired%20and%20conforming%20to%09documented%20api%20%28Future%20of%20LBRC%29&In-Reply-To=%3C1194384911.8788.12.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Update: found the bug, repaired and conforming to	documented api (Future of LBRC)">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Tue Nov  6 22:35:11 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000049.html">[Lbrc-devel] Future of LBRC
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello all,
+
+ok - My last email was a bit to fast send. I had another look and finaly
+found the bug in a final keyword, that the k810i does not seem to like.
+Well now the behaviour should conform more to the documented api.
+
+At the end of November I think I will find the time to do another
+release. I will also have a closer look on amora and the protocol they
+use. There a two very interesting things in it at a first glance:
+
+     1. Being able to take screenshots (the LBRC Protocol can be
+        extended to do that - actually it's just taking the shoot, do
+        some escaping, to be able to stuff it into json and write a j2me
+        counterpart to display it)
+     2. Using XTest for Keyboard and Mouse Control. Here I'm not sure
+        whether I like that - but then choice is good and maybe there
+        will be a second Plugin for Keyboard/Mousecontrol.
+
+LBRC differs especially because there is a j2me client (a python version
+should be pretty easy doable).
+
+So far
+
+Matthias
+
+Am Montag, den 05.11.2007, 12:53 +0100 schrieb pierre gronlier:
+&gt;<i> Hello there,
+</I>&gt;<i> 
+</I>&gt;<i> Just for your information there is a similar project to LBRC:
+</I>&gt;<i> <A HREF="http://code.google.com/p/amora/">http://code.google.com/p/amora/</A> (I haven't tested it yet, since LBRC
+</I>&gt;<i> is working fine for me)
+</I>&gt;<i> 
+</I>
+&gt;<i> 
+</I>-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071106/c1616e63/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20071106/c1616e63/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000049.html">[Lbrc-devel] Future of LBRC
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Updates on the weekend
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Updates%20on%20the%20weekend&In-Reply-To=%3C1174261707.9534.11.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000031.html">
+   <LINK REL="Next"  HREF="000033.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Updates on the weekend</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Updates%20on%20the%20weekend&In-Reply-To=%3C1174261707.9534.11.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Updates on the weekend">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Mon Mar 19 00:48:27 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000031.html">[Lbrc-devel] Paths and the mess with distutils
+</A></li>
+        <LI>Next message: <A HREF="000033.html">[Lbrc-devel] Thoughts about the wire (bluetooth) protocol
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I think I touched nearly every file in the python part of lbrc this
+weekend. I unified the config files, added a class for the config
+querying/writing/reading and adjusted the dependant modules accordingly
+(including the config editor). I adjusted the config file layout in the
+way I already lined out and also took Iuris comments about this into
+account. 
+
+While doing this I cleaned the way UinputDispatcher and CommandExecutor
+work and added a DBUSCaller module, that allows to call DBUS methods.
+(a mplayer module exists as a thought)
+
+Another thing I will look next at is the connection we utilize to
+communicate with the J2ME part. Maybe we will switch to RFCOMM, but I'm
+not sure yet.
+
+And additionally I fixed some bugs in the BlueZControl, ...
+
+Please see SVN Log for more details.
+
+Greetings 
+
+Matthias
+
+PS: Marc if you read this, please run the test of the dbus&lt;-&gt;uinput
+brigde. That won't go into the next release if no one tests it (and the
+only AMD64 Machine I have access to runs a ubuntu32 installation 24/7).
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+&quot;Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren.&quot;
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070319/93d55460/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070319/93d55460/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000031.html">[Lbrc-devel] Paths and the mess with distutils
+</A></li>
+	<LI>Next message: <A HREF="000033.html">[Lbrc-devel] Thoughts about the wire (bluetooth) protocol
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

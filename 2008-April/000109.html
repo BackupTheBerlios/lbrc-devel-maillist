@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] can't start
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20can%27t%20start&In-Reply-To=%3C48061747.5050102%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000110.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] can't start</H1>
+    <B>Szasz Szabolcs</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20can%27t%20start&In-Reply-To=%3C48061747.5050102%40gmail.com%3E"
+       TITLE="[Lbrc-devel] can't start">szasz.szabolcs at gmail.com
+       </A><BR>
+    <I>Wed Apr 16 17:12:07 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000110.html">[Lbrc-devel] can't start
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#109">[ date ]</a>
+              <a href="thread.html#109">[ thread ]</a>
+              <a href="subject.html#109">[ subject ]</a>
+              <a href="author.html#109">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi !
+
+I'm trying to start lbrcdbus but it dosn't start and I got this output:
+
+LBRCdbus
+Traceback (most recent call last):
+  File &quot;/usr/local/bin/LBRCdbus&quot;, line 17, in &lt;module&gt;
+    brs = Core()
+  File &quot;/usr/local/lib/python2.5/site-packages/LBRC/dbusinterface.py&quot;, 
+line 218, in __init__
+    self.btserver = BTServer()
+  File &quot;/usr/local/lib/python2.5/site-packages/LBRC/BTServer.py&quot;, line 
+194, in __init__
+    self._switch_connectable()
+  File &quot;/usr/local/lib/python2.5/site-packages/LBRC/BTServer.py&quot;, line 
+230, in _switch_connectable
+    self._advertise_service(True)
+  File &quot;/usr/local/lib/python2.5/site-packages/LBRC/BTServer.py&quot;, line 
+224, in _advertise_service
+    self.advertise_id = 
+self.bluez_db.AddServiceRecordFromXML(service_record)
+  File &quot;/usr/lib/python2.5/site-packages/dbus/proxies.py&quot;, line 63, in 
+__call__
+    return self._proxy_method(*args, **keywords)
+  File &quot;/usr/lib/python2.5/site-packages/dbus/proxies.py&quot;, line 135, in 
+__call__
+    **keywords)
+  File &quot;/usr/lib/python2.5/site-packages/dbus/connection.py&quot;, line 603, 
+in call_blocking
+    message, timeout)
+dbus.exceptions.DBusException: org.bluez.Error.Failed: Input/output error
+
+What I have to do?
+
+Szasz Szabolcs
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000110.html">[Lbrc-devel] can't start
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#109">[ date ]</a>
+              <a href="thread.html#109">[ thread ]</a>
+              <a href="subject.html#109">[ subject ]</a>
+              <a href="author.html#109">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

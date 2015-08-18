@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Syntax error in json.py
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Syntax%20error%20in%20json.py&In-Reply-To=%3C1202054896.23300.4.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000084.html">
+   <LINK REL="Next"  HREF="000086.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Syntax error in json.py</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Syntax%20error%20in%20json.py&In-Reply-To=%3C1202054896.23300.4.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Syntax error in json.py">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sun Feb  3 17:08:16 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000084.html">[Lbrc-devel] 0.6 Released (was: Preparing the next release)
+</A></li>
+        <LI>Next message: <A HREF="000086.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+Tobias Mueller (thanks!) reported a problem when running LBRC on newer
+python versions (&gt;= 2.5). In 2.4 the use of characters outside the ascii
+range was deprecated. In 2.5 it went from deprecation to syntax error.
+Nice! Why would they wait for 3.0 to break syntax.
+
+So SVN has a fix commited - I'll try to get updated source packages and
+debian builds up in the next hour or so.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080203/fdc2e335/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080203/fdc2e335/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000084.html">[Lbrc-devel] 0.6 Released (was: Preparing the next release)
+</A></li>
+	<LI>Next message: <A HREF="000086.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,40 @@
+From glmanzo at gmail.com  Sun Jul 12 21:49:22 2009
+From: glmanzo at gmail.com (Gianluigi Manzo)
+Date: Sun, 12 Jul 2009 21:49:22 +0200
+Subject: [Lbrc-devel] Help Bug #15344
+Message-ID: <e4ad59bb0907121249p35ea8c8ax502237c174cfb84f@mail.gmail.com>
+
+Hi, I have the same configuration and the same bug explained on this page:
+http://developer.berlios.de/bugs/?func=detailbug&bug_id=15344&group_id=8112
+but I don't understand how I must to do to disable the pairing check between
+my phone and my PC.
+Thanks a lot and regards from Naples !
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20090712/b4d9dc72/attachment.html>
+
+From admin at berlios.de  Wed Jul 15 19:21:09 2009
+From: admin at berlios.de (admin at berlios.de)
+Date: Wed, 15 Jul 2009 21:21:09 +0400 (MSD)
+Subject: [Lbrc-devel] [Bug #15998] Service search error
+Message-ID: <200907151721.n6FHL9l5016855@unicorn.berlios.de>
+
+Bug #15998, was updated on 2009-Jul-15 21:21
+Here is a current snapshot of the bug.
+
+Project: Linux Bluetooth Remote Control
+Category: None
+Status: Open
+Resolution: None
+Bug Group: None
+Priority: 5
+Submitted by: zhum
+Assigned to : none
+Summary: Service search error
+
+Details:   I use Ubuntu Jaunty, i386 and Nokia N95. Applet is successully started, access to /dev/input/uinput is  granted. My computer and telephone are already paired (jar+jad were sent via BT). When I start application on telephone, it can find my computer, but if I select it, I get "LBRC: service search error".
+
+For detailed info, follow this link:
+http://developer.berlios.de/bugs/?func=detailbug&bug_id=15998&group_id=8112
+
+

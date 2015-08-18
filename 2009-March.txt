@@ -1,0 +1,1267 @@
+From admin at berlios.de  Wed Mar  4 20:25:50 2009
+From: admin at berlios.de (admin at berlios.de)
+Date: Wed, 4 Mar 2009 19:25:50 GMT
+Subject: [Lbrc-devel] [Bug #15344] UnknownMethod - HasBonding
+Message-ID: <200903041925.n24JPoO6020848@unicorn.berlios.de>
+
+Bug #15344, was updated on 2009-Mar-04 19:25
+Here is a current snapshot of the bug.
+
+Project: Linux Bluetooth Remote Control
+Category: None
+Status: Open
+Resolution: None
+Bug Group: None
+Priority: 5
+Submitted by: nagper
+Assigned to : none
+Summary: UnknownMethod - HasBonding
+
+Details: I get this message with the latest release and with the svn as well.
+
+Config
+Ubuntu Jaunty
+kernel: 2.6.28.7
+bluez : 4.30
+python-bluez: 0.15-1
+
+
+LBRC.BTServer                      : DEBUG    Trying to register service: 
+<?xml version="1.0" encoding="UTF-8" ?>
+<record>
+        <attribute id="0x0001">
+             <uuid value="9c6c8dce-9545-11dc-a3c1-0011d8388a56" />
+        </attribute>
+        <attribute id="0x0004">
+                <sequence>
+                        <sequence>
+                                <uuid value="0x0100" />
+                        </sequence>
+                        <sequence>
+                                <uuid value="0x0003" />
+                                <uint8 value="1" />
+                        </sequence>
+                </sequence>
+        </attribute>
+        <attribute id="0x0100">
+            <text value="LBRC" name="name"/>
+        </attribute>
+</record>
+
+LBRC.BTServer                      : DEBUG    Entered new codepath for new bluez api
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a suitable uinput device node: /dev/input/uinput
+LBRC.Listener.UinputDispatcher     : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.UinputDispatcher.UinputDispatcher'>
+LBRC.Listener.CommandExecutor      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.VolumeControl.VolumeControl'>
+LBRC.Listener.XInput               : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.XInput.XInput'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC                               : DEBUG    Recieved signal to switch to system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    No section UinputDispatcher for system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    Completed processing of UinputDispatcher in system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    No config section CommandExecutor for system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    Completed processing of CommandExecutor in system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    No config section DBUSCaller for system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    Completed processing of DBUSCaller in system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    No config section MPlayer for system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    Succesfully processed system profile XInput section Mplayer
+LBRC.Listener.PresentationCompanion: DEBUG    No config section PresentationCompanion for system profile XInput
+LBRC.Listener.PresentationCompanion: DEBUG    Completed processing of PresentationCompanion in system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    No config section VolumeControl for system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    Completed processing of VolumeControl in system profile XInput
+LBRC.Listener.XInput               : DEBUG    No init section in config
+LBRC.Listener.XInput               : DEBUG    Mapping key (50, 0) : {'map_to': 'Up', 'type': 'key', 'keycode': 50, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (53, 0) : {'map_to': 'Down', 'type': 'key', 'keycode': 53, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (52, 0) : {'map_to': 'Left', 'type': 'key', 'keycode': 52, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (54, 0) : {'map_to': 'Right', 'type': 'key', 'keycode': 54, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (57, 0) : {'map_to': 'Page_Up', 'type': 'key', 'keycode': 57, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (35, 0) : {'map_to': 'Page_Down', 'type': 'key', 'keycode': 35, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-10, 0) : {'map_to': 1, 'type': 'mousebutton', 'keycode': -10}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-5, 0) : {'map_to': 1, 'type': 'mousebutton', 'keycode': -5}
+LBRC.Listener.XInput               : DEBUG    Mapping key (49, 0) : {'map_to': 2, 'type': 'mousebutton', 'keycode': 49}
+LBRC.Listener.XInput               : DEBUG    Mapping key (51, 0) : {'map_to': 3, 'type': 'mousebutton', 'keycode': 51}
+LBRC.Listener.XInput               : DEBUG    Mapping key (56, 0) : {'map_to': 4, 'type': 'mousebutton', 'keycode': 56, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (48, 0) : {'map_to': 5, 'type': 'mousebutton', 'keycode': 48, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-2, 0) : {'map_to': '+Y', 'type': 'mouseaxis', 'keycode': -2}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-1, 0) : {'map_to': '-Y', 'type': 'mouseaxis', 'keycode': -1}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-4, 0) : {'map_to': '+X', 'type': 'mouseaxis', 'keycode': -4}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-3, 0) : {'map_to': '-X', 'type': 'mouseaxis', 'keycode': -3}
+LBRC.Listener.XInput               : DEBUG    No destruct section in config
+LBRC.Listener.XInput               : DEBUG    Completed processing of XInput in system profile XInput
+LBRC                               : DEBUG    Reload config
+LBRC.BTServer                      : DEBUG    Entered new codepath for new bluez api
+LBRC.BTServer                      : DEBUG    Serversocket: ('00:00:00:00:00:00', 1)
+LBRC.BTServer                      : DEBUG    Check for pairing
+Traceback (most recent call last):
+  File "/var/lib/python-support/python2.6/LBRC/BTServer.py", line 457, in cb_handle_connection
+    if ( self._check_pairing(client_address) and
+  File "/var/lib/python-support/python2.6/LBRC/BTServer.py", line 521, in _check_pairing
+    if adapter.HasBonding(client_address[0]):
+  File "/var/lib/python-support/python2.6/dbus/proxies.py", line 68, in __call__
+    return self._proxy_method(*args, **keywords)
+  File "/var/lib/python-support/python2.6/dbus/proxies.py", line 140, in __call__
+    **keywords)
+  File "/var/lib/python-support/python2.6/dbus/connection.py", line 622, in call_blocking
+    message, timeout)
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.UnknownMethod: Method "HasBonding" with signature "s" on interface "org.bluez.Adapter" doesn't exist
+
+Then nothing happens.
+
+Thanks
+Peter
+
+For detailed info, follow this link:
+http://developer.berlios.de/bugs/?func=detailbug&bug_id=15344&group_id=8112
+
+
+From admin at berlios.de  Wed Mar  4 21:01:46 2009
+From: admin at berlios.de (admin at berlios.de)
+Date: Wed, 4 Mar 2009 21:01:46 +0100 (CET)
+Subject: [Lbrc-devel] [Bug #15344] UnknownMethod - HasBonding
+Message-ID: <200903042001.n24K1kAn003194@unicorn.berlios.de>
+
+Bug #15344, was updated on 2009-Mar-04 20:25
+Here is a current snapshot of the bug.
+
+Project: Linux Bluetooth Remote Control
+Category: None
+Status: Open
+Resolution: None
+Bug Group: None
+Priority: 5
+Submitted by: nagper
+Assigned to : linuxfun
+Summary: UnknownMethod - HasBonding
+
+Details: I get this message with the latest release and with the svn as well.
+
+Config
+Ubuntu Jaunty
+kernel: 2.6.28.7
+bluez : 4.30
+python-bluez: 0.15-1
+
+
+LBRC.BTServer                      : DEBUG    Trying to register service: 
+<?xml version="1.0" encoding="UTF-8" ?>
+<record>
+        <attribute id="0x0001">
+             <uuid value="9c6c8dce-9545-11dc-a3c1-0011d8388a56" />
+        </attribute>
+        <attribute id="0x0004">
+                <sequence>
+                        <sequence>
+                                <uuid value="0x0100" />
+                        </sequence>
+                        <sequence>
+                                <uuid value="0x0003" />
+                                <uint8 value="1" />
+                        </sequence>
+                </sequence>
+        </attribute>
+        <attribute id="0x0100">
+            <text value="LBRC" name="name"/>
+        </attribute>
+</record>
+
+LBRC.BTServer                      : DEBUG    Entered new codepath for new bluez api
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a suitable uinput device node: /dev/input/uinput
+LBRC.Listener.UinputDispatcher     : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.UinputDispatcher.UinputDispatcher'>
+LBRC.Listener.CommandExecutor      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.VolumeControl.VolumeControl'>
+LBRC.Listener.XInput               : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.XInput.XInput'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC                               : DEBUG    Recieved signal to switch to system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    No section UinputDispatcher for system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    Completed processing of UinputDispatcher in system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    No config section CommandExecutor for system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    Completed processing of CommandExecutor in system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    No config section DBUSCaller for system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    Completed processing of DBUSCaller in system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    No config section MPlayer for system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    Succesfully processed system profile XInput section Mplayer
+LBRC.Listener.PresentationCompanion: DEBUG    No config section PresentationCompanion for system profile XInput
+LBRC.Listener.PresentationCompanion: DEBUG    Completed processing of PresentationCompanion in system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    No config section VolumeControl for system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    Completed processing of VolumeControl in system profile XInput
+LBRC.Listener.XInput               : DEBUG    No init section in config
+LBRC.Listener.XInput               : DEBUG    Mapping key (50, 0) : {'map_to': 'Up', 'type': 'key', 'keycode': 50, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (53, 0) : {'map_to': 'Down', 'type': 'key', 'keycode': 53, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (52, 0) : {'map_to': 'Left', 'type': 'key', 'keycode': 52, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (54, 0) : {'map_to': 'Right', 'type': 'key', 'keycode': 54, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (57, 0) : {'map_to': 'Page_Up', 'type': 'key', 'keycode': 57, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (35, 0) : {'map_to': 'Page_Down', 'type': 'key', 'keycode': 35, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-10, 0) : {'map_to': 1, 'type': 'mousebutton', 'keycode': -10}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-5, 0) : {'map_to': 1, 'type': 'mousebutton', 'keycode': -5}
+LBRC.Listener.XInput               : DEBUG    Mapping key (49, 0) : {'map_to': 2, 'type': 'mousebutton', 'keycode': 49}
+LBRC.Listener.XInput               : DEBUG    Mapping key (51, 0) : {'map_to': 3, 'type': 'mousebutton', 'keycode': 51}
+LBRC.Listener.XInput               : DEBUG    Mapping key (56, 0) : {'map_to': 4, 'type': 'mousebutton', 'keycode': 56, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (48, 0) : {'map_to': 5, 'type': 'mousebutton', 'keycode': 48, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-2, 0) : {'map_to': '+Y', 'type': 'mouseaxis', 'keycode': -2}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-1, 0) : {'map_to': '-Y', 'type': 'mouseaxis', 'keycode': -1}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-4, 0) : {'map_to': '+X', 'type': 'mouseaxis', 'keycode': -4}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-3, 0) : {'map_to': '-X', 'type': 'mouseaxis', 'keycode': -3}
+LBRC.Listener.XInput               : DEBUG    No destruct section in config
+LBRC.Listener.XInput               : DEBUG    Completed processing of XInput in system profile XInput
+LBRC                               : DEBUG    Reload config
+LBRC.BTServer                      : DEBUG    Entered new codepath for new bluez api
+LBRC.BTServer                      : DEBUG    Serversocket: ('00:00:00:00:00:00', 1)
+LBRC.BTServer                      : DEBUG    Check for pairing
+Traceback (most recent call last):
+  File "/var/lib/python-support/python2.6/LBRC/BTServer.py", line 457, in cb_handle_connection
+    if ( self._check_pairing(client_address) and
+  File "/var/lib/python-support/python2.6/LBRC/BTServer.py", line 521, in _check_pairing
+    if adapter.HasBonding(client_address[0]):
+  File "/var/lib/python-support/python2.6/dbus/proxies.py", line 68, in __call__
+    return self._proxy_method(*args, **keywords)
+  File "/var/lib/python-support/python2.6/dbus/proxies.py", line 140, in __call__
+    **keywords)
+  File "/var/lib/python-support/python2.6/dbus/connection.py", line 622, in call_blocking
+    message, timeout)
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.UnknownMethod: Method "HasBonding" with signature "s" on interface "org.bluez.Adapter" doesn't exist
+
+Then nothing happens.
+
+Thanks
+Peter
+
+Follow-Ups:
+
+Date: 2009-Mar-04 21:01
+By: linuxfun
+
+Comment:
+I'll have to setup a ubuntu test system, as bluez 0.4X has not reached debian yet. Maybe I was fooled by deprecated interfaces when I did the adjustments for the 0.4X api.
+
+Ok - a look at the api docs in the most recent version of bluez indicates, that this is a correct assumtion. I'm not sure how to fix that (without breaking it on bluez 0.3). 
+
+As a quick fix you could disable the pairing check, as this circumvents the call to the problematic method. But be adviced, that this allows all present bluetooth devices to connect to LBRC.
+-------------------------------------------------------
+
+For detailed info, follow this link:
+http://developer.berlios.de/bugs/?func=detailbug&bug_id=15344&group_id=8112
+
+
+From admin at berlios.de  Wed Mar  4 21:24:51 2009
+From: admin at berlios.de (admin at berlios.de)
+Date: Wed, 4 Mar 2009 20:24:51 GMT
+Subject: [Lbrc-devel] [Bug #15344] UnknownMethod - HasBonding
+Message-ID: <200903042024.n24KOp1Q020611@unicorn.berlios.de>
+
+Bug #15344, was updated on 2009-Mar-04 19:25
+Here is a current snapshot of the bug.
+
+Project: Linux Bluetooth Remote Control
+Category: None
+Status: Open
+Resolution: None
+Bug Group: None
+Priority: 5
+Submitted by: nagper
+Assigned to : linuxfun
+Summary: UnknownMethod - HasBonding
+
+Details: I get this message with the latest release and with the svn as well.
+
+Config
+Ubuntu Jaunty
+kernel: 2.6.28.7
+bluez : 4.30
+python-bluez: 0.15-1
+
+
+LBRC.BTServer                      : DEBUG    Trying to register service: 
+<?xml version="1.0" encoding="UTF-8" ?>
+<record>
+        <attribute id="0x0001">
+             <uuid value="9c6c8dce-9545-11dc-a3c1-0011d8388a56" />
+        </attribute>
+        <attribute id="0x0004">
+                <sequence>
+                        <sequence>
+                                <uuid value="0x0100" />
+                        </sequence>
+                        <sequence>
+                                <uuid value="0x0003" />
+                                <uint8 value="1" />
+                        </sequence>
+                </sequence>
+        </attribute>
+        <attribute id="0x0100">
+            <text value="LBRC" name="name"/>
+        </attribute>
+</record>
+
+LBRC.BTServer                      : DEBUG    Entered new codepath for new bluez api
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a suitable uinput device node: /dev/input/uinput
+LBRC.Listener.UinputDispatcher     : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.UinputDispatcher.UinputDispatcher'>
+LBRC.Listener.CommandExecutor      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.VolumeControl.VolumeControl'>
+LBRC.Listener.XInput               : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: <class 'LBRC.XInput.XInput'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC                               : DEBUG    Recieved signal to switch to system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    No section UinputDispatcher for system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    Completed processing of UinputDispatcher in system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    No config section CommandExecutor for system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    Completed processing of CommandExecutor in system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    No config section DBUSCaller for system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    Completed processing of DBUSCaller in system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    No config section MPlayer for system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    Succesfully processed system profile XInput section Mplayer
+LBRC.Listener.PresentationCompanion: DEBUG    No config section PresentationCompanion for system profile XInput
+LBRC.Listener.PresentationCompanion: DEBUG    Completed processing of PresentationCompanion in system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    No config section VolumeControl for system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    Completed processing of VolumeControl in system profile XInput
+LBRC.Listener.XInput               : DEBUG    No init section in config
+LBRC.Listener.XInput               : DEBUG    Mapping key (50, 0) : {'map_to': 'Up', 'type': 'key', 'keycode': 50, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (53, 0) : {'map_to': 'Down', 'type': 'key', 'keycode': 53, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (52, 0) : {'map_to': 'Left', 'type': 'key', 'keycode': 52, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (54, 0) : {'map_to': 'Right', 'type': 'key', 'keycode': 54, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (57, 0) : {'map_to': 'Page_Up', 'type': 'key', 'keycode': 57, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (35, 0) : {'map_to': 'Page_Down', 'type': 'key', 'keycode': 35, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-10, 0) : {'map_to': 1, 'type': 'mousebutton', 'keycode': -10}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-5, 0) : {'map_to': 1, 'type': 'mousebutton', 'keycode': -5}
+LBRC.Listener.XInput               : DEBUG    Mapping key (49, 0) : {'map_to': 2, 'type': 'mousebutton', 'keycode': 49}
+LBRC.Listener.XInput               : DEBUG    Mapping key (51, 0) : {'map_to': 3, 'type': 'mousebutton', 'keycode': 51}
+LBRC.Listener.XInput               : DEBUG    Mapping key (56, 0) : {'map_to': 4, 'type': 'mousebutton', 'keycode': 56, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (48, 0) : {'map_to': 5, 'type': 'mousebutton', 'keycode': 48, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-2, 0) : {'map_to': '+Y', 'type': 'mouseaxis', 'keycode': -2}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-1, 0) : {'map_to': '-Y', 'type': 'mouseaxis', 'keycode': -1}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-4, 0) : {'map_to': '+X', 'type': 'mouseaxis', 'keycode': -4}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-3, 0) : {'map_to': '-X', 'type': 'mouseaxis', 'keycode': -3}
+LBRC.Listener.XInput               : DEBUG    No destruct section in config
+LBRC.Listener.XInput               : DEBUG    Completed processing of XInput in system profile XInput
+LBRC                               : DEBUG    Reload config
+LBRC.BTServer                      : DEBUG    Entered new codepath for new bluez api
+LBRC.BTServer                      : DEBUG    Serversocket: ('00:00:00:00:00:00', 1)
+LBRC.BTServer                      : DEBUG    Check for pairing
+Traceback (most recent call last):
+  File "/var/lib/python-support/python2.6/LBRC/BTServer.py", line 457, in cb_handle_connection
+    if ( self._check_pairing(client_address) and
+  File "/var/lib/python-support/python2.6/LBRC/BTServer.py", line 521, in _check_pairing
+    if adapter.HasBonding(client_address[0]):
+  File "/var/lib/python-support/python2.6/dbus/proxies.py", line 68, in __call__
+    return self._proxy_method(*args, **keywords)
+  File "/var/lib/python-support/python2.6/dbus/proxies.py", line 140, in __call__
+    **keywords)
+  File "/var/lib/python-support/python2.6/dbus/connection.py", line 622, in call_blocking
+    message, timeout)
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.UnknownMethod: Method "HasBonding" with signature "s" on interface "org.bluez.Adapter" doesn't exist
+
+Then nothing happens.
+
+Thanks
+Peter
+
+Follow-Ups:
+
+Date: 2009-Mar-04 20:24
+By: nagper
+
+Comment:
+Thanks !
+Disabling the pairing works.
+Because Jaunty is only a development release I think you could close this bug.
+
+Thank again
+Peter
+-------------------------------------------------------
+
+Date: 2009-Mar-04 20:01
+By: linuxfun
+
+Comment:
+I'll have to setup a ubuntu test system, as bluez 0.4X has not reached debian yet. Maybe I was fooled by deprecated interfaces when I did the adjustments for the 0.4X api.
+
+Ok - a look at the api docs in the most recent version of bluez indicates, that this is a correct assumtion. I'm not sure how to fix that (without breaking it on bluez 0.3). 
+
+As a quick fix you could disable the pairing check, as this circumvents the call to the problematic method. But be adviced, that this allows all present bluetooth devices to connect to LBRC.
+-------------------------------------------------------
+
+For detailed info, follow this link:
+http://developer.berlios.de/bugs/?func=detailbug&bug_id=15344&group_id=8112
+
+
+From admin at berlios.de  Thu Mar  5 18:01:36 2009
+From: admin at berlios.de (admin at berlios.de)
+Date: Thu, 5 Mar 2009 17:01:36 GMT
+Subject: [Lbrc-devel] [Feature #4521] Pulseaudio
+Message-ID: <200903051701.n25H1aGH009783@unicorn.berlios.de>
+
+Feature Request #4521, was updated on 2009-Mar-05 17:01
+You can respond by visiting: 
+http://developer.berlios.de/feature/?func=detailfeature&feature_id=4521&group_id=8112
+
+Category: None
+Status: Open
+Priority: 5
+Summary: Pulseaudio
+
+By: nagper
+Date: 2009-Mar-05 17:01
+
+Message:
+Logged In: YES 
+user_id=46770
+Browser: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.6) Gecko/2009022714 Ubuntu/9.04 (jaunty) Firefox/3.0.6
+
+Hi!
+
+Are you planning to support pulseaudio in the near future?
+(Or is it just configuration problem?)
+
+Now I get the following error in "Volume Control" mode:
+
+---------------
+LBRC.BTServer                      : DEBUG    Trying to
+register service: 
+<?xml version="1.0" encoding="UTF-8" ?>
+<record>
+        <attribute id="0x0001">
+             <uuid
+value="9c6c8dce-9545-11dc-a3c1-0011d8388a56" />
+        </attribute>
+        <attribute id="0x0004">
+                <sequence>
+                        <sequence>
+                                <uuid value="0x0100" />
+                        </sequence>
+                        <sequence>
+                                <uuid value="0x0003" />
+                                <uint8 value="1" />
+                        </sequence>
+                </sequence>
+        </attribute>
+        <attribute id="0x0100">
+            <text value="LBRC" name="name"/>
+        </attribute>
+</record>
+
+LBRC.BTServer                      : DEBUG    Entered
+new codepath for new bluez api
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing
+/dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming
+we found a suitable uinput device node: /dev/input/uinput
+LBRC.Listener.UinputDispatcher     : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.UinputDispatcher.UinputDispatcher'>
+LBRC.Listener.CommandExecutor      : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.VolumeControl.VolumeControl'>
+LBRC.Listener.XInput               : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class 'LBRC.XInput.XInput'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial
+Profile set
+LBRC                               : DEBUG    Init
+dispatcher
+LBRC                               : DEBUG    Recieved
+signal to switch to system profile Volume Control
+LBRC.Listener.UinputDispatcher     : DEBUG    No
+section UinputDispatcher for system profile Volume Control
+LBRC.Listener.UinputDispatcher     : DEBUG    Completed
+processing of UinputDispatcher in system profile Volume
+Control
+LBRC.Listener.CommandExecutor      : DEBUG    No config
+section CommandExecutor for system profile Volume Control
+LBRC.Listener.CommandExecutor      : DEBUG    Completed
+processing of CommandExecutor in system profile Volume
+Control
+LBRC.Listener.DBUSCaller           : DEBUG    No config
+section DBUSCaller for system profile Volume Control
+LBRC.Listener.DBUSCaller           : DEBUG    Completed
+processing of DBUSCaller in system profile Volume Control
+LBRC.Listener.MPlayer              : DEBUG    No config
+section MPlayer for system profile Volume Control
+LBRC.Listener.MPlayer              : DEBUG   
+Succesfully processed system profile Volume Control
+section Mplayer
+LBRC.Listener.PresentationCompanion: DEBUG    No config
+section PresentationCompanion for system profile Volume
+Control
+LBRC.Listener.PresentationCompanion: DEBUG    Completed
+processing of PresentationCompanion in system profile
+Volume Control
+LBRC.Listener.VolumeControl        : DEBUG    Loading
+init section from config
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (50, 0) : {'change': '+5%', 'keycode': '50',
+'channel': 'Master'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (53, 0) : {'change': 'toggle', 'keycode': '53',
+'channel': 'Master'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (56, 0) : {'change': '-5%', 'keycode': '56',
+'channel': 'Master'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (49, 0) : {'change': '+5%', 'keycode': '49',
+'channel': 'PCM'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (52, 0) : {'change': 'toggle', 'keycode': '52',
+'channel': 'PCM'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (55, 0) : {'change': '-5%', 'keycode': '55',
+'channel': 'PCM'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (51, 0) : {'keycode': '51', 'ShowVolumeControl': True}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (54, 0) : {'keycode': '54', 'ShowVolumeControl': False}
+LBRC.Listener.VolumeControl        : DEBUG    Loading
+destruct section from config
+LBRC.Listener.VolumeControl        : DEBUG    Completed
+processing of VolumeControl in system profile Volume
+Control
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'SetDefault': {'sound_system': 'alsa'}}
+LBRC.Listener.VolumeCommand        : DEBUG    Setting
+defaults
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowChannels': [{'channel': 'Master'}, {'channel':
+'PCM'}]}
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowVolumeControl': True}
+LBRC.Listener.VolumeCommand        : DEBUG    Getting
+BT Connection
+LBRC.Listener.VolumeCommand        : DEBUG    Got: None
+LBRC.Listener.VolumeCommand        : DEBUG    Calling
+VolumeUpdate
+LBRC.Listener.VolumeControl        : ERROR    Specified
+channel not found!
+LBRC.Listener.VolumeControl        : DEBUG    Calling
+<LBRC.VolumeControl.VolumeCommand object at 0x8b6c3ac>
+failed
+LBRC.Listener.XInput               : DEBUG    No config
+section XInput for system profile Volume Control
+LBRC.Listener.XInput               : DEBUG    Completed
+processing of XInput in system profile Volume Control
+LBRC                               : DEBUG    Reload config
+LBRC.BTServer                      : DEBUG    Entered
+new codepath for new bluez api
+LBRC.BTServer                      : DEBUG   
+Serversocket: ('00:00:00:00:00:00', 1)
+LBRC.BTServer                      : DEBUG    Pairing
+not required
+LBRC.ConnectionControl             : DEBUG   
+connect_cb: 00:12:D1:8D:A1:C4 00:12:D1:8D:A1:C4 1
+LBRC                               : DEBUG   
+_connection_established_cb called
+LBRC.Listener.UinputDispatcher     : DEBUG   
+connection established - running init actions
+LBRC.Listener.CommandExecutor      : DEBUG   
+connection established - running init actions
+LBRC.Listener.DBUSCaller           : DEBUG   
+connection established - running init actions
+LBRC.Listener.ProfileSwitcher      : DEBUG   
+connection established - running init actions
+LBRC.Listener.MPlayer              : DEBUG   
+connection established - running init actions
+LBRC.Listener.PresentationCompanion: DEBUG   
+connection established - running init actions
+LBRC.Listener.VolumeControl        : DEBUG   
+connection established - running init actions
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'SetDefault': {'sound_system': 'alsa'}}
+LBRC.Listener.VolumeCommand        : DEBUG    Setting
+defaults
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowChannels': [{'channel': 'Master'}, {'channel':
+'PCM'}]}
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowVolumeControl': True}
+LBRC.Listener.VolumeCommand        : DEBUG    Getting
+BT Connection
+LBRC.Listener.VolumeCommand        : DEBUG    Got:
+<BTConnection object at 0x8b18fcc
+(LBRC+BTServer+BTConnection at 0x894b150)>
+LBRC.BTConnection                  : DEBUG    Sending
+package:{'command': 'showModule', 'type':
+'displayControl', 'param': 'VolumeControl'}
+LBRC.BTConnection                  : DEBUG   
+'{"command":"showModule","type":"displayControl","param":"VolumeControl"}\x00'
+LBRC.BTConnection                  : DEBUG    Package
+send done
+LBRC.Listener.VolumeCommand        : DEBUG    Calling
+VolumeUpdate
+LBRC.Listener.VolumeControl        : ERROR    Specified
+channel not found!
+LBRC.Listener.VolumeControl        : DEBUG    Calling
+<LBRC.VolumeControl.VolumeCommand object at 0x8b6c3ac>
+failed
+LBRC.Listener.XInput               : DEBUG   
+connection established - running init actions
+LBRC.BTConnection                  : DEBUG    In
+Buffer: '{"type":"init","protocol":1}\x00'
+LBRC.BTConnection                  : DEBUG    Unmatched
+package: {'protocol': 1, 'type': 'init'}
+LBRC.BTConnection                  : DEBUG    In
+Buffer:
+'{"function":"showModule","type":"debugMessage","message":"Showing
+Module: VolumeControl (KeyEcho)","level":"debug"}\x00'
+LBRC.BTConnection                  : DEBUG    PHONE
+(showModule): Showing Module: VolumeControl (KeyEcho)
+LBRC.BTConnection                  : DEBUG    In
+Buffer:
+'{"function":"showModule","type":"debugMessage","message":"Shown
+Module: VolumeControl (KeyEcho,
+KeyEcho)","level":"debug"}\x00'
+LBRC.BTConnection                  : DEBUG    PHONE
+(showModule): Shown Module: VolumeControl (KeyEcho,
+KeyEcho)
+LBRC.BTConnection                  : DEBUG    In
+Buffer: '{"keycode":49,"mapping":0,"type":"keyCode"}\x00'
+LBRC.Listener.UinputDispatcher     : DEBUG    Keycode:
+49, Mapping: 0
+LBRC.Listener.CommandExecutor      : DEBUG    keycode
+called
+LBRC.Listener.CommandExecutor      : DEBUG    keycode
+finished
+LBRC.Listener.DBUSCaller           : DEBUG    keycode
+called
+LBRC.Listener.DBUSCaller           : DEBUG    keycode
+finished
+LBRC.Listener.PresentationCompanion: DEBUG    keycode
+called
+LBRC.Listener.PresentationCompanion: DEBUG    keycode
+finished
+LBRC.Listener.VolumeControl        : DEBUG    keycode
+called
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'change': '+5%', 'keycode': '49', 'channel': 'PCM'}
+LBRC.Listener.VolumeCommand        : DEBUG    Start of
+volume_change
+LBRC.Listener.VolumeCommand        : ERROR    Specified
+channel not found!
+LBRC.Listener.VolumeCommand        : DEBUG    change volume
+LBRC.Listener.VolumeCommand        : ERROR   
+GstMixer.get_volume() argument 1 must be
+gst.interfaces.MixerTrack, not None
+Traceback (most recent call last):
+  File
+"/var/lib/python-support/python2.6/LBRC/VolumeControl.py",
+line 68, in call
+    self._volume_change()
+  File
+"/var/lib/python-support/python2.6/LBRC/VolumeControl.py",
+line 50, in _volume_change
+    old_volume = mixer.get_volume(track)
+TypeError: GstMixer.get_volume() argument 1 must be
+gst.interfaces.MixerTrack, not None
+Traceback (most recent call last):
+  File
+"/var/lib/python-support/python2.6/LBRC/dbusinterface.py",
+line 293, in _dispatch
+    listener.keycode(mapping, keycode)
+  File
+"/var/lib/python-support/python2.6/LBRC/Listener.py",
+line 121, in keycode
+    command.call()
+  File
+"/var/lib/python-support/python2.6/LBRC/VolumeControl.py",
+line 70, in call
+    self.logger.exception(e)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1052, in exception
+    self.error(*((msg,) + args), **{'exc_info': 1})
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1046, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1133, in _log
+    self.handle(record)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1143, in handle
+    self.callHandlers(record)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1180, in callHandlers
+    hdlr.handle(record)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+659, in handle
+    self.emit(record)
+  File
+"/var/lib/python-support/python2.6/LBRC/dbusinterface.py",
+line 212, in emit
+    lr.fmessage)
+  File
+"/var/lib/python-support/python2.6/dbus/decorators.py",
+line 309, in emit_signal
+    message.append(signature=signature, *args)
+TypeError: Expected a string or unicode object
+LBRC.BTConnection                  : DEBUG    In
+Buffer: '{"keycode":49,"mapping":1,"type":"keyCode"}\x00'
+LBRC.Listener.UinputDispatcher     : DEBUG    Keycode:
+49, Mapping: 1
+LBRC.Listener.CommandExecutor      : DEBUG    keycode
+called
+LBRC.Listener.CommandExecutor      : DEBUG    keycode
+finished
+LBRC.Listener.DBUSCaller           : DEBUG    keycode
+called
+LBRC.Listener.DBUSCaller           : DEBUG    keycode
+finished
+LBRC.Listener.PresentationCompanion: DEBUG    keycode
+called
+LBRC.Listener.PresentationCompanion: DEBUG    keycode
+finished
+LBRC.Listener.VolumeControl        : DEBUG    keycode
+called
+LBRC.Listener.VolumeControl        : DEBUG    keycode
+finished
+LBRC.Listener.XInput               : DEBUG    Keycode:
+49, Mapping: 1
+---------------
+
+Config:
+Ubuntu-Jaunty
+kernel.2.6.28.7
+alsa-1.0.18
+pulseaudio-0.9.14
+bluez-4.30
+
+
+Thanks
+Peter
+
+----------------------------------------------------------------------
+You can respond by visiting: 
+http://developer.berlios.de/feature/?func=detailfeature&feature_id=4521&group_id=8112
+
+
+From admin at berlios.de  Sat Mar  7 20:26:36 2009
+From: admin at berlios.de (admin at berlios.de)
+Date: Sat, 7 Mar 2009 20:26:36 +0100 (CET)
+Subject: [Lbrc-devel] [Feature #4521] Pulseaudio
+Message-ID: <200903071926.n27JQaZt013769@unicorn.berlios.de>
+
+Feature Request #4521, was updated on 2009-Mar-05 18:01
+You can respond by visiting: 
+http://developer.berlios.de/feature/?func=detailfeature&feature_id=4521&group_id=8112
+
+Category: None
+Status: Open
+Priority: 5
+Summary: Pulseaudio
+
+By: linuxfun
+Date: 2009-Mar-07 20:26
+
+Message:
+Logged In: YES 
+user_id=34723
+Browser: Mozilla/5.0 (X11; U; Linux i686; de; rv:1.9.0.6) Gecko/2009020409 Iceweasel/3.0.6 (Debian-3.0.6-1)
+
+For now you can make at least partial use of the alsa
+pulseaudio support.
+
+This is my .asoundrc:
+
+pcm.!default {
+	type pulse
+}
+
+ctl.!default {
+	type pulse
+}
+
+This redirects the Default Mixer and Default Input/Output to
+pulseaudio. When running alsamixer you will get one channel
+labeled Master.
+
+This is an example config which mapps the controlss to 2,5
+and 8 and shows the Master Levels:
+
+{
+  "generic-config": {
+    "default-profile": [
+      "user",
+      "test3"
+    ],
+    "require-pairing": true
+  },
+  "profiles": {
+    "test3": {
+      "VolumeControl": {
+        "init": [
+          {
+            "SetDefault": {
+              "sound_system": "alsa"
+            }
+          },
+          {
+            "ShowChannels": [
+              {
+                "channel": "Master"
+              }
+            ]
+          },
+          {
+            "ShowVolumeControl": true
+          }
+        ],
+        "destruct": [
+          {
+            "ShowVolumeControl": false
+          }
+        ],
+        "actions": [
+          {
+            "change": "+5%",
+            "keycode": "50",
+            "channel": "Master"
+          },
+          {
+            "change": "toggle",
+            "keycode": "53",
+            "channel": "Master"
+          },
+          {
+            "change": "-5%",
+            "keycode": "56",
+            "channel": "Master"
+          }
+        ]
+      }
+    }
+  }
+
+Native support for pulseaudio should be possible, as a
+gstreamer module exists - so if some one steps up to do the
+necessary changes (parser for options, decision how to name
+the options) ....
+
+----------------------------------------------------------------------
+
+By: nagper
+Date: 2009-Mar-05 18:01
+
+Message:
+Logged In: YES 
+user_id=46770
+Browser: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.6) Gecko/2009022714 Ubuntu/9.04 (jaunty) Firefox/3.0.6
+
+Hi!
+
+Are you planning to support pulseaudio in the near future?
+(Or is it just configuration problem?)
+
+Now I get the following error in "Volume Control" mode:
+
+---------------
+LBRC.BTServer                      : DEBUG    Trying to
+register service: 
+<?xml version="1.0" encoding="UTF-8" ?>
+<record>
+        <attribute id="0x0001">
+             <uuid
+value="9c6c8dce-9545-11dc-a3c1-0011d8388a56" />
+        </attribute>
+        <attribute id="0x0004">
+                <sequence>
+                        <sequence>
+                                <uuid value="0x0100" />
+                        </sequence>
+                        <sequence>
+                                <uuid value="0x0003" />
+                                <uint8 value="1" />
+                        </sequence>
+                </sequence>
+        </attribute>
+        <attribute id="0x0100">
+            <text value="LBRC" name="name"/>
+        </attribute>
+</record>
+
+LBRC.BTServer                      : DEBUG    Entered
+new codepath for new bluez api
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing
+/dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming
+we found a suitable uinput device node: /dev/input/uinput
+LBRC.Listener.UinputDispatcher     : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.UinputDispatcher.UinputDispatcher'>
+LBRC.Listener.CommandExecutor      : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class
+'LBRC.VolumeControl.VolumeControl'>
+LBRC.Listener.XInput               : DEBUG    Loaded
+succesfully
+LBRC                               : DEBUG   
+Initialized Event Listener: <class 'LBRC.XInput.XInput'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial
+Profile set
+LBRC                               : DEBUG    Init
+dispatcher
+LBRC                               : DEBUG    Recieved
+signal to switch to system profile Volume Control
+LBRC.Listener.UinputDispatcher     : DEBUG    No
+section UinputDispatcher for system profile Volume Control
+LBRC.Listener.UinputDispatcher     : DEBUG    Completed
+processing of UinputDispatcher in system profile Volume
+Control
+LBRC.Listener.CommandExecutor      : DEBUG    No config
+section CommandExecutor for system profile Volume Control
+LBRC.Listener.CommandExecutor      : DEBUG    Completed
+processing of CommandExecutor in system profile Volume
+Control
+LBRC.Listener.DBUSCaller           : DEBUG    No config
+section DBUSCaller for system profile Volume Control
+LBRC.Listener.DBUSCaller           : DEBUG    Completed
+processing of DBUSCaller in system profile Volume Control
+LBRC.Listener.MPlayer              : DEBUG    No config
+section MPlayer for system profile Volume Control
+LBRC.Listener.MPlayer              : DEBUG   
+Succesfully processed system profile Volume Control
+section Mplayer
+LBRC.Listener.PresentationCompanion: DEBUG    No config
+section PresentationCompanion for system profile Volume
+Control
+LBRC.Listener.PresentationCompanion: DEBUG    Completed
+processing of PresentationCompanion in system profile
+Volume Control
+LBRC.Listener.VolumeControl        : DEBUG    Loading
+init section from config
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (50, 0) : {'change': '+5%', 'keycode': '50',
+'channel': 'Master'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (53, 0) : {'change': 'toggle', 'keycode': '53',
+'channel': 'Master'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (56, 0) : {'change': '-5%', 'keycode': '56',
+'channel': 'Master'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (49, 0) : {'change': '+5%', 'keycode': '49',
+'channel': 'PCM'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (52, 0) : {'change': 'toggle', 'keycode': '52',
+'channel': 'PCM'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (55, 0) : {'change': '-5%', 'keycode': '55',
+'channel': 'PCM'}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (51, 0) : {'keycode': '51', 'ShowVolumeControl': True}
+LBRC.Listener.VolumeControl        : DEBUG    Mapping
+key (54, 0) : {'keycode': '54', 'ShowVolumeControl': False}
+LBRC.Listener.VolumeControl        : DEBUG    Loading
+destruct section from config
+LBRC.Listener.VolumeControl        : DEBUG    Completed
+processing of VolumeControl in system profile Volume
+Control
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'SetDefault': {'sound_system': 'alsa'}}
+LBRC.Listener.VolumeCommand        : DEBUG    Setting
+defaults
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowChannels': [{'channel': 'Master'}, {'channel':
+'PCM'}]}
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowVolumeControl': True}
+LBRC.Listener.VolumeCommand        : DEBUG    Getting
+BT Connection
+LBRC.Listener.VolumeCommand        : DEBUG    Got: None
+LBRC.Listener.VolumeCommand        : DEBUG    Calling
+VolumeUpdate
+LBRC.Listener.VolumeControl        : ERROR    Specified
+channel not found!
+LBRC.Listener.VolumeControl        : DEBUG    Calling
+<LBRC.VolumeControl.VolumeCommand object at 0x8b6c3ac>
+failed
+LBRC.Listener.XInput               : DEBUG    No config
+section XInput for system profile Volume Control
+LBRC.Listener.XInput               : DEBUG    Completed
+processing of XInput in system profile Volume Control
+LBRC                               : DEBUG    Reload config
+LBRC.BTServer                      : DEBUG    Entered
+new codepath for new bluez api
+LBRC.BTServer                      : DEBUG   
+Serversocket: ('00:00:00:00:00:00', 1)
+LBRC.BTServer                      : DEBUG    Pairing
+not required
+LBRC.ConnectionControl             : DEBUG   
+connect_cb: 00:12:D1:8D:A1:C4 00:12:D1:8D:A1:C4 1
+LBRC                               : DEBUG   
+_connection_established_cb called
+LBRC.Listener.UinputDispatcher     : DEBUG   
+connection established - running init actions
+LBRC.Listener.CommandExecutor      : DEBUG   
+connection established - running init actions
+LBRC.Listener.DBUSCaller           : DEBUG   
+connection established - running init actions
+LBRC.Listener.ProfileSwitcher      : DEBUG   
+connection established - running init actions
+LBRC.Listener.MPlayer              : DEBUG   
+connection established - running init actions
+LBRC.Listener.PresentationCompanion: DEBUG   
+connection established - running init actions
+LBRC.Listener.VolumeControl        : DEBUG   
+connection established - running init actions
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'SetDefault': {'sound_system': 'alsa'}}
+LBRC.Listener.VolumeCommand        : DEBUG    Setting
+defaults
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowChannels': [{'channel': 'Master'}, {'channel':
+'PCM'}]}
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowVolumeControl': True}
+LBRC.Listener.VolumeCommand        : DEBUG    Getting
+BT Connection
+LBRC.Listener.VolumeCommand        : DEBUG    Got:
+<BTConnection object at 0x8b18fcc
+(LBRC+BTServer+BTConnection at 0x894b150)>
+LBRC.BTConnection                  : DEBUG    Sending
+package:{'command': 'showModule', 'type':
+'displayControl', 'param': 'VolumeControl'}
+LBRC.BTConnection                  : DEBUG   
+'{"command":"showModule","type":"displayControl","param":"VolumeControl"}\x00'
+LBRC.BTConnection                  : DEBUG    Package
+send done
+LBRC.Listener.VolumeCommand        : DEBUG    Calling
+VolumeUpdate
+LBRC.Listener.VolumeControl        : ERROR    Specified
+channel not found!
+LBRC.Listener.VolumeControl        : DEBUG    Calling
+<LBRC.VolumeControl.VolumeCommand object at 0x8b6c3ac>
+failed
+LBRC.Listener.XInput               : DEBUG   
+connection established - running init actions
+LBRC.BTConnection                  : DEBUG    In
+Buffer: '{"type":"init","protocol":1}\x00'
+LBRC.BTConnection                  : DEBUG    Unmatched
+package: {'protocol': 1, 'type': 'init'}
+LBRC.BTConnection                  : DEBUG    In
+Buffer:
+'{"function":"showModule","type":"debugMessage","message":"Showing
+Module: VolumeControl (KeyEcho)","level":"debug"}\x00'
+LBRC.BTConnection                  : DEBUG    PHONE
+(showModule): Showing Module: VolumeControl (KeyEcho)
+LBRC.BTConnection                  : DEBUG    In
+Buffer:
+'{"function":"showModule","type":"debugMessage","message":"Shown
+Module: VolumeControl (KeyEcho,
+KeyEcho)","level":"debug"}\x00'
+LBRC.BTConnection                  : DEBUG    PHONE
+(showModule): Shown Module: VolumeControl (KeyEcho,
+KeyEcho)
+LBRC.BTConnection                  : DEBUG    In
+Buffer: '{"keycode":49,"mapping":0,"type":"keyCode"}\x00'
+LBRC.Listener.UinputDispatcher     : DEBUG    Keycode:
+49, Mapping: 0
+LBRC.Listener.CommandExecutor      : DEBUG    keycode
+called
+LBRC.Listener.CommandExecutor      : DEBUG    keycode
+finished
+LBRC.Listener.DBUSCaller           : DEBUG    keycode
+called
+LBRC.Listener.DBUSCaller           : DEBUG    keycode
+finished
+LBRC.Listener.PresentationCompanion: DEBUG    keycode
+called
+LBRC.Listener.PresentationCompanion: DEBUG    keycode
+finished
+LBRC.Listener.VolumeControl        : DEBUG    keycode
+called
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'change': '+5%', 'keycode': '49', 'channel': 'PCM'}
+LBRC.Listener.VolumeCommand        : DEBUG    Start of
+volume_change
+LBRC.Listener.VolumeCommand        : ERROR    Specified
+channel not found!
+LBRC.Listener.VolumeCommand        : DEBUG    change volume
+LBRC.Listener.VolumeCommand        : ERROR   
+GstMixer.get_volume() argument 1 must be
+gst.interfaces.MixerTrack, not None
+Traceback (most recent call last):
+  File
+"/var/lib/python-support/python2.6/LBRC/VolumeControl.py",
+line 68, in call
+    self._volume_change()
+  File
+"/var/lib/python-support/python2.6/LBRC/VolumeControl.py",
+line 50, in _volume_change
+    old_volume = mixer.get_volume(track)
+TypeError: GstMixer.get_volume() argument 1 must be
+gst.interfaces.MixerTrack, not None
+Traceback (most recent call last):
+  File
+"/var/lib/python-support/python2.6/LBRC/dbusinterface.py",
+line 293, in _dispatch
+    listener.keycode(mapping, keycode)
+  File
+"/var/lib/python-support/python2.6/LBRC/Listener.py",
+line 121, in keycode
+    command.call()
+  File
+"/var/lib/python-support/python2.6/LBRC/VolumeControl.py",
+line 70, in call
+    self.logger.exception(e)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1052, in exception
+    self.error(*((msg,) + args), **{'exc_info': 1})
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1046, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1133, in _log
+    self.handle(record)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1143, in handle
+    self.callHandlers(record)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+1180, in callHandlers
+    hdlr.handle(record)
+  File "/usr/lib/python2.6/logging/__init__.py", line
+659, in handle
+    self.emit(record)
+  File
+"/var/lib/python-support/python2.6/LBRC/dbusinterface.py",
+line 212, in emit
+    lr.fmessage)
+  File
+"/var/lib/python-support/python2.6/dbus/decorators.py",
+line 309, in emit_signal
+    message.append(signature=signature, *args)
+TypeError: Expected a string or unicode object
+LBRC.BTConnection                  : DEBUG    In
+Buffer: '{"keycode":49,"mapping":1,"type":"keyCode"}\x00'
+LBRC.Listener.UinputDispatcher     : DEBUG    Keycode:
+49, Mapping: 1
+LBRC.Listener.CommandExecutor      : DEBUG    keycode
+called
+LBRC.Listener.CommandExecutor      : DEBUG    keycode
+finished
+LBRC.Listener.DBUSCaller           : DEBUG    keycode
+called
+LBRC.Listener.DBUSCaller           : DEBUG    keycode
+finished
+LBRC.Listener.PresentationCompanion: DEBUG    keycode
+called
+LBRC.Listener.PresentationCompanion: DEBUG    keycode
+finished
+LBRC.Listener.VolumeControl        : DEBUG    keycode
+called
+LBRC.Listener.VolumeControl        : DEBUG    keycode
+finished
+LBRC.Listener.XInput               : DEBUG    Keycode:
+49, Mapping: 1
+---------------
+
+Config:
+Ubuntu-Jaunty
+kernel.2.6.28.7
+alsa-1.0.18
+pulseaudio-0.9.14
+bluez-4.30
+
+
+Thanks
+Peter
+
+----------------------------------------------------------------------
+You can respond by visiting: 
+http://developer.berlios.de/feature/?func=detailfeature&feature_id=4521&group_id=8112
+
+

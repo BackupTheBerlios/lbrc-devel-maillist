@@ -1,0 +1,39 @@
+From bogus@does.not.exist.com  Wed Mar 14 15:20:54 2012
+From: bogus@does.not.exist.com ()
+Date: Wed, 14 Mar 2012 14:20:54 -0000
+Subject: No subject
+Message-ID: <mailman.0.1331734855.4852.lbrc-devel@lists.berlios.de>
+
+:
+LBRC help!
+
+
+
+Hello, i have a problem with the LBRC: the installation was ok, but i keep
+getting a message LBRC Service not found
+length of service list:0
+
+can you please help me?
+
+i have a nokia n70 music edition
+--
+
+"Our background & circumstances
+may have influenced who we are,
+But we're responsible for who we become."
+
+"shooting griffins with a rocket launcher is, indeed, awesome."
+
+------=_Part_34580_30826166.1221261253904
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+<div dir="ltr"><p>From the page <a href="http://developer.berlios.de/svn/?group_id=8112">BerliOS Developer: SVN Repository</a>:</p>LBRC help!<br><br><br><br>Hello, i have a problem with the LBRC: the installation was ok, but i keep getting a message LBRC Service not found<br>
+length of service list:0<br><br>can you please help me?<br><br>i have a nokia n70 music edition<br clear="all">--<br><br>&quot;Our background &amp; circumstances<br>may have influenced who we are,<br>But we&#39;re responsible for who we become.&quot;<br>
+<br>&quot;shooting griffins with a rocket launcher is, indeed, awesome.&quot;<br><br><br><br><br><br>
+</div>
+
+------=_Part_34580_30826166.1221261253904--
+
+

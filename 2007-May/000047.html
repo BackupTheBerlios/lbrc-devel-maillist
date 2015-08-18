@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Error on LBRC
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Error%20on%20LBRC&In-Reply-To=%3C1179053029.24034.6.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000046.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Error on LBRC</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Error%20on%20LBRC&In-Reply-To=%3C1179053029.24034.6.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Error on LBRC">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sun May 13 12:43:49 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000046.html">[Lbrc-devel] Error on LBRC
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey,
+
+Am Sonntag, den 13.05.2007, 12:18 +0200 schrieb LEVIS Cyril:
+&gt;<i> &gt; atlas:~/Desktop/LBRC-0.4$ ./LBRCdbus.py --debug
+</I>&gt;<i> &gt; /usr/lib/python2.4/site-packages/bluetooth.py:10: RuntimeWarning: Python C API version mismatch for module _bluetooth: This Python has API version 1013, module _bluetooth has version 1012.
+</I>&gt;<i> &gt;   import _bluetooth
+</I>
+You should look into the python-bluez bindings - they seem to be
+compiled for the wrong python version. Is arch linux compiled from
+source, then you should rebuild and if there are prebuild packages, than
+you should inform the maintainer.
+
+&gt;<i> &gt; Traceback (most recent call last):
+</I>&gt;<i> &gt;   File &quot;./LBRCdbus.py&quot;, line 3, in &lt;module&gt;
+</I>&gt;<i> &gt;     from LBRC.dbusinterface import LBRCdbus
+</I>&gt;<i> &gt;   File &quot;/home/atlas/Desktop/LBRC-0.4/LBRC/dbusinterface.py&quot;, line 14, in &lt;module&gt;
+</I>&gt;<i> &gt;     from LBRC.config import config
+</I>&gt;<i> &gt;   File &quot;/home/atlas/Desktop/LBRC-0.4/LBRC/config.py&quot;, line 2, in &lt;module&gt;
+</I>&gt;<i> &gt;     import json
+</I>&gt;<i> &gt; ImportError: No module named json
+</I>
+And you need the json module. In debian the module is names python-json,
+not sure what it is called on arch linux.
+
+Hope that helps
+
+Matthias
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+&quot;Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren.&quot;
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070513/55a32a9b/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070513/55a32a9b/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000046.html">[Lbrc-devel] Error on LBRC
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

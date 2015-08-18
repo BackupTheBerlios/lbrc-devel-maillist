@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] i18n for j2me
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20i18n%20for%20j2me&In-Reply-To=%3C1174694214.2847.15.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000035.html">
+   <LINK REL="Next"  HREF="000037.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] i18n for j2me</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20i18n%20for%20j2me&In-Reply-To=%3C1174694214.2847.15.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] i18n for j2me">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sat Mar 24 00:56:54 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000035.html">[Lbrc-devel] Thoughts about the wire (bluetooth) protocol
+</A></li>
+        <LI>Next message: <A HREF="000037.html">[Lbrc-devel] Plugin Metadata + Checks
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+as I submitted several changes svn to beautify the j2me part, I ran over
+the issue of i18n for the client. A few searches attempts showed, that
+there seems no &quot;right&quot; way to do it.
+
+As we are faced only with a limited number of string in the core, I
+think we should hardcode them in a java class (and not rely on external
+classes like polish from enough software). Every other string can and
+should be send localized from the server application. Here I'm thinking
+about the profile selection as an example.
+
+I hope there are no objections, but I'm open to new ideas.
+
+Greetings
+
+
+Matthias
+
+
+
+PS: I think I will do the protocol and connection method switch this
+weekend. This means, that when you are tracking svn, you have to update
+the python _and_ the j2me part. I will put a new build of the j2me part
+into svn whenever it seems necessary (be it a protocol breakage or just
+a huge improvement ;-)
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+&quot;Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren.&quot;
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070324/23f9a248/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070324/23f9a248/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000035.html">[Lbrc-devel] Thoughts about the wire (bluetooth) protocol
+</A></li>
+	<LI>Next message: <A HREF="000037.html">[Lbrc-devel] Plugin Metadata + Checks
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

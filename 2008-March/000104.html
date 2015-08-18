@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] lbrc and nokia E70
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20lbrc%20and%20nokia%20E70&In-Reply-To=%3C1205442408.29718.7.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000103.html">
+   <LINK REL="Next"  HREF="000105.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] lbrc and nokia E70</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20lbrc%20and%20nokia%20E70&In-Reply-To=%3C1205442408.29718.7.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] lbrc and nokia E70">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Thu Mar 13 22:06:48 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000103.html">[Lbrc-devel] lbrc and nokia E70
+</A></li>
+        <LI>Next message: <A HREF="000105.html">[Lbrc-devel] Linux Bluetooth Remote Control --debug
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#104">[ date ]</a>
+              <a href="thread.html#104">[ thread ]</a>
+              <a href="subject.html#104">[ subject ]</a>
+              <a href="author.html#104">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey Chris,
+
+Am Dienstag, den 11.03.2008, 19:22 +0200 schrieb Chris Picton:
+&gt;<i> [Problem: keycode generates different symbols depending on keyboard &gt;
+</I>&gt;<i>  layout]
+</I>&gt;<i> 
+</I>&gt;<i> I can see that this is because you are inputting raw key data, not the
+</I>&gt;<i> final character, but short of reading the gnome keyboard/language
+</I>&gt;<i> layout, I am not sure how this can be overcome.
+</I>
+It would be interesting to know whether there is a way to make X
+generate a symbol. But I asume that on the layer I could see a chance to
+inject keystrokes (XTest) keycodes are expected - But I could be wrong
+and an input module without the usage of uinput could be done.
+
+Other projects working in similar directions already inject on the
+X-level and not the kernel level. Both approches have their pros and
+cons. I really would like to see a X-level input system, as this would
+eliminate the pain of making the uinput-dbus bridge run.
+
+But I won't have enough time for this in the near future (maybe in the
+summer, but I'm really not sure). If someone wants to write such a
+module - don't hesitate. I'll look over it, you can ask if you are faced
+with problems and you have the source of the uinput module and the other
+key listeners.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080313/9f02f23a/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080313/9f02f23a/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000103.html">[Lbrc-devel] lbrc and nokia E70
+</A></li>
+	<LI>Next message: <A HREF="000105.html">[Lbrc-devel] Linux Bluetooth Remote Control --debug
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#104">[ date ]</a>
+              <a href="thread.html#104">[ thread ]</a>
+              <a href="subject.html#104">[ subject ]</a>
+              <a href="author.html#104">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

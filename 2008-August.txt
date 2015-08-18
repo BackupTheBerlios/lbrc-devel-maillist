@@ -1,0 +1,1877 @@
+From nagper at gmail.com  Sat Aug  2 11:32:15 2008
+From: nagper at gmail.com (Peter Nagy)
+Date: Sat, 2 Aug 2008 10:32:15 +0100
+Subject: [Lbrc-devel] N80 internet edition firmware
+Message-ID: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+
+Hi!
+
+Does LBRC works with N80 internet edition? With an older firmware It
+worked but after upgrading my mobile firmware I have the following
+problem:
+
+LBRCdbus --debug:
+
+LBRC.BTServer                      : DEBUG    Trying to register service:
+<?xml version="1.0" encoding="UTF-8" ?>
+<record>
+        <attribute id="0x0001">
+             <uuid value="9c6c8dce-9545-11dc-a3c1-0011d8388a56" />
+        </attribute>
+        <attribute id="0x0004">
+                <sequence>
+                        <sequence>
+                                <uuid value="0x0100" />
+                        </sequence>
+                        <sequence>
+                                <uuid value="0x0003" />
+                                <uint8 value="1" />
+                        </sequence>
+                </sequence>
+        </attribute>
+        <attribute id="0x0100">
+            <text value="LBRC" name="name"/>
+        </attribute>
+</record>
+
+LBRC.Listener.UInputDispatcher     : DEBUG    __init__ begin
+LBRC.Listener.UInputDispatcher     : DEBUG    __init__ of baseclass done
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing
+/dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a
+suitable uinput device node: /dev/input/uinput
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.UinputDispatcher.UinputDispatcher'>
+LBRC.Listener.CommandExecutor      : DEBUG    __init__ begin
+LBRC.Listener.CommandExecutor      : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    __init__ begin
+LBRC.Listener.DBUSCaller           : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ begin
+LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    __init__ begin
+LBRC.Listener.MPlayer              : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    __init__ begin
+LBRC.Listener.PresentationCompanion: DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    __init__ begin
+LBRC.Listener.VolumeControl        : DEBUG    __init__ of baseclass done
+LBRC                               : DEBUG    Initiablized Event
+Listener: <class 'LBRC.VolumeControl.VolumeControl'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC.Listener.UInputDispatcher     : DEBUG    set_profile(system,
+Volume Control)
+LBRC.Listener.UInputDispatcher     : DEBUG
+_interpret_profile(system, Volume Control)
+LBRC.Listener.UInputDispatcher     : DEBUG    Error fetching config
+section for system profile from Volume Control config
+LBRC.Listener.UInputDispatcher     : DEBUG    No actions were defined
+LBRC.Listener.CommandExecutor      : DEBUG    set_profile called
+LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile called
+LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating init
+LBRC.Listener.CommandExecutor      : DEBUG    failure while
+interprating destruct
+LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating actions
+LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile finished
+LBRC.Listener.CommandExecutor      : DEBUG    set_profile finished
+LBRC.Listener.DBUSCaller           : DEBUG    set_profile called
+LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile called
+LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating init
+LBRC.Listener.DBUSCaller           : DEBUG    failure while
+interprating destruct
+LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating actions
+LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile finished
+LBRC.Listener.DBUSCaller           : DEBUG    set_profile finished
+LBRC.Listener.PresentationCompanion: DEBUG    set_profile called
+LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile called
+LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating init
+LBRC.Listener.PresentationCompanion: DEBUG    failure while
+interprating destruct
+LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating actions
+LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile finished
+LBRC.Listener.PresentationCompanion: DEBUG    set_profile finished
+LBRC.Listener.VolumeControl        : DEBUG    set_profile called
+LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile called
+LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile finished
+LBRC.Listener.VolumeCommand        : DEBUG    Command: {'SetDefault':
+{'sound_system': 'alsa'}}
+LBRC.Listener.VolumeCommand        : DEBUG    Setting defaults
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowChannels': [{'channel': 'Master'}, {'channel': 'PCM'}]}
+LBRC.Listener.VolumeCommand        : DEBUG    Command:
+{'ShowVolumeControl': True}
+LBRC.Listener.VolumeCommand        : DEBUG    Getting BT Connection
+LBRC.Listener.VolumeCommand        : DEBUG    Got: None
+LBRC.Listener.VolumeCommand        : DEBUG    Calling VolumeUpdate
+LBRC.Listener.VolumeControl        : DEBUG    set_profile finished
+LBRC                               : DEBUG    Reload config
+
+
+...this is only the initilaziation of LBRC. I think I can't connect to
+LBRC because whilst connecting it doesn't say anything.
+
+
+syslog:
+
+Aug  2 10:06:37 nagper-desktop NetworkManager: <debug>
+[1217667997.793594] nm_hal_device_added(): New device added (hal udi
+is '/org/freedesktop/Hal/devices/bluetooth_acl_12d18da1c4').
+Aug  2 10:06:47 nagper-desktop NetworkManager: <debug>
+[1217668007.114549] nm_hal_device_removed(): Device removed (hal udi
+is '/org/freedesktop/Hal/devices/bluetooth_acl_12d18da1c4').
+
+/var/log/messages:
+
+Aug  2 10:05:38 nagper-desktop kernel: [ 5294.513633] input: Linux
+Bluetooth Remote Control as /devices/virtual/input/input10
+Aug  2 10:05:56 nagper-desktop kernel: [ 5312.250784] input: Linux
+Bluetooth Remote Control as /devices/virtual/input/input11
+
+S60 java application:
+1. Starting the application -> "scanning for devices" -> Found:
+"nagper-desktop-0"
+2. Clicking on it -> Checking for service -> LBRC Service not found!
+Length of service list: 0"
+
+
+I've tried it with an up-to-date ubuntu (Hardy) and with an Ubuntu
+(Hardy) Live CD (without updates)
+I've tried the SVN version of LBRC as well.
+I'll try other live CD-s to be sure it is because of the mobile
+firmware upgrade.
+
+
+Thanks!
+Peter
+
+
+From matthias.blaesing at rwth-aachen.de  Sat Aug  2 23:00:39 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 02 Aug 2008 23:00:39 +0200
+Subject: [Lbrc-devel] N80 internet edition firmware
+In-Reply-To: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+Message-ID: <1217710839.15701.13.camel@enterprise.glx>
+
+Hey,
+
+please check, whether the service announcement makes it into the system
+sdp server. The sdpserver is responsible for the publishing of the
+services provided by the bluetooth adapter. You can get the list like
+this:
+
+mblaesing at enterprise:~$ sdptool browse local
+
+There should be an entry like this:
+
+Service Name: LBRC
+Service RecHandle: 0x10004
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 1
+
+If it is not listed, something is fishy in the bluez stack (on the linux
+side), if it is listed we have to take a look at the phone.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080802/473fd39e/attachment.pgp>
+
+From nagper at gmail.com  Sat Aug  2 23:21:35 2008
+From: nagper at gmail.com (Peter Nagy)
+Date: Sat, 2 Aug 2008 22:21:35 +0100
+Subject: [Lbrc-devel] Fwd:  N80 internet edition firmware
+In-Reply-To: <1217710839.15701.13.camel@enterprise.glx>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+Message-ID: <4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+
+Hi!
+
+Thanks for the quick reply.
+
+"sdptool browse local" says:
+
+Service Name: LBRC
+Service RecHandle: 0x10005
+Protocol Descriptor List:
+ "L2CAP" (0x0100)
+ "RFCOMM" (0x0003)
+   Channel: 1
+
+
+Peter
+
+
+---------- Forwarded message ----------
+From: Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>
+Date: 2008/8/2
+Subject: Re: [Lbrc-devel] N80 internet edition firmware
+To: lbrc-devel at lists.berlios.de
+Cc: Peter Nagy <nagper at gmail.com>
+
+
+Hey,
+
+please check, whether the service announcement makes it into the system
+sdp server. The sdpserver is responsible for the publishing of the
+services provided by the bluetooth adapter. You can get the list like
+this:
+
+mblaesing at enterprise:~$ sdptool browse local
+
+There should be an entry like this:
+
+Service Name: LBRC
+Service RecHandle: 0x10004
+Protocol Descriptor List:
+ "L2CAP" (0x0100)
+ "RFCOMM" (0x0003)
+   Channel: 1
+
+If it is not listed, something is fishy in the bluez stack (on the linux
+side), if it is listed we have to take a look at the phone.
+
+Greetings
+
+Matthias
+
+--
+So long and thanks for all the fish!
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: signature.asc
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080802/e38230e5/attachment.asc>
+
+From matthias.blaesing at rwth-aachen.de  Sat Aug  2 23:58:13 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 02 Aug 2008 23:58:13 +0200
+Subject: [Lbrc-devel] Fwd:  N80 internet edition firmware
+In-Reply-To: <4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+Message-ID: <1217714293.17998.5.camel@enterprise.glx>
+
+Hey again,
+
+actually this is a shot into the dark - I changed the search parameters
+(based on other UUIDs). Could you please fetch this build:
+
+http://www.doppel-helix.eu/LBRC.jar
+http://www.doppel-helix.eu/LBRC.jad
+
+And try again. Maybe the S60 exposes the search routines differently...
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080802/584e257e/attachment.pgp>
+
+From nagper at gmail.com  Sun Aug  3 11:51:36 2008
+From: nagper at gmail.com (Peter Nagy)
+Date: Sun, 3 Aug 2008 10:51:36 +0100
+Subject: [Lbrc-devel] Fwd: N80 internet edition firmware
+In-Reply-To: <1217714293.17998.5.camel@enterprise.glx>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+Message-ID: <4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+
+Hi!
+
+I've tried it with no success. The effect is the same. :(
+
+Peter
+
+2008/8/2 Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>:
+> Hey again,
+>
+> actually this is a shot into the dark - I changed the search parameters
+> (based on other UUIDs). Could you please fetch this build:
+>
+> http://www.doppel-helix.eu/LBRC.jar
+> http://www.doppel-helix.eu/LBRC.jad
+>
+> And try again. Maybe the S60 exposes the search routines differently...
+>
+> Greetings
+>
+> Matthias
+>
+> --
+> So long and thanks for all the fish!
+>
+
+
+From matthias.blaesing at rwth-aachen.de  Mon Aug  4 10:49:52 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 04 Aug 2008 10:49:52 +0200
+Subject: [Lbrc-devel] Fwd: N80 internet edition firmware
+In-Reply-To: <4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+Message-ID: <1217839792.9603.7.camel@enterprise.glx>
+
+Hello,
+
+Am Sonntag, den 03.08.2008, 10:51 +0100 schrieb Peter Nagy:
+> I've tried it with no success. The effect is the same. :(
+
+ok - I broadend the attribute list to search and narrowed the UUIDs to
+accept (this should work!).
+
+So could you please grab the latest release from
+
+http://www.doppel-helix.eu/LBRC.jar
+http://www.doppel-helix.eu/LBRC.jad
+
+It should help
+
+Matthias
+
+PS: Are you subscribed to the list or should I keep the CC?
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080804/8753175b/attachment.pgp>
+
+From nagper at gmail.com  Mon Aug  4 18:08:20 2008
+From: nagper at gmail.com (Peter Nagy)
+Date: Mon, 4 Aug 2008 17:08:20 +0100
+Subject: [Lbrc-devel] Fwd: N80 internet edition firmware
+In-Reply-To: <1217839792.9603.7.camel@enterprise.glx>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+	<1217839792.9603.7.camel@enterprise.glx>
+Message-ID: <4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+
+Hi!
+
+Nothing has changed :(.
+I'll try to downgrade my phone's firmware to be sure the problem is
+with the new firmware.
+Anyway thanks that you are dealing with it.
+
+Peter
+
+PS: I'm on the list... you can leave the CC. Think I can as well. :)
+
+
+2008/8/4 Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>:
+> Hello,
+>
+> Am Sonntag, den 03.08.2008, 10:51 +0100 schrieb Peter Nagy:
+>> I've tried it with no success. The effect is the same. :(
+>
+> ok - I broadend the attribute list to search and narrowed the UUIDs to
+> accept (this should work!).
+>
+> So could you please grab the latest release from
+>
+> http://www.doppel-helix.eu/LBRC.jar
+> http://www.doppel-helix.eu/LBRC.jad
+>
+> It should help
+>
+> Matthias
+>
+> PS: Are you subscribed to the list or should I keep the CC?
+> --
+> So long and thanks for all the fish!
+>
+
+
+From nagper at gmail.com  Thu Aug  7 09:09:37 2008
+From: nagper at gmail.com (Peter Nagy)
+Date: Thu, 7 Aug 2008 08:09:37 +0100
+Subject: [Lbrc-devel] Fwd:  Fwd: N80 internet edition firmware
+In-Reply-To: <4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+	<1217839792.9603.7.camel@enterprise.glx>
+	<4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+Message-ID: <4284163a0808070009l65ef6124nae8eebacc5b46c63@mail.gmail.com>
+
+Hi again
+
+Downgrade is not possible on the N series phones so I can't try it.
+Hope there will be a solution in the near future.
+
+Thanks
+Peter
+
+
+---------- Forwarded message ----------
+From: Peter Nagy <nagper at gmail.com>
+Date: 2008/8/4
+Subject: Re: [Lbrc-devel] Fwd: N80 internet edition firmware
+To: lbrc-devel at lists.berlios.de
+Cc: Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>
+
+
+Hi!
+
+Nothing has changed :(.
+I'll try to downgrade my phone's firmware to be sure the problem is
+with the new firmware.
+Anyway thanks that you are dealing with it.
+
+Peter
+
+PS: I'm on the list... you can leave the CC. Think I can as well. :)
+
+
+2008/8/4 Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>:
+> Hello,
+>
+> Am Sonntag, den 03.08.2008, 10:51 +0100 schrieb Peter Nagy:
+>> I've tried it with no success. The effect is the same. :(
+>
+> ok - I broadend the attribute list to search and narrowed the UUIDs to
+> accept (this should work!).
+>
+> So could you please grab the latest release from
+>
+> http://www.doppel-helix.eu/LBRC.jar
+> http://www.doppel-helix.eu/LBRC.jad
+>
+> It should help
+>
+> Matthias
+>
+> PS: Are you subscribed to the list or should I keep the CC?
+> --
+> So long and thanks for all the fish!
+>
+
+
+From matthias.blaesing at rwth-aachen.de  Fri Aug  8 16:58:56 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 08 Aug 2008 16:58:56 +0200
+Subject: [Lbrc-devel] Fwd:  Fwd: N80 internet edition firmware
+In-Reply-To: <4284163a0808070009l65ef6124nae8eebacc5b46c63@mail.gmail.com>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+	<1217839792.9603.7.camel@enterprise.glx>
+	<4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+	<4284163a0808070009l65ef6124nae8eebacc5b46c63@mail.gmail.com>
+Message-ID: <1218207536.13312.7.camel@enterprise.glx>
+
+Hey Peter,
+
+Am Donnerstag, den 07.08.2008, 08:09 +0100 schrieb Peter Nagy: 
+> Downgrade is not possible on the N series phones so I can't try it.
+> Hope there will be a solution in the near future.
+
+another try ...
+
+I changed the profile we advertise again, this time it announces, that
+we use the serial port profile. As my bluetooth receiver announces the
+same profile I have some hope to get around the potential "security
+measures" of the manufactor.
+
+So - what do you have to do?
+
+1. Grab another build of the j2me client from the usual location
+(http://www.doppel-helix.eu/LBRC.ja*)
+2. Change BTServer.py: 
+
+def __init__(self, name = "LBRC", serverid = "9c6c8dce-9545-11dc-a3c1-0011d8388a56"):
+
+has to be changed to:
+
+def __init__(self, name = "LBRC", serverid = "0x1101"):
+
+There is little more, that I could imagine that could go wrong ....
+
+HTH
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080808/38f7b49e/attachment.pgp>
+
+From nagper at gmail.com  Fri Aug  8 18:36:03 2008
+From: nagper at gmail.com (Peter Nagy)
+Date: Fri, 8 Aug 2008 17:36:03 +0100
+Subject: [Lbrc-devel] Fwd: Fwd: N80 internet edition firmware
+In-Reply-To: <1218207536.13312.7.camel@enterprise.glx>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+	<1217839792.9603.7.camel@enterprise.glx>
+	<4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+	<4284163a0808070009l65ef6124nae8eebacc5b46c63@mail.gmail.com>
+	<1218207536.13312.7.camel@enterprise.glx>
+Message-ID: <4284163a0808080936r289bcb4dy21d997a20920643b@mail.gmail.com>
+
+Hi
+
+Now the error message (after waiting about 15 seconds) is : "Service
+serch error"
+
+Thanks!
+Peter
+
+
+2008/8/8 Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>:
+> Hey Peter,
+>
+> Am Donnerstag, den 07.08.2008, 08:09 +0100 schrieb Peter Nagy:
+>> Downgrade is not possible on the N series phones so I can't try it.
+>> Hope there will be a solution in the near future.
+>
+> another try ...
+>
+> I changed the profile we advertise again, this time it announces, that
+> we use the serial port profile. As my bluetooth receiver announces the
+> same profile I have some hope to get around the potential "security
+> measures" of the manufactor.
+>
+> So - what do you have to do?
+>
+> 1. Grab another build of the j2me client from the usual location
+> (http://www.doppel-helix.eu/LBRC.ja*)
+> 2. Change BTServer.py:
+>
+> def __init__(self, name = "LBRC", serverid = "9c6c8dce-9545-11dc-a3c1-0011d8388a56"):
+>
+> has to be changed to:
+>
+> def __init__(self, name = "LBRC", serverid = "0x1101"):
+>
+> There is little more, that I could imagine that could go wrong ....
+>
+> HTH
+>
+> Matthias
+>
+> --
+> So long and thanks for all the fish!
+>
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+>
+>
+
+
+From matthias.blaesing at rwth-aachen.de  Fri Aug  8 18:51:37 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 08 Aug 2008 18:51:37 +0200
+Subject: [Lbrc-devel] Fwd: Fwd: N80 internet edition firmware
+In-Reply-To: <4284163a0808080936r289bcb4dy21d997a20920643b@mail.gmail.com>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<1217710839.15701.13.camel@enterprise.glx>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+	<1217839792.9603.7.camel@enterprise.glx>
+	<4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+	<4284163a0808070009l65ef6124nae8eebacc5b46c63@mail.gmail.com>
+	<1218207536.13312.7.camel@enterprise.glx>
+	<4284163a0808080936r289bcb4dy21d997a20920643b@mail.gmail.com>
+Message-ID: <1218214297.19042.3.camel@enterprise.glx>
+
+Hm,
+
+Am Freitag, den 08.08.2008, 17:36 +0100 schrieb Peter Nagy:
+> Now the error message (after waiting about 15 seconds) is : "Service
+> serch error"
+
+I really have no idea where to search next. What you could try (if you
+have a gps receiver handy):
+
+http://www.qcontinuum.org/gpstrack/
+
+Check whether that works. It uses basicly the same search parameters and
+if that works, some more suspicious is going on.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080808/f838790a/attachment.pgp>
+
+From nagper at gmail.com  Fri Aug  8 19:09:22 2008
+From: nagper at gmail.com (Peter Nagy)
+Date: Fri, 8 Aug 2008 18:09:22 +0100
+Subject: [Lbrc-devel] Fwd: Fwd: N80 internet edition firmware
+In-Reply-To: <1218214297.19042.3.camel@enterprise.glx>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+	<1217839792.9603.7.camel@enterprise.glx>
+	<4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+	<4284163a0808070009l65ef6124nae8eebacc5b46c63@mail.gmail.com>
+	<1218207536.13312.7.camel@enterprise.glx>
+	<4284163a0808080936r289bcb4dy21d997a20920643b@mail.gmail.com>
+	<1218214297.19042.3.camel@enterprise.glx>
+Message-ID: <4284163a0808081009m65e8544av19b0baf9437fe876@mail.gmail.com>
+
+Sorry ... I think there was some problem with my bluez stack, so the
+error message is simply the same: "LBRC Service not found ..." NOT the
+"Service serch error"
+I've just tried and gpstrack is working with my bluetooth GPS device
+I'll try a few things (hard resetting my phone, etc.)
+Hope something will happen.
+
+
+Thanks anyway.
+Peter
+
+2008/8/8 Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>:
+> Hm,
+>
+> Am Freitag, den 08.08.2008, 17:36 +0100 schrieb Peter Nagy:
+>> Now the error message (after waiting about 15 seconds) is : "Service
+>> serch error"
+>
+> I really have no idea where to search next. What you could try (if you
+> have a gps receiver handy):
+>
+> http://www.qcontinuum.org/gpstrack/
+>
+> Check whether that works. It uses basicly the same search parameters and
+> if that works, some more suspicious is going on.
+>
+> Greetings
+>
+> Matthias
+>
+> --
+> So long and thanks for all the fish!
+>
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+>
+>
+
+
+From matthias.blaesing at rwth-aachen.de  Fri Aug  8 23:52:35 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 08 Aug 2008 23:52:35 +0200
+Subject: [Lbrc-devel] Fwd: Fwd: N80 internet edition firmware
+In-Reply-To: <4284163a0808081009m65e8544av19b0baf9437fe876@mail.gmail.com>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<4284163a0808021421l6f6382fcoc1c45c829f03cb11@mail.gmail.com>
+	<1217714293.17998.5.camel@enterprise.glx>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+	<1217839792.9603.7.camel@enterprise.glx>
+	<4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+	<4284163a0808070009l65ef6124nae8eebacc5b46c63@mail.gmail.com>
+	<1218207536.13312.7.camel@enterprise.glx>
+	<4284163a0808080936r289bcb4dy21d997a20920643b@mail.gmail.com>
+	<1218214297.19042.3.camel@enterprise.glx>
+	<4284163a0808081009m65e8544av19b0baf9437fe876@mail.gmail.com>
+Message-ID: <1218232355.32307.4.camel@enterprise.glx>
+
+And another round,
+
+Am Freitag, den 08.08.2008, 18:09 +0100 schrieb Peter Nagy: 
+> Sorry ... I think there was some problem with my bluez stack, so the
+> error message is simply the same: "LBRC Service not found ..." NOT the
+> "Service serch error"
+> I've just tried and gpstrack is working with my bluetooth GPS device
+> I'll try a few things (hard resetting my phone, etc.)
+> Hope something will happen.
+
+And another round. I had a closer look at the gpstrack code and it so
+very, very close. The basic difference I can see is handling of errors
+in the service search (there is none in gpstrack). So what I did is: We
+still check the response code and error messages are created. (This is
+intended to be used with the modification to BTServer.py described in
+the last email)
+
+Nevertheless we iterate the found services list - maybe the service was
+found despite another response code (I'm just doing some wild guessing -
+but debugging is a bit hard without a connection ...)
+
+Good night
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080808/d8f70ec2/attachment.pgp>
+
+From nagper at gmail.com  Sat Aug  9 10:09:57 2008
+From: nagper at gmail.com (Peter Nagy)
+Date: Sat, 9 Aug 2008 09:09:57 +0100
+Subject: [Lbrc-devel] Fwd: Fwd: N80 internet edition firmware
+In-Reply-To: <1218232355.32307.4.camel@enterprise.glx>
+References: <4284163a0808020232x6fe0328bi1f6448734678b078@mail.gmail.com>
+	<4284163a0808030251r2082094lc21ea37d2016b078@mail.gmail.com>
+	<1217839792.9603.7.camel@enterprise.glx>
+	<4284163a0808040908s15c06828l3ecf6958c5dee5b1@mail.gmail.com>
+	<4284163a0808070009l65ef6124nae8eebacc5b46c63@mail.gmail.com>
+	<1218207536.13312.7.camel@enterprise.glx>
+	<4284163a0808080936r289bcb4dy21d997a20920643b@mail.gmail.com>
+	<1218214297.19042.3.camel@enterprise.glx>
+	<4284163a0808081009m65e8544av19b0baf9437fe876@mail.gmail.com>
+	<1218232355.32307.4.camel@enterprise.glx>
+Message-ID: <4284163a0808090109y71be3241hcfb95ec5811c065@mail.gmail.com>
+
+Hello,
+
+I've fetched it from http://www.doppel-helix.eu/LBRC.jar
+Still the same error message.
+Do you know anybody who got it working with an N80 Internet edition firmware?
+Something really strange is happening here.
+
+Cheers!
+Peter
+
+
+2008/8/8 Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>:
+> And another round,
+>
+> Am Freitag, den 08.08.2008, 18:09 +0100 schrieb Peter Nagy:
+>> Sorry ... I think there was some problem with my bluez stack, so the
+>> error message is simply the same: "LBRC Service not found ..." NOT the
+>> "Service serch error"
+>> I've just tried and gpstrack is working with my bluetooth GPS device
+>> I'll try a few things (hard resetting my phone, etc.)
+>> Hope something will happen.
+>
+> And another round. I had a closer look at the gpstrack code and it so
+> very, very close. The basic difference I can see is handling of errors
+> in the service search (there is none in gpstrack). So what I did is: We
+> still check the response code and error messages are created. (This is
+> intended to be used with the modification to BTServer.py described in
+> the last email)
+>
+> Nevertheless we iterate the found services list - maybe the service was
+> found despite another response code (I'm just doing some wild guessing -
+> but debugging is a bit hard without a connection ...)
+>
+> Good night
+>
+> Matthias
+>
+> --
+> So long and thanks for all the fish!
+>
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+>
+>
+
+
+From matthias.blaesing at rwth-aachen.de  Sat Aug 16 14:19:56 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 16 Aug 2008 12:19:56 +0000
+Subject: [Lbrc-devel] Winkey through DBUSBridge (Re: LBRC Question)
+In-Reply-To: <48A69FCE.10704@gmail.com>
+References: <48A69FCE.10704@gmail.com>
+Message-ID: <1218889196.16541.5.camel@enterprise.glx>
+
+Am Samstag, den 16.08.2008, 19:07 +0930 schrieb Jayson Hay:
+> Hi there,
+> 
+> Can a key command using the windows key be used in the Keyboard/Mouse section of 
+> a LBRC Profile? What I want to do is control Amarok (without having to jump 
+> through their hoops) but to do this I need to send key combos like Win+B
+> 
+> Is this possible?
+
+Sure - you give the key to be pressed together seperated by a "+" sign.
+For example LEFTALT+TAB yields a change of windows. For you this should
+be:
+
+LEFTMETA+B (this would be left windows key and b pressed together)
+RIGHTMETA+B (this would be right windows key and b pressed together)
+COMPOSE+B (this would be menu key and b pressed together)
+
+I don't know whether the keybindings are case sensitive, but to generate
+a uppercase b try this: LEFTMETA+LEFTSHIFT+B
+
+HTH
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080816/e7e713be/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Aug 16 15:40:23 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 16 Aug 2008 15:40:23 +0200
+Subject: [Lbrc-devel] TEST
+Message-ID: <1218894023.25844.8.camel@enterprise.glx>
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080816/00a3b9bb/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Aug 17 21:40:18 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 17 Aug 2008 21:40:18 +0200
+Subject: [Lbrc-devel] Mailinglist works again
+Message-ID: <1219002018.21097.23.camel@enterprise.glx>
+
+Hey,
+
+as you can see, the mailinglist works again. Berlios has fixed the
+issue. In the meantime there were some bugs hunt down and I'm happy to
+announce, that I added Jasper to the developer group. He did not only
+fix some lingering unpleasenties in the logging framework and did some
+janitorial work, but he also created a PPA for ubuntu users.
+
+I currently have a look at a way to create a nice gtk cell renderer for
+the new XInput Module. I'm not yet sure who to do this, but as a side
+effect I was able to unify the CellCommandArgumentsRenderer and the
+CellDBUSArgumentsRenderer by introducing a new base class, that contains
+most of the code of the two.
+
+Have a look at the svn log.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080817/997bf391/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Aug 17 21:53:45 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 17 Aug 2008 21:53:45 +0200
+Subject: [Lbrc-devel] Smaller j2me client
+In-Reply-To: <1219002018.21097.23.camel@enterprise.glx>
+References: <1219002018.21097.23.camel@enterprise.glx>
+Message-ID: <1219002825.28573.2.camel@enterprise.glx>
+
+Hey again,
+
+I just added a new build of the j2me client, that was build with an
+obfuscator, that lead to a smaller j2me client. The size was reduzed
+from 49kb to 22kb without any code changes ...
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080817/571251ff/attachment.pgp>
+
+From colbrac at xs4all.nl  Mon Aug 18 20:40:59 2008
+From: colbrac at xs4all.nl (Jasper Groenewegen)
+Date: Mon, 18 Aug 2008 20:40:59 +0200
+Subject: [Lbrc-devel] Mailinglist works again
+In-Reply-To: <1219002018.21097.23.camel@enterprise.glx>
+References: <1219002018.21097.23.camel@enterprise.glx>
+Message-ID: <48A9C23B.9010204@xs4all.nl>
+
+Hi everybody,
+
+Quick introduction: 24/m/NL/engineering student, learning Python since
+this spring, no java ME knowledge (yet), Ubuntu user, Nokia 3110c phone,
+ learned debian packaging last week to package lbrc on my ppa. :)
+
+So, as Matthias said I did a bit of janitorial work, but the main reason
+I wanted to get involved is because using lbrc and peeking at the
+code/config gave me a few ideas on how lbrc may be improved and more
+ready for Joe Average users (in my opinion).
+
+Most importantly, I think the logic of the configs is currently the
+wrong way around. A user would like two things:
+1. That pressing num key 7 on his phone is registered as num key 7
+2. That he can set the action num key 7 will perform.
+To elaborate on that: Currently settings involve the keycodes. A user
+will have a hard time translating '42' to a specific key on his phone. I
+would like to suggest that on the pc, there is a mapping function that
+takes key codes and outputs a descriptive string like 'NUM7', 'LEFT',
+'SOFTLEFT' 'NUM*' , 'CENTER', etc. Internally, lbrc would only use these
+descriptive strings to map actions to. E.g. the .lbrc.conf only has
+these descriptive names to map actions to, the applet config window
+could feature a dropdown list with all possible descriptive strings.
+Now, not all phones have the same keycode to real key mapping. That's
+why, on discovery of a new BT address, LBRC-applet should popup a window
+that notifies the user that a new phone has been detected. The user
+should be able to select from a list of preconfigured mappings which
+features as much phones as possible and in that same window should also
+have the option to create a new mapping. If that window also features a
+little area where recorded key presses are presented in descriptive
+strings, the user can directly check whether the selected mapping is
+correct. The selected mapping or custom mapping should be saved to
+.lbrc.conf.
+
+Now for point 2. I would like to suggest a 3 level system:
+- Profiles
+- Schemes
+- Handlers
+First Handlers. These objects are the InputCaller, CmdCaller,
+DBusCaller. They should be kept really basic and simple. For example,
+the CmdCaller only knows how to call 1 command (with argument list) and
+the InputCaller only knows how to handle 1 (combination)keypress or 1
+mousemovement/click at the time (but with configurable repeat time).
+
+Now comes the new part. Schemes are lists of Actions that belong to a
+certain program/use case. For example, a Rhythmbox Scheme. This scheme
+consists of a list of actions and each action is defined as 1 or more
+Handler calls. So say the Rhythmbox action 'Play' is defined as a dbus
+call to the Rhythmbox dbus object with all the right parameters. Or for
+example a MyPresentation scheme has an action 'Start movie 1' which is a
+CmdCall for mplayer with as argument the path to a specific movie.
+Now the real nice thing would be, schemes are configurations so they
+should be saved and loaded from .lbrc.conf. And even better, make
+importing/exporting schemes from the configuration possible. I want to
+be able to download this nifty Scheme somebody created with 30 possible
+options to handle Program X and load that into my LBRC-applet to use to
+create...
+
+A custom profile! A profile in my opinion is the 1 on 1 mapping of
+descriptive key strings to Scheme Actions, but also directly to Handler
+calls. So for example, I may have a 'My Presentation' profile. In the
+profile manager, I have 1 window in which I can define keys. So I click
+the dropdown box, select 'NUM7'. To the right of that dropdown box, I
+click the dropdown box which gives me a selection between 'Desktop,
+Rhythmbox, My Presentation actions, MPlayer, Home automation, Key press,
+Mouse, Command, DBUs'. See how I am able to select both Schemes and
+Handlers here? Than, depending on my selection in this dropdown box I
+get usually a new dropdown box to the right. Say I picked 'My
+Presentation actions'. In the new dropdown box I can now pick 'Next
+slide', 'Play movie 1', 'Black screen', 'Full screen'.
+Again, this is all pure configuration so this can be saved, imported and
+exported in/to/from .lbrc.conf.
+
+In other words, the current four tabs should go. A user wants to work
+from keys -> action. Similary, the .lbrc.conf profiles should be a
+key->scheme/handler->action/command flow.
+
+
+
+Next, on the mobile side:
+The current slide helper screen and volume screen are nice, but I think
+what would be really nice is have a profile dependent overview of the
+button mappings visible. I can't remember what NUM7 does in profile Foo!
+The profile list can be send over, how about sending a profile
+description on choosing one? What I'm thinking of is:
+- The J2ME app should have a set of stock icons, can be very simple,
+even wingdings like images for 'play, pause, stop, volume up, volume
+down, shutdown, etc.
+- On choosing a profile, the pc sends a description which contains
+something like 'NUM7{ico:play}, NUM8{txt:'FFWD'}'. Now, the J2ME program
+doesn't have to know which keycode goes with that NUM7. It just needs to
+draw a generic phone key layout on screen, with a play icon in the
+square that represents NUM7 and the string 'FFWD' in the square
+representing NUM8.
+My phone does svg, I'm not sure how normal that is nowadays but if it is
+normal, it would be very easy to scale vector buttons, vector images and
+text to the exact size of the screen.
+When you want the presentation helper widget, you might use 2/3 of the
+screen with room for the timer above and the slide number on the side!
+Same for the volume helper screen, scale down the key mapping view a
+little and draw the bars in the created space.
+When people create a profile or scheme, one of the options in the editor
+could be how to present the action on the phone. So give the ability to
+choose between text (max 4 chars) and icons with again a dropdown list
+of the icons also present on the phone.
+
+
+Ok, this was basically what caused me to not sleep almost an entire
+night last week because I was so excited about coming up with this
+design which would improve the usability of the program (in my opinion).
+It's a lot of text and likely I left some stuff out that is present in
+my head so that this makes perfect sense for me but not (yet) for you
+guys. So please, let me know what you think.
+
+Finally, a few notes:
+- LBRC-applet and LBRCdbus are the only /usr/bin executables on my
+system with CAPS. It looks kind of wrong and against convention. Maybe
+make that more in line with the rest of the unix world an go lowercase?
+- The ganyremote J2ME program knows how to save previously used
+connections. So scanning for devices becomes an option, you can pick
+your system from a list. That would be nice for lbrc too.
+
+
+Sincere,
+Jasper
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: OpenPGP digital signature
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080818/5cbffcf0/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Mon Aug 18 21:40:27 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 18 Aug 2008 21:40:27 +0200
+Subject: [Lbrc-devel] Mailinglist works again
+In-Reply-To: <48A9C23B.9010204@xs4all.nl>
+References: <1219002018.21097.23.camel@enterprise.glx>
+	<48A9C23B.9010204@xs4all.nl>
+Message-ID: <1219088427.26535.27.camel@enterprise.glx>
+
+Hey,
+
+Man! That is a list - I'm not sure whether I can reply in depth, as I'm
+pretty occupied, but some things were pretty interesting and some seemed
+pretty similar.
+
+Am Montag, den 18.08.2008, 20:40 +0200 schrieb Jasper Groenewegen:
+> [Introduce aliases for the keycodes]
+
+You can support both. If you get a number from json, its a keycode, if
+not its an alias. But it would be better IMHO, if the config keeps to
+keycodes, as these are not dependend on an interpretation.
+
+> [New level system for config]
+> Now for point 2. I would like to suggest a 3 level system:
+> - Profiles
+> - Schemes
+> - Handlers
+
+Actually there is currently handler and profiles, the current term
+profile would in your wording be schemes, and you would add another
+layer on top.
+
+What you are suggesting is done now through the predefined profiles,
+which can be copied into a new profile an adjust the used keys and
+functions.
+
+> First Handlers. These objects are the InputCaller, CmdCaller,
+> DBusCaller. They should be kept really basic and simple. For example,
+> the CmdCaller only knows how to call 1 command (with argument list) and
+> the InputCaller only knows how to handle 1 (combination)keypress or 1
+> mousemovement/click at the time (but with configurable repeat time).
+> 
+> Now comes the new part. Schemes are lists of Actions that belong to a
+> certain program/use case. For example, a Rhythmbox Scheme. This scheme
+> consists of a list of actions and each action is defined as 1 or more
+> Handler calls. So say the Rhythmbox action 'Play' is defined as a dbus
+> call to the Rhythmbox dbus object with all the right parameters. Or for
+> example a MyPresentation scheme has an action 'Start movie 1' which is a
+> CmdCall for mplayer with as argument the path to a specific movie.
+> Now the real nice thing would be, schemes are configurations so they
+> should be saved and loaded from .lbrc.conf. And even better, make
+> importing/exporting schemes from the configuration possible. I want to
+> be able to download this nifty Scheme somebody created with 30 possible
+> options to handle Program X and load that into my LBRC-applet to use to
+> create...
+
+So you want to create an aditional abstraction layer? I'm reluctant to
+do this. Consider the rhythmbox profile. Currently this is just a thin
+wrapper around the dbus caller module. For me this is nice. Another,
+maybe better module would be a player module, that supports xmms,
+rhythmbox, amarok, ... transparently and from one place.
+
+> In other words, the current four tabs should go. A user wants to work
+> from keys -> action. Similary, the .lbrc.conf profiles should be a
+> key->scheme/handler->action/command flow.
+
+?hm - the current config gui is a pretty direct translation of
+the .lbrc.conf structure. Each module is represented by a tab, each
+profile in the drop down menu.
+
+> Next, on the mobile side:
+> The current slide helper screen and volume screen are nice, but I think
+> what would be really nice is have a profile dependent overview of the
+> button mappings visible. I can't remember what NUM7 does in profile Foo!
+> The profile list can be send over, how about sending a profile
+> description on choosing one? What I'm thinking of is:
+> - The J2ME app should have a set of stock icons, can be very simple,
+> even wingdings like images for 'play, pause, stop, volume up, volume
+> down, shutdown, etc.
+> - On choosing a profile, the pc sends a description which contains
+> something like 'NUM7{ico:play}, NUM8{txt:'FFWD'}'. Now, the J2ME program
+> doesn't have to know which keycode goes with that NUM7. It just needs to
+> draw a generic phone key layout on screen, with a play icon in the
+> square that represents NUM7 and the string 'FFWD' in the square
+> representing NUM8.
+> My phone does svg, I'm not sure how normal that is nowadays but if it is
+> normal, it would be very easy to scale vector buttons, vector images and
+> text to the exact size of the screen.
+
+Hava look at the MIDP 2 spec. I'm not sure about svg, but at these
+screen sizes, I think using indexed png would be equally good. But
+someone would have to implement that and I would not wan't to have the
+keys always visible (I'm thinking something like a help screen).
+
+> When you want the presentation helper widget, you might use 2/3 of the
+> screen with room for the timer above and the slide number on the side!
+> Same for the volume helper screen, scale down the key mapping view a
+> little and draw the bars in the created space.
+
+The screen is a moving target in the MIDP environment (the sizes differ
+from phone to phone).
+
+> When people create a profile or scheme, one of the options in the editor
+> could be how to present the action on the phone. So give the ability to
+> choose between text (max 4 chars) and icons with again a dropdown list
+> of the icons also present on the phone.
+
+Your opening a can of worms!
+
+> Ok, this was basically what caused me to not sleep almost an entire
+> night last week because I was so excited about coming up with this
+> design which would improve the usability of the program (in my opinion).
+> It's a lot of text and likely I left some stuff out that is present in
+> my head so that this makes perfect sense for me but not (yet) for you
+> guys. So please, let me know what you think.
+
+I think we should have another look, who it already might just need the
+right gui, without reinventing the whole layering.
+
+> Finally, a few notes:
+> - LBRC-applet and LBRCdbus are the only /usr/bin executables on my
+> system with CAPS. It looks kind of wrong and against convention. Maybe
+> make that more in line with the rest of the unix world an go lowercase?
+
+Not sure where you store X, but programms starting with X contradict
+your theses:
+
+mblaesing at enterprise:~$ X<tab>
+X         Xdmx      Xephyr    XMLRPCsh  Xorg      
+mblaesing at enterprise:~$ X
+
+I'm reluctant to change the name. Joe average user will probably just
+use the GUI icon.
+
+> - The ganyremote J2ME program knows how to save previously used
+> connections. So scanning for devices becomes an option, you can pick
+> your system from a list. That would be nice for lbrc too.
+
+This would be doable - I have to check whether we need our own handling
+of this or whether we can just reuse the infrastructre from j2me. This
+is definitly something archivable pretty easily.
+
+These are some comments - I'll try to find some more time to look
+through it again, but I think the main focus should be to improve the
+config _gui_, fix some quirks of the modules and improve the j2me part.
+
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080818/b2176cf3/attachment.pgp>
+
+From colbrac at xs4all.nl  Mon Aug 18 23:43:06 2008
+From: colbrac at xs4all.nl (Jasper Groenewegen)
+Date: Mon, 18 Aug 2008 23:43:06 +0200
+Subject: [Lbrc-devel] Mailinglist works again
+In-Reply-To: <1219088427.26535.27.camel@enterprise.glx>
+References: <1219002018.21097.23.camel@enterprise.glx>	<48A9C23B.9010204@xs4all.nl>
+	<1219088427.26535.27.camel@enterprise.glx>
+Message-ID: <48A9ECEA.5040609@xs4all.nl>
+
+Matthias Bl?sing wrote:
+> You can support both. If you get a number from json, its a keycode, if
+> not its an alias. But it would be better IMHO, if the config keeps to
+> keycodes, as these are not dependend on an interpretation.
+Supporting both ok, but IMHO it would make more sense to use the
+aliases. There is a higher chance all phones having NUM7 compared to
+having keycode 42.
+
+> What you are suggesting is done now through the predefined profiles,
+> which can be copied into a new profile an adjust the used keys and
+> functions.
+I agree it is close to how it is now. I guess the difference comes from
+my notion that the first choice a user makes shouldn't be which handler
+to use (e.g. which tab to choose). For example, if I now open the config
+window and pick Rhythmbox, I see nothing. I first have to switch to the
+DBuscaller tab.
+
+> So you want to create an aditional abstraction layer? I'm reluctant to
+> do this. Consider the rhythmbox profile. Currently this is just a thin
+> wrapper around the dbus caller module.
+Two arguments to do add abstraction here:
+1. Ability to give names like 'Play' and 'Pause' to the actions instead
+exposing the full DBus call
+2. Ability to predefine more actions than keys available.
+Yes, you would have to have a Rhythmbox profile and a Rhythmbox scheme.
+The Rhythmbox profile is only 42:(Rhythmbox, 'play') (or
+'NUM7':(Rhythmbox, 'play') ) and the Rythmbox scheme would have
+'play':(DBuscaller, org.gnome.Rhythmbox, /org/gnome/Rhy.. etc).
+
+Say I now want to create a custom profile with mostly Rhythmbox actions
+but replace two keys with Desktop volume up and volume down. This would
+be done by creating a new profile and picking Rhythmbox as the basis
+profile. I look in the list of keys -> Scheme:action, change the scheme
+for the right key to the 'Desktop' scheme and pick 'Volume up' from the
+list with 30 actions defined for the Desktop scheme. If however, I want
+to create a brand new action I don't pick a Scheme but one of the base
+handlers from the dropdown list. This would replace the Action dropdown
+list with the widget for that Handler to define it.
+
+> For me this is nice. Another,
+> maybe better module would be a player module, that supports xmms,
+> rhythmbox, amarok, ... transparently and from one place.
+I think the only way to handle different players would be emulating
+keyboard multimedia keys
+
+> ?hm - the current config gui is a pretty direct translation of
+> the .lbrc.conf structure. Each module is represented by a tab, each
+> profile in the drop down menu.
+Correct. And I think a direct translation between config file and gui is
+indeed something to aim for. So that would mean a change in .lbrc.conf.
+
+> Hava look at the MIDP 2 spec. I'm not sure about svg, but at these
+> screen sizes, I think using indexed png would be equally good. But
+> someone would have to implement that and I would not wan't to have the
+> keys always visible (I'm thinking something like a help screen).
+
+Since it would involve sending data from the applet, there could be an
+option in the applet to toggle showing the keys on phone screen.
+Or put the option in the phone, but it doesn't have a option menu yet so
+maybe that would be even more work.
+svg is jsr 226: http://wiki.svg.org/index.php?title=JSR_226
+on java.com: http://java.sun.com/javame/technology/msa/jsr226.jsp
+
+> The screen is a moving target in the MIDP environment (the sizes differ
+> from phone to phone).
+The nice thing is that you can first build up a button in say 100x100
+pixels and than put it on the canvas in a size defined as
+1/3*screenwidth. So even though screens come in all shapes and sizes,
+this way you can work around that.
+
+>> When people create a profile or scheme, one of the options in the editor
+>> could be how to present the action on the phone. So give the ability to
+>> choose between text (max 4 chars) and icons with again a dropdown list
+>> of the icons also present on the phone.
+> 
+> Your opening a can of worms!
+Ah, isn't user interaction always juggling cans of worms? :)
+
+> I'm reluctant to change the name. Joe average user will probably just
+> use the GUI icon.
+I didn't expect anything else, just wanted to state my opinion. :)
+
+Thanks for taking the effort commenting.
+
+Regards,
+
+Jasper
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: OpenPGP digital signature
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080818/3558cec7/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Tue Aug 19 16:20:17 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 19 Aug 2008 16:20:17 +0200
+Subject: [Lbrc-devel] Mailinglist works again
+In-Reply-To: <1219088427.26535.27.camel@enterprise.glx>
+References: <1219002018.21097.23.camel@enterprise.glx>
+	<48A9C23B.9010204@xs4all.nl> <1219088427.26535.27.camel@enterprise.glx>
+Message-ID: <1219155617.12109.5.camel@enterprise.glx>
+
+Am Montag, den 18.08.2008, 21:40 +0200 schrieb Matthias Bl?sing:
+> > - The ganyremote J2ME program knows how to save previously used
+> > connections. So scanning for devices becomes an option, you can pick
+> > your system from a list. That would be nice for lbrc too.
+
+Ok - to do exaktly this, you would have to introduce a record store.
+Instead I decided to stick with what the bluetooth stack offers us
+already. You can query the discovery agent for a list of preknown
+devices (on my phone this list is the same as under "Meine Ger?te" (My
+devices"). I asume that on most phones this will be a list of paired
+devices. As per Default LBRC requires the phone and the device to be
+paired, after the first connection the notebook should be part of the
+list.
+
+If you want to test ist, have a look at the svn code and build yourself
+or grab your copy from http://www.doppel-helix.eu/LBRC.ja[dr]
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080819/ffb9db0b/attachment.pgp>
+
+From colbrac at xs4all.nl  Tue Aug 19 23:10:05 2008
+From: colbrac at xs4all.nl (Jasper Groenewegen)
+Date: Tue, 19 Aug 2008 23:10:05 +0200
+Subject: [Lbrc-devel] Mailinglist works again
+In-Reply-To: <1219171381.28806.21.camel@enterprise.glx>
+References: <1219002018.21097.23.camel@enterprise.glx>
+	<48A9C23B.9010204@xs4all.nl>
+	<1219088427.26535.27.camel@enterprise.glx>
+	<48A9ECEA.5040609@xs4all.nl>
+	<1219171381.28806.21.camel@enterprise.glx>
+Message-ID: <48AB36AD.6020507@xs4all.nl>
+
+Hi,
+
+Firs, the new build from doppel-helix.eu fails on my nokia 3110c with
+'Exception in Deviceselect: java.lang.NullPointerException'.
+The pc is in the coupled devices list and active. The connection works
+the other way since I used BT to send the new version of the ja{r|d} file.
+
+> Actually the only high chance to have a match is only in the range of
+> NUM0-NUM9, STAR and POUNT. These are the standard keys on _all_ mobiles.
+That's where a phone brand based key mapping profile would come in,
+which a user could pick on connecting a phone for the first time to the
+applet.
+A different option that just popped in my head, could be adding the
+feature that when a user selects the keycode input widget, a press of a
+phone key would fill that keycode in the input widget.
+
+> This basicly exists. A Scheme is just a more intelligent module. Let's
+> go back to the Player example. Currently the Rhythmbox Profile uses the
+> DBUS-Module. But it does not have to. You could also programm a
+> Rhythmbox Module, that hides the whole DBUS handling and just offers:
+> play, forward and so on.
+Ah, this brings me to an issue with the current design: Currently, a key
+press/release is registered and all event handlers are polled to see if
+they map this keycode in the active profile. This allows for
+flexibility, I guess this way 1 keypress could mean 'left mouse button'
+'Rhythmbox.play' and 'Walk the dog' at the same time, but in my opinion
+1 keypress should in principle be mapped to one action. Note that it is
+still possible to create an action that consists of a set of calls/input
+events.
+And a scheme which describes actions should, in my vision, be a
+configuration file. I don't know if this is truly feasible, but I
+envision only the basic input, dbus and command call modules left over.
+All elaborate actions should be definable in basic module commands.
+
+
+> I just widend the  scope, as such a module shoudl then handle more than
+> only player. What technique is used in the backend is not important. In
+> fact there are things that could be better done with a real Rhythmbox
+> (or Player) module, than it is done now. Please consider the Rhythmbox
+> Profile a proof of concept (Being able to do arbitrary dbus calls is
+> quite powerful and I would want to miss it).
+
+You could still define arbitrary dbus calls by picking the dbus module
+in the scheme list. I wouldn't want to remove that powerful feature.
+Only make it an advanced feature that a power user would use.
+
+>>> For me this is nice. Another,
+>>> maybe better module would be a player module, that supports xmms,
+>>> rhythmbox, amarok, ... transparently and from one place.
+>> I think the only way to handle different players would be emulating
+>> keyboard multimedia keys
+> 
+> Nope! You sure have to do some more work, but most players offer some
+> kind of remote control feature (via named pipe, a tcp/unix socket, a
+> dbus api or dcop) and as this is a mess, I should be put into a seperate
+> module, so that the user does not see the difference.
+
+If all players are so different in how they can be controlled, what
+would be the gain of 1 generic player module? The first option a user
+must set in the generic player would be which player program he/she
+actually wants to use the player module with and then the player module
+would have a lot of if/elif/else structs to handle 'play' for all the
+different modules. And say if a user wants to add support for player
+Foo, he has to work through all these if/else structs to add the
+specific commands for this player, send the patch to you, get it
+applied, packaged, etc.
+I hope that it is possible to make the scheme support such that you can
+copy/import/export schemes like you do profiles. Adding an extra scheme
+for player Foo would be much easier in that case.
+
+
+> We will need a good reason to do that - because then, I would like to
+> switch also away from json towards something more readable like XML
+> (this would also allow comments in .lbrc.conf).
+
+Hmm, I don't have much experience with either json or xml, but I like
+how 'clean' json markup looks compared to the clunky <xml> tags.
+Allowing comments would be nice, yes. But since you have made your
+custom json parser any way, adding support for comments in there would
+be also possible. No?
+
+
+> The svg.org site does not offer a good compatibility scaling, but in my
+> opinion we shoudl try to keep inside MIDP-2.
+
+Yeah keeping compatibility has high as possible should be the first choice.
+
+> PS: Maybe we should try to get a time to meet in IRC or a Jabber
+> channel? We could then get some topics better discusses as via email -
+> or we should break the emails into smaller parts.
+Jabber account: colbrac at jabber.xs4all.nl
+I'll try logging in Thursday night.
+
+Jasper
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: OpenPGP digital signature
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080819/bc4a602f/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Thu Aug 21 21:10:43 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Thu, 21 Aug 2008 21:10:43 +0200
+Subject: [Lbrc-devel] Mailinglist works again
+In-Reply-To: <48AB36AD.6020507@xs4all.nl>
+References: <1219002018.21097.23.camel@enterprise.glx>
+	<48A9C23B.9010204@xs4all.nl> <1219088427.26535.27.camel@enterprise.glx>
+	<48A9ECEA.5040609@xs4all.nl> <1219171381.28806.21.camel@enterprise.glx>
+	<48AB36AD.6020507@xs4all.nl>
+Message-ID: <1219345843.8891.3.camel@enterprise.glx>
+
+Hey,
+
+Am Dienstag, den 19.08.2008, 23:10 +0200 schrieb Jasper Groenewegen:
+> Firs, the new build from doppel-helix.eu fails on my nokia 3110c with
+> 'Exception in Deviceselect: java.lang.NullPointerException'.
+> The pc is in the coupled devices list and active. The connection works
+> the other way since I used BT to send the new version of the ja{r|d} file.
+
+I was to careless... Instead of just returning an empty RemoteDevices
+Arrray, the function return null, if now devices are preknown. Don't
+know who had this bright idea, but now that btdevices is checked to be
+non null it should work. (Put a build up)
+
+That is in your case, you would be greeted with an empty list.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080821/3a644ed3/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Aug 23 23:39:35 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 23 Aug 2008 23:39:35 +0200
+Subject: [Lbrc-devel] Keypress Handling
+In-Reply-To: <48AB36AD.6020507@xs4all.nl>
+References: <1219002018.21097.23.camel@enterprise.glx>
+	<48A9C23B.9010204@xs4all.nl> <1219088427.26535.27.camel@enterprise.glx>
+	<48A9ECEA.5040609@xs4all.nl> <1219171381.28806.21.camel@enterprise.glx>
+	<48AB36AD.6020507@xs4all.nl>
+Message-ID: <1219527575.3857.25.camel@enterprise.glx>
+
+Hey,
+
+Am Dienstag, den 19.08.2008, 23:10 +0200 schrieb Jasper Groenewegen:
+> > This basicly exists. A Scheme is just a more intelligent module. Let's
+> > go back to the Player example. Currently the Rhythmbox Profile uses the
+> > DBUS-Module. But it does not have to. You could also programm a
+> > Rhythmbox Module, that hides the whole DBUS handling and just offers:
+> > play, forward and so on.
+> Ah, this brings me to an issue with the current design: Currently, a key
+> press/release is registered and all event handlers are polled to see if
+> they map this keycode in the active profile. This allows for
+> flexibility, I guess this way 1 keypress could mean 'left mouse button'
+> 'Rhythmbox.play' and 'Walk the dog' at the same time, but in my opinion
+> 1 keypress should in principle be mapped to one action. Note that it is
+> still possible to create an action that consists of a set of calls/input
+> events.
+
+You get inflexible this way. Think about the presentation module. There
+are many actions when pressing the next slide key: restart the slide
+timer, save the record for the last slide and switch to next slide.
+
+The handling of the slide timer and records is pretty easy (one module
+and your done), but there are n+1 programms to show presentations, each
+with slithly different keybindings. Why make it unnecessry complex and
+just provide a way to send request via dbus, keyinput and so on.
+
+I see the point for the end user. But the multiple programms can easily
+tangled by providing pre created profiles f?r acroread, evince, OOo
+Impress and so on. This coupled with a new config inteface shoudl do
+it. 
+
+What I think of is this:
+
+Make the tabs in the profile section "Init", "Actions", "Destruct" or
+their corresponding title for "normal" people. Inside these you find a
+treeview, with keycode (on the phone, if you want also with Alias Names)
+and the associated actions. The actions are short text desciptions and a
+double click opens a window, where you can configure the action. Action
+in this case means a combination of handler and config for it.
+
+This frontend config can be decomposed to the already known config
+format. And the current config format can be put into the format
+described above. By treeview reordering you could sort by handler,
+key/keycode and paramters (this would be stupid).
+
+I tried to do a GUI Mockup - I thing it shows my idea. If a screen
+designer wants to step up to improve I have no problem with that.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Config-Mockup.png
+Type: image/png
+Size: 38723 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080823/6fe31a0a/attachment.png>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080823/6fe31a0a/attachment.pgp>
+
+From colbrac at xs4all.nl  Sun Aug 24 17:04:38 2008
+From: colbrac at xs4all.nl (Jasper Groenewegen)
+Date: Sun, 24 Aug 2008 17:04:38 +0200
+Subject: [Lbrc-devel] Keypress Handling
+In-Reply-To: <1219527575.3857.25.camel@enterprise.glx>
+References: <1219002018.21097.23.camel@enterprise.glx>	<48A9C23B.9010204@xs4all.nl>
+	<1219088427.26535.27.camel@enterprise.glx>	<48A9ECEA.5040609@xs4all.nl>
+	<1219171381.28806.21.camel@enterprise.glx>	<48AB36AD.6020507@xs4all.nl>
+	<1219527575.3857.25.camel@enterprise.glx>
+Message-ID: <48B17886.6070606@xs4all.nl>
+
+I like your mockup, it is actually close to what I had in mind, so I
+created my own mockup to show you what I actually have in mind. :)
+
+What is not done yet is the new 'Actions' tab. I envision that as a
+Treeview with 4 columns:
+[Action name] [Handler] [Detail] [Cellphone action]
+With:
+Action name: The unique identifier of a certain action, used in the
+profile tab to select the action from the (alphabetically sorted) list
+of all actions combobox.
+
+Handler: The event handler used for the action. E.g. XInput, DBus, etc.
+Or, if the action consists of multiple events, it should say 'Multiple
+events'. Only on double clicking the action (which opens the action edit
+window) you see the list of event handlers and the details such as which
+key pressed, what dbus command called, etc.
+
+Detail: If action == multiple events again show 'Multiple events', else
+show the details as explained above
+
+Cellphone action: A list of signals that can be send to cell phone. As a
+start these would be 'Presenter:Next slide', 'Presenter:Previous slide',
+ 'Presenter:Reset', 'Volume:Update'.
+
+If a cell phone action is set, the applet should first check whether the
+right cell phone view is set in the current profile to handle the
+signal. If not, just ignore the cell phone signal. (E.g. if I have a
+profile 'Presenter' and set the cell phone view to 'Normal', don't try
+to signal 'Presenter:Next slide' to the phone if an action has that signal).
+
+Jasper
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: GUI mockup.tar.gz
+Type: application/x-gzip
+Size: 3059 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080824/942cd87c/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: mockup.png
+Type: image/png
+Size: 59689 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080824/942cd87c/attachment.png>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: OpenPGP digital signature
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080824/942cd87c/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Aug 24 20:02:22 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 24 Aug 2008 20:02:22 +0200
+Subject: [Lbrc-devel] Keypress Handling
+In-Reply-To: <48B17886.6070606@xs4all.nl>
+References: <1219002018.21097.23.camel@enterprise.glx>
+	<48A9C23B.9010204@xs4all.nl> <1219088427.26535.27.camel@enterprise.glx>
+	<48A9ECEA.5040609@xs4all.nl> <1219171381.28806.21.camel@enterprise.glx>
+	<48AB36AD.6020507@xs4all.nl> <1219527575.3857.25.camel@enterprise.glx>
+	<48B17886.6070606@xs4all.nl>
+Message-ID: <1219600942.25496.15.camel@enterprise.glx>
+
+Hey,
+
+so I try to summarise:
+
+This is the current situation:
+
+profile -> {keycode->handler/parameter}
+
+A profile is a mapping between a keycode and an associated
+handler/parameter.
+
+Your Idea sounds like this:
+
+profile -> {keycode->action}
+
+and
+
+action -> [handler/paramater]
+
+A profile is a mapping between keycode and associated action and an
+action is a mapped to one or more handler/paramters.
+
+I'm thinking about the situation where a whole keyboard gets mapped. The
+actionslist is then least 52 entries long. With action names like
+"keypress_a" or "keypress_A". Not really helpfull.
+
+I see benefits, if you define actions based on the dbus and
+commandexecutor module. The example was for a media player. But then a
+mediaplayer might want to keep an internal state or needs more work
+under the hood (like the mplayer module). If you go that far you can
+create a generic Player module, which specific player is set at profile
+selection and that "knows" how to handle each player. This is currently
+done in the VolumeControl Module, that has currently support for alsa
+and oss (pulseaudio needs work, as there are no channels, but instead
+each sind is identified as a device on a server).
+
+Greetings
+
+Matthias
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080824/aa2b25d2/attachment.pgp>
+
+From colbrac at xs4all.nl  Sun Aug 24 22:35:36 2008
+From: colbrac at xs4all.nl (Jasper Groenewegen)
+Date: Sun, 24 Aug 2008 22:35:36 +0200
+Subject: [Lbrc-devel] Keypress Handling
+In-Reply-To: <1219600942.25496.15.camel@enterprise.glx>
+References: <1219002018.21097.23.camel@enterprise.glx>	<48A9C23B.9010204@xs4all.nl>
+	<1219088427.26535.27.camel@enterprise.glx>	<48A9ECEA.5040609@xs4all.nl>
+	<1219171381.28806.21.camel@enterprise.glx>	<48AB36AD.6020507@xs4all.nl>
+	<1219527575.3857.25.camel@enterprise.glx>	<48B17886.6070606@xs4all.nl>
+	<1219600942.25496.15.camel@enterprise.glx>
+Message-ID: <48B1C618.6010701@xs4all.nl>
+
+> I'm thinking about the situation where a whole keyboard gets mapped. The
+> actionslist is then least 52 entries long. With action names like
+> "keypress_a" or "keypress_A". Not really helpfull.
+He he, in that way it would not be very helpfull no. But, it does have
+the advantage that you can map the action once and reuse multiple times
+in the profile. But I see the problem now that if there are 52 keypress
+actions + 10 MPlayer actions + 6 evince actions + 8 OOimpress actions,
+etc, the list to scroll to find the right action to map becomes very
+very long. So perhaps it does have to be a 3 column list for Profile:
+profile -> {keycode->actionset->action}
+where actionset is a list of actions that belong together. E.g.:
+- a Keypress actionset with 52 actions (not much benefit there compared
+to bare handler/parameter setting)
+- a MPlayer actionset with actions Play, Pause, Stop, Next, Prev, etc
+which would be less frightening to Joe compared to the bare
+handler/parameter list.
+
+The action tab in this case would be a top row similar to the profile
+top row (dropdown list + 3 buttons [new, edit, delete]) but with action
+sets and the bulk of the action tab would be very similar to what the
+profile tab currently is, but instead of the first column being keycode
+it could be handler to eliminate the current inner tabs. The action set
+wouldn't need 'on start'/'on stop' event definitions I think.
+
+Jasper
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 252 bytes
+Desc: OpenPGP digital signature
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080824/d34ab8b9/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Wed Aug 27 20:08:22 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 27 Aug 2008 20:08:22 +0200
+Subject: [Lbrc-devel] Keypress Handling
+In-Reply-To: <48B1C618.6010701@xs4all.nl>
+References: <1219002018.21097.23.camel@enterprise.glx>
+	<48A9C23B.9010204@xs4all.nl> <1219088427.26535.27.camel@enterprise.glx>
+	<48A9ECEA.5040609@xs4all.nl> <1219171381.28806.21.camel@enterprise.glx>
+	<48AB36AD.6020507@xs4all.nl> <1219527575.3857.25.camel@enterprise.glx>
+	<48B17886.6070606@xs4all.nl> <1219600942.25496.15.camel@enterprise.glx>
+	<48B1C618.6010701@xs4all.nl>
+Message-ID: <1219860502.23514.6.camel@enterprise.glx>
+
+Hey again,
+
+Am Sonntag, den 24.08.2008, 22:35 +0200 schrieb Jasper Groenewegen: 
+> where actionset is a list of actions that belong together. E.g.:
+> - a Keypress actionset with 52 actions (not much benefit there compared
+> to bare handler/parameter setting)
+> - a MPlayer actionset with actions Play, Pause, Stop, Next, Prev, etc
+> which would be less frightening to Joe compared to the bare
+> handler/parameter list.
+
+these are both bad examples. The mplayer Module is currently a thin
+wrapper around the mplayer remote control syntax (Have a look at
+"mplayer -input cmdlist"). This is as easy as it can get.
+
+We already have a place where "knowing" people can create compounds and
+new modules. These places are the modules. From a module you have the
+full power of python at your finger tips. If the config is really that
+difficult, you should hide it alltogether.
+
+This leaves complex dbus calls and complex commandlines to the action
+list. And these could also be summarised in a module (Lets call it
+'Little helpers at your fingertips'.
+
+Thinking again about this, you could add a comment field and shortname
+for each action, which could provide Joe-Normal-User a hit whats going
+on. Add in an "Action library" from which you can copy'n'past or
+drag'n'drop and you're there. The library contains predefined handler
+calls with the above mentioned comments and shortnames. Additionally you
+can create a hierarchy and so on. But there is no connection between
+library and the handlers, after the copying the action, it is part of
+the profile and can be modified seperately.
+
+What do you think of the last part? Actually this email was started to
+be written three days ago, and today was the last part done.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080827/9b586ee8/attachment.pgp>
+

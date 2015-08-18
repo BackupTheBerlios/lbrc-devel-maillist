@@ -1,0 +1,861 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Config for Nokia 9300i
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Config%20for%20Nokia%209300i&In-Reply-To=%3C47EFB450.1090702%40iki.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000106.html">
+   <LINK REL="Next"  HREF="000108.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Config for Nokia 9300i</H1>
+    <B>Jari Eskelinen</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Config%20for%20Nokia%209300i&In-Reply-To=%3C47EFB450.1090702%40iki.fi%3E"
+       TITLE="[Lbrc-devel] Config for Nokia 9300i">jari.eskelinen at iki.fi
+       </A><BR>
+    <I>Sun Mar 30 17:40:00 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000106.html">[Lbrc-devel] Linux Bluetooth Remote Control --debug
+</A></li>
+        <LI>Next message: <A HREF="000108.html">[Lbrc-devel] Linux Bluetooth Remote Control --debug
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#107">[ date ]</a>
+              <a href="thread.html#107">[ thread ]</a>
+              <a href="subject.html#107">[ subject ]</a>
+              <a href="author.html#107">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi there everybody!
+
+I recently stumbled across LBRC and found it very neat tool so my thanks
+to everybody created this software. I did not find any configuration
+examples for phones having QWERTY keyboards so I though I could share
+one I created for Nokia 9300i beacuse it was really pain to create it
+(Finnish keyboard layout, probably slight adjustments are needed for
+other layouts?). My apologies if this is wrong place to send this!
+
+I found few problems though:
+
+- Pressing * character from mobile (Chr + &#197;) does cause LBRC client to
+disconnect.
+- Ctrl+E does quit whole client (though I think this is because JVM and
+nothing can be done for it?)
+- Pressing Ctrl+I will send the same keycode than pressing tab
+- Pressing Ctrl+A/F/Z/X/C/V does not send keycode at all
+- Pressing Ctrl+H will send the same keyvode than backspace
+- Pressing Ctrl+J will send the same keycode than enter
+
+Otherwise everything works fine. Below is my .lbrc.conf:
+
+------------------------------------------------------
+{
+  &quot;generic-config&quot;: {
+    &quot;default-profile&quot;: [
+      &quot;user&quot;,
+      &quot;Nokia 9300i FI&quot;
+    ],
+    &quot;require-pairing&quot;: true
+  },
+  &quot;profiles&quot;: {
+    &quot;Nokia 9300i FI&quot;: {
+      &quot;UinputDispatcher&quot;: {
+        &quot;actions&quot;: [
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;ESC&quot;,
+            &quot;keycode&quot;: 27,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;1&quot;,
+            &quot;keycode&quot;: 49,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;2&quot;,
+            &quot;keycode&quot;: 50,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;3&quot;,
+            &quot;keycode&quot;: 51,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;4&quot;,
+            &quot;keycode&quot;: 52,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;5&quot;,
+            &quot;keycode&quot;: 53,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;6&quot;,
+            &quot;keycode&quot;: 54,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;7&quot;,
+            &quot;keycode&quot;: 55,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;8&quot;,
+            &quot;keycode&quot;: 56,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;9&quot;,
+            &quot;keycode&quot;: 57,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;0&quot;,
+            &quot;keycode&quot;: 48,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;MINUS&quot;,
+            &quot;keycode&quot;: 43,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;BACKSPACE&quot;,
+            &quot;keycode&quot;: 8,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;TAB&quot;,
+            &quot;keycode&quot;: 9,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;Q&quot;,
+            &quot;keycode&quot;: 113,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;W&quot;,
+            &quot;keycode&quot;: 119,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;E&quot;,
+            &quot;keycode&quot;: 101,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;R&quot;,
+            &quot;keycode&quot;: 114,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;T&quot;,
+            &quot;keycode&quot;: 116,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;Y&quot;,
+            &quot;keycode&quot;: 121,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;U&quot;,
+            &quot;keycode&quot;: 117,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;I&quot;,
+            &quot;keycode&quot;: 105,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;O&quot;,
+            &quot;keycode&quot;: 111,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;P&quot;,
+            &quot;keycode&quot;: 112,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTBRACE&quot;,
+            &quot;keycode&quot;: 229,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;A&quot;,
+            &quot;keycode&quot;: 97,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;S&quot;,
+            &quot;keycode&quot;: 115,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;D&quot;,
+            &quot;keycode&quot;: 100,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;F&quot;,
+            &quot;keycode&quot;: 102,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;G&quot;,
+            &quot;keycode&quot;: 103,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;H&quot;,
+            &quot;keycode&quot;: 104,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;J&quot;,
+            &quot;keycode&quot;: 106,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;K&quot;,
+            &quot;keycode&quot;: 107,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;L&quot;,
+            &quot;keycode&quot;: 108,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;SEMICOLON&quot;,
+            &quot;keycode&quot;: 246,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;APOSTROPHE&quot;,
+            &quot;keycode&quot;: 228,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;map_to&quot;: &quot;ENTER&quot;,
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;keycode&quot;: 10,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;Z&quot;,
+            &quot;keycode&quot;: 122,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;X&quot;,
+            &quot;keycode&quot;: 120,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;C&quot;,
+            &quot;keycode&quot;: 99,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;V&quot;,
+            &quot;keycode&quot;: 118,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;B&quot;,
+            &quot;keycode&quot;: 98,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;N&quot;,
+            &quot;keycode&quot;: 110,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;M&quot;,
+            &quot;keycode&quot;: 109,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;UP&quot;,
+            &quot;keycode&quot;: -1,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;SLASH&quot;,
+            &quot;keycode&quot;: 45,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;COMMA&quot;,
+            &quot;keycode&quot;: 44,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;DOT&quot;,
+            &quot;keycode&quot;: 46,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;SPACE&quot;,
+            &quot;keycode&quot;: 32,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFT&quot;,
+            &quot;keycode&quot;: -3,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;DOWN&quot;,
+            &quot;keycode&quot;: -2,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHT&quot;,
+	    &quot;keycode&quot;: -4,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+Q&quot;,
+            &quot;keycode&quot;: 17,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+W&quot;,
+            &quot;keycode&quot;: 23,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+R&quot;,
+            &quot;keycode&quot;: 18,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+T&quot;,
+            &quot;keycode&quot;: 20,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+Y&quot;,
+            &quot;keycode&quot;: 25,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+U&quot;,
+            &quot;keycode&quot;: 21,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+O&quot;,
+            &quot;keycode&quot;: 15,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+P&quot;,
+            &quot;keycode&quot;: 16,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+S&quot;,
+            &quot;keycode&quot;: 19,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+D&quot;,
+            &quot;keycode&quot;: 4,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+G&quot;,
+            &quot;keycode&quot;: 7,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+K&quot;,
+            &quot;keycode&quot;: 11,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+L&quot;,
+            &quot;keycode&quot;: 12,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+B&quot;,
+            &quot;keycode&quot;: 2,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+N&quot;,
+            &quot;keycode&quot;: 14,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTCTRL+M&quot;,
+            &quot;keycode&quot;: 13,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+1&quot;,
+            &quot;keycode&quot;: 33,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+2&quot;,
+            &quot;keycode&quot;: 34,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+3&quot;,
+            &quot;keycode&quot;: 35,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+E&quot;,
+            &quot;keycode&quot;: 8364,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+5&quot;,
+            &quot;keycode&quot;: 37,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+6&quot;,
+            &quot;keycode&quot;: 38,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+7&quot;,
+            &quot;keycode&quot;: 47,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+8&quot;,
+            &quot;keycode&quot;: 40,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+9&quot;,
+            &quot;keycode&quot;: 41,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+0&quot;,
+            &quot;keycode&quot;: 61,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+MINUS&quot;,
+            &quot;keycode&quot;: 63,
+            &quot;repeat_freq&quot;: &quot;20&quot;
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+Q&quot;,
+            &quot;keycode&quot;: 81,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+W&quot;,
+            &quot;keycode&quot;: 87,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+E&quot;,
+            &quot;keycode&quot;: 69,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+R&quot;,
+            &quot;keycode&quot;: 82,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+T&quot;,
+            &quot;keycode&quot;: 84,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+Y&quot;,
+            &quot;keycode&quot;: 89,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+U&quot;,
+            &quot;keycode&quot;: 85,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+I&quot;,
+            &quot;keycode&quot;: 73,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+O&quot;,
+            &quot;keycode&quot;: 79,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+P&quot;,
+            &quot;keycode&quot;: 80,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+LEFTBRACE&quot;,
+            &quot;keycode&quot;: 197,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+A&quot;,
+            &quot;keycode&quot;: 65,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+S&quot;,
+            &quot;keycode&quot;: 83,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+D&quot;,
+            &quot;keycode&quot;: 68,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+F&quot;,
+            &quot;keycode&quot;: 70,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+G&quot;,
+            &quot;keycode&quot;: 71,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+H&quot;,
+            &quot;keycode&quot;: 72,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+J&quot;,
+            &quot;keycode&quot;: 74,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+K&quot;,
+            &quot;keycode&quot;: 75,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+L&quot;,
+            &quot;keycode&quot;: 76,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+SEMICOLON&quot;,
+            &quot;keycode&quot;: 214,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+APOSTROPHE&quot;,
+            &quot;keycode&quot;: 196,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+Z&quot;,
+            &quot;keycode&quot;: 90,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+X&quot;,
+            &quot;keycode&quot;: 88,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+C&quot;,
+            &quot;keycode&quot;: 67,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+V&quot;,
+            &quot;keycode&quot;: 86,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+B&quot;,
+            &quot;keycode&quot;: 66,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+N&quot;,
+            &quot;keycode&quot;: 78,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+M&quot;,
+            &quot;keycode&quot;: 77,
+            &quot;repeat_freq&quot;: 29
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+SLASH&quot;,
+            &quot;keycode&quot;: 95,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+COMMA&quot;,
+            &quot;keycode&quot;: 59,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+DOT&quot;,
+            &quot;keycode&quot;: 58,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;BACKSLASH&quot;,
+            &quot;keycode&quot;: 39,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+2&quot;,
+            &quot;keycode&quot;: 64,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+3&quot;,
+            &quot;keycode&quot;: 163,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+4&quot;,
+            &quot;keycode&quot;: 36,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;102ND&quot;,
+            &quot;keycode&quot;: 60,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;LEFTSHIFT+102ND&quot;,
+            &quot;keycode&quot;: 62,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+7&quot;,
+            &quot;keycode&quot;: 123,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+8&quot;,
+            &quot;keycode&quot;: 91,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+9&quot;,
+            &quot;keycode&quot;: 93,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+0&quot;,
+            &quot;keycode&quot;: 125,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+RIGHTBRACE&quot;,
+            &quot;keycode&quot;: 126,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;RIGHTALT+MINUS&quot;,
+            &quot;keycode&quot;: 92,
+            &quot;repeat_freq&quot;: 20
+          },
+          {
+            &quot;type&quot;: &quot;key&quot;,
+            &quot;map_to&quot;: &quot;BTN_MIDDLE&quot;,
+            &quot;keycode&quot;: -5,
+            &quot;repeat_freq&quot;: 20
+          }
+        ]
+      },
+      &quot;DBUSCaller&quot;: {
+
+      },
+      &quot;MPlayer&quot;: {
+
+      },
+      &quot;CommandExecutor&quot;: {
+
+      }
+    }
+  }
+}
+------------------------------------------------------
+
+
+Hope somebody will find this useful!
+
+Best regards,
+  Jari
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000106.html">[Lbrc-devel] Linux Bluetooth Remote Control --debug
+</A></li>
+	<LI>Next message: <A HREF="000108.html">[Lbrc-devel] Linux Bluetooth Remote Control --debug
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#107">[ date ]</a>
+              <a href="thread.html#107">[ thread ]</a>
+              <a href="subject.html#107">[ subject ]</a>
+              <a href="author.html#107">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

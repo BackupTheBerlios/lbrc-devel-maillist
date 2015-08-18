@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Mailinglist works again
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Mailinglist%20works%20again&In-Reply-To=%3C48A9C23B.9010204%40xs4all.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000148.html">
+   <LINK REL="Next"  HREF="000150.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Mailinglist works again</H1>
+    <B>Jasper Groenewegen</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Mailinglist%20works%20again&In-Reply-To=%3C48A9C23B.9010204%40xs4all.nl%3E"
+       TITLE="[Lbrc-devel] Mailinglist works again">colbrac at xs4all.nl
+       </A><BR>
+    <I>Mon Aug 18 20:40:59 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000148.html">[Lbrc-devel] Smaller j2me client
+</A></li>
+        <LI>Next message: <A HREF="000150.html">[Lbrc-devel] Mailinglist works again
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#149">[ date ]</a>
+              <a href="thread.html#149">[ thread ]</a>
+              <a href="subject.html#149">[ subject ]</a>
+              <a href="author.html#149">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi everybody,
+
+Quick introduction: 24/m/NL/engineering student, learning Python since
+this spring, no java ME knowledge (yet), Ubuntu user, Nokia 3110c phone,
+ learned debian packaging last week to package lbrc on my ppa. :)
+
+So, as Matthias said I did a bit of janitorial work, but the main reason
+I wanted to get involved is because using lbrc and peeking at the
+code/config gave me a few ideas on how lbrc may be improved and more
+ready for Joe Average users (in my opinion).
+
+Most importantly, I think the logic of the configs is currently the
+wrong way around. A user would like two things:
+1. That pressing num key 7 on his phone is registered as num key 7
+2. That he can set the action num key 7 will perform.
+To elaborate on that: Currently settings involve the keycodes. A user
+will have a hard time translating '42' to a specific key on his phone. I
+would like to suggest that on the pc, there is a mapping function that
+takes key codes and outputs a descriptive string like 'NUM7', 'LEFT',
+'SOFTLEFT' 'NUM*' , 'CENTER', etc. Internally, lbrc would only use these
+descriptive strings to map actions to. E.g. the .lbrc.conf only has
+these descriptive names to map actions to, the applet config window
+could feature a dropdown list with all possible descriptive strings.
+Now, not all phones have the same keycode to real key mapping. That's
+why, on discovery of a new BT address, LBRC-applet should popup a window
+that notifies the user that a new phone has been detected. The user
+should be able to select from a list of preconfigured mappings which
+features as much phones as possible and in that same window should also
+have the option to create a new mapping. If that window also features a
+little area where recorded key presses are presented in descriptive
+strings, the user can directly check whether the selected mapping is
+correct. The selected mapping or custom mapping should be saved to
+.lbrc.conf.
+
+Now for point 2. I would like to suggest a 3 level system:
+- Profiles
+- Schemes
+- Handlers
+First Handlers. These objects are the InputCaller, CmdCaller,
+DBusCaller. They should be kept really basic and simple. For example,
+the CmdCaller only knows how to call 1 command (with argument list) and
+the InputCaller only knows how to handle 1 (combination)keypress or 1
+mousemovement/click at the time (but with configurable repeat time).
+
+Now comes the new part. Schemes are lists of Actions that belong to a
+certain program/use case. For example, a Rhythmbox Scheme. This scheme
+consists of a list of actions and each action is defined as 1 or more
+Handler calls. So say the Rhythmbox action 'Play' is defined as a dbus
+call to the Rhythmbox dbus object with all the right parameters. Or for
+example a MyPresentation scheme has an action 'Start movie 1' which is a
+CmdCall for mplayer with as argument the path to a specific movie.
+Now the real nice thing would be, schemes are configurations so they
+should be saved and loaded from .lbrc.conf. And even better, make
+importing/exporting schemes from the configuration possible. I want to
+be able to download this nifty Scheme somebody created with 30 possible
+options to handle Program X and load that into my LBRC-applet to use to
+create...
+
+A custom profile! A profile in my opinion is the 1 on 1 mapping of
+descriptive key strings to Scheme Actions, but also directly to Handler
+calls. So for example, I may have a 'My Presentation' profile. In the
+profile manager, I have 1 window in which I can define keys. So I click
+the dropdown box, select 'NUM7'. To the right of that dropdown box, I
+click the dropdown box which gives me a selection between 'Desktop,
+Rhythmbox, My Presentation actions, MPlayer, Home automation, Key press,
+Mouse, Command, DBUs'. See how I am able to select both Schemes and
+Handlers here? Than, depending on my selection in this dropdown box I
+get usually a new dropdown box to the right. Say I picked 'My
+Presentation actions'. In the new dropdown box I can now pick 'Next
+slide', 'Play movie 1', 'Black screen', 'Full screen'.
+Again, this is all pure configuration so this can be saved, imported and
+exported in/to/from .lbrc.conf.
+
+In other words, the current four tabs should go. A user wants to work
+from keys -&gt; action. Similary, the .lbrc.conf profiles should be a
+key-&gt;scheme/handler-&gt;action/command flow.
+
+
+
+Next, on the mobile side:
+The current slide helper screen and volume screen are nice, but I think
+what would be really nice is have a profile dependent overview of the
+button mappings visible. I can't remember what NUM7 does in profile Foo!
+The profile list can be send over, how about sending a profile
+description on choosing one? What I'm thinking of is:
+- The J2ME app should have a set of stock icons, can be very simple,
+even wingdings like images for 'play, pause, stop, volume up, volume
+down, shutdown, etc.
+- On choosing a profile, the pc sends a description which contains
+something like 'NUM7{ico:play}, NUM8{txt:'FFWD'}'. Now, the J2ME program
+doesn't have to know which keycode goes with that NUM7. It just needs to
+draw a generic phone key layout on screen, with a play icon in the
+square that represents NUM7 and the string 'FFWD' in the square
+representing NUM8.
+My phone does svg, I'm not sure how normal that is nowadays but if it is
+normal, it would be very easy to scale vector buttons, vector images and
+text to the exact size of the screen.
+When you want the presentation helper widget, you might use 2/3 of the
+screen with room for the timer above and the slide number on the side!
+Same for the volume helper screen, scale down the key mapping view a
+little and draw the bars in the created space.
+When people create a profile or scheme, one of the options in the editor
+could be how to present the action on the phone. So give the ability to
+choose between text (max 4 chars) and icons with again a dropdown list
+of the icons also present on the phone.
+
+
+Ok, this was basically what caused me to not sleep almost an entire
+night last week because I was so excited about coming up with this
+design which would improve the usability of the program (in my opinion).
+It's a lot of text and likely I left some stuff out that is present in
+my head so that this makes perfect sense for me but not (yet) for you
+guys. So please, let me know what you think.
+
+Finally, a few notes:
+- LBRC-applet and LBRCdbus are the only /usr/bin executables on my
+system with CAPS. It looks kind of wrong and against convention. Maybe
+make that more in line with the rest of the unix world an go lowercase?
+- The ganyremote J2ME program knows how to save previously used
+connections. So scanning for devices becomes an option, you can pick
+your system from a list. That would be nice for lbrc too.
+
+
+Sincere,
+Jasper
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: OpenPGP digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080818/5cbffcf0/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080818/5cbffcf0/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000148.html">[Lbrc-devel] Smaller j2me client
+</A></li>
+	<LI>Next message: <A HREF="000150.html">[Lbrc-devel] Mailinglist works again
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#149">[ date ]</a>
+              <a href="thread.html#149">[ thread ]</a>
+              <a href="subject.html#149">[ subject ]</a>
+              <a href="author.html#149">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

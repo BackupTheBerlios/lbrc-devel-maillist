@@ -1,0 +1,565 @@
+From admin at berlios.de  Sun Oct  5 23:15:40 2008
+From: admin at berlios.de (admin at berlios.de)
+Date: Sun, 5 Oct 2008 23:15:40 +0200 (CEST)
+Subject: [Lbrc-devel] [Patch #2540] Fixes against 0.6.2
+Message-ID: <200810052115.m95LFep5016765@unicorn.berlios.de>
+
+Patch #2540 has been updated. 
+
+Project: lbrc
+Category: None
+Status: Closed
+Submitted by: colbrac
+Assigned to : none
+Summary: Fixes against 0.6.2
+
+Follow-Ups:
+
+Date: 2008-Oct-05 23:15
+By: linuxfun
+
+Comment:
+The patches were merged by the author himself - so closing this report ;-)
+-------------------------------------------------------
+
+Date: 2008-Aug-10 23:24
+By: colbrac
+
+Comment:
+Doh! Teaches me again to first check trunk.. then start fixing things.
+So basically this new patch is against trunk as of today (rev 262 I think)
+What is left?
+Lot's of debug message changes that make the whole debug output more concise and comprehensible. (at least, it does for me :) )
+
+Small tweaks:
+- gtk.mainquit -> gtk.main_quit in LBRC-applet.py fixes deprecation warning when doing Ctrl+C in terminal
+- In Listener change handling of config_section sections, better debug messages, some try/except when doing command.call() for init and destruct commands (which was needed in 0.6.2 but maybe not anymore atm).
+
+Anyway, here it is, enjoy!
+
+Note: I registered lbrc in launchpad.net, if you like to control that registration of your project, please feel free to contact me. I plan on making lbrc available through a PPA for Ubuntu so that hopefully more people are able to easily enjoy your great work.
+
+Sincere,
+Jasper
+-------------------------------------------------------
+
+Date: 2008-Aug-10 18:44
+By: colbrac
+
+Comment:
+This patches fixes the issues I encountered while trying to use dbus and command execution features of LBRC.
+
+- Added imports for configValueNotFound where needed
+- Fix CommandExecutor Command call
+- Fix DBUSCall call to logger/logging
+- Changes to config handling
+- Saner debug messages
+-------------------------------------------------------
+
+-------------------------------------------------------
+For more info, visit:
+
+http://developer.berlios.de/patch/?func=detailpatch&patch_id=2540&group_id=8112
+
+
+From lirenlin at gmail.com  Thu Oct  9 11:19:03 2008
+From: lirenlin at gmail.com (=?GB2312?B?wO7IysHW?=)
+Date: Thu, 9 Oct 2008 17:19:03 +0800
+Subject: [Lbrc-devel] LBRC
+Message-ID: <71a8de040810090219h26010613r55d24b5a1ee1f244@mail.gmail.com>
+
+I really don't know how to use it.I'm a student in china ,i can't find some
+manual about this  Utilities,but some part of my project need it ,i hope
+someone can help me! just Tell how to use it.it supposed to be two
+files,(BT. blurc is splited in two parts: blurcc, the blurc client, running
+on the mobile device; blurcd, the blurc daemon running on the linux
+computer.)but i just find one in the downloadpage,why?
+i'll appeiciate if someone  can help me!
+-- 
+????????????
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081009/c4f24dbf/attachment.html>
+
+From lirenlin at gmail.com  Fri Oct 10 19:07:08 2008
+From: lirenlin at gmail.com (=?GB2312?B?wO7IysHW?=)
+Date: Sat, 11 Oct 2008 01:07:08 +0800
+Subject: [Lbrc-devel] LBRC
+In-Reply-To: <71a8de040810090219h26010613r55d24b5a1ee1f244@mail.gmail.com>
+References: <71a8de040810090219h26010613r55d24b5a1ee1f244@mail.gmail.com>
+Message-ID: <71a8de040810101007x15c1e8aay59f441245b095e17@mail.gmail.com>
+
+do this Utilities can work in a emdedded linux system?
+-- 
+????????????
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081011/b1078a51/attachment.html>
+
+From matthias.blaesing at rwth-aachen.de  Sat Oct 11 00:24:26 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 11 Oct 2008 00:24:26 +0200
+Subject: [Lbrc-devel] LBRC
+In-Reply-To: <71a8de040810101007x15c1e8aay59f441245b095e17@mail.gmail.com>
+References: <71a8de040810090219h26010613r55d24b5a1ee1f244@mail.gmail.com>
+	<71a8de040810101007x15c1e8aay59f441245b095e17@mail.gmail.com>
+Message-ID: <1223677466.7117.40.camel@enterprise.glx>
+
+Hey ???,
+
+i'm not sure whether I understand your question correctly, but I'll try
+to answer as good as possible.
+
+As you've already seen, there is currently no manual. This is not
+optimal, but time is a constraint I can't circumvent. So if you need
+info, have a look at the mailinglist and the source - there are more
+comments then you might think.
+
+As you suspected LBRC is split into two parts, one written in j2me made
+to run on your phone and a python server running on the host computer.
+The j2me part is prebuild inside the source package, as most people
+don't have the whole tool chain handy to install it.
+
+To find the j2me part have a look at the j2me-build directory.
+
+Regarding your question regarding embedded linux I can't answer that
+very well. The problem: define embedded linux! For LBRC you need python
+at least 2.4, a running dbus daemon, an initalized session bus, the
+bluez stack and the application you wan't to control. If the
+requirements are met - sure!
+
+Hope that helped
+
+Matthias Bl?sing
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081011/a6ef530e/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Oct 11 00:42:10 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 11 Oct 2008 00:42:10 +0200
+Subject: [Lbrc-devel] Testrequest: Installing via bluetooth
+Message-ID: <1223678531.10684.9.camel@enterprise.glx>
+
+Hello,
+
+I was wandering, whether it would be possible to include an install
+helper for the j2me part in the gui. I noticed, that I can simply send
+the jar file to my phone via an obex connection (usb or bluetooth) and
+it asks me whether I want to install the application.
+
+I suspect it won't be as easy on other phones (this is a pretty recent
+Sony Ericsson K810i). I'll try to get some more phones to test (there
+are some mobiles in the family ;-), but thats a small test base.
+
+If you want to help you can try:
+
+gnome-obex-send <path to the jar file>
+
+if that is not installed but obex ftp:
+
+obexftp -b <bluetooth address> -p <path to the jar file>
+
+And report your brand, the model of the mobile and whether it works or
+not.
+
+For nokia phone we could fall back to gammu which would elegantly get us
+around the config problem.
+
+What do you think?
+
+Greetings
+
+Matthias
+-- 
+All generalizations are false, including this one.
+                -- Mark Twain
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081011/a58bc2af/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Oct 11 10:35:26 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 11 Oct 2008 10:35:26 +0200
+Subject: [Lbrc-devel] LBRC
+In-Reply-To: <71a8de040810102358i31ef5a48w6e90e02ecb135900@mail.gmail.com>
+References: <71a8de040810090219h26010613r55d24b5a1ee1f244@mail.gmail.com>
+	<71a8de040810101007x15c1e8aay59f441245b095e17@mail.gmail.com>
+	<1223677466.7117.40.camel@enterprise.glx>
+	<71a8de040810101946x3849ece4k7b96cd62a3bf9fd7@mail.gmail.com>
+	<71a8de040810102358i31ef5a48w6e90e02ecb135900@mail.gmail.com>
+Message-ID: <1223714126.13392.13.camel@enterprise.glx>
+
+Hey again,
+
+Am Samstag, den 11.10.2008, 14:58 +0800 schrieb ???:
+> I already know how does LBRC works?use the uinput device to  control
+> keyboard and  mouse, right?
+
+Partly. There are more modules that handle the phone input. One of the
+modules ist the uinput module, but there are also modules for launching
+commands (CommandExecutor), remotly control mplayer, accessing the dbus
+or injecting keyboard and mouse events not into the kernel, but into the
+XServer, which ist what the XInput module does.
+
+> I wonder why the server part of this project is written in python
+> programming language?
+
+Its nice to programm with it. I had to use a language with bindings for
+bluetooth access, a nice gui toolkit (here: gtk2) and a language, that
+makes it difficult to shoot yourself in your foot. The last part relates
+to security considerations, as buffer overflows and so on are less
+likely in python than in C.
+
+> can i get the  source of the Utilities or it's included the
+> lbrc_0.6.3.tar.gz package?
+
+The whole source is in there (python code is the source itself, the j2me
+source is in the directy named j2me). If want to follow the development
+more closely, there is also a svn at berlios.
+
+Greetings
+
+Matthias
+
+PS: If you don't mind: What do you try to build?
+PPS: Please keep lbrc-devel at lists.berlios.de in the CC
+-- 
+"Lerne die Regeln, damit du wei?t, wie du sie brichst."
+
+Der Dalai Lama zitiert nach Unicum
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081011/aa40fb36/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Oct 18 00:46:30 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 18 Oct 2008 00:46:30 +0200
+Subject: [Lbrc-devel] LBRC
+In-Reply-To: <71a8de040810170904n2e253522o3840cbbbbb1ee79d@mail.gmail.com>
+References: <71a8de040810090219h26010613r55d24b5a1ee1f244@mail.gmail.com>
+	<71a8de040810101007x15c1e8aay59f441245b095e17@mail.gmail.com>
+	<1223677466.7117.40.camel@enterprise.glx>
+	<71a8de040810101946x3849ece4k7b96cd62a3bf9fd7@mail.gmail.com>
+	<71a8de040810102358i31ef5a48w6e90e02ecb135900@mail.gmail.com>
+	<1223714126.13392.13.camel@enterprise.glx>
+	<71a8de040810110238y6a7d4701v37bed3fc461de6b3@mail.gmail.com>
+	<71a8de040810170904n2e253522o3840cbbbbb1ee79d@mail.gmail.com>
+Message-ID: <1224283590.4332.1.camel@enterprise.glx>
+
+Hey,
+
+Am Samstag, den 18.10.2008, 00:04 +0800 schrieb ???:
+> one more question,dose this works with bluetooth usb dangle? need any
+> drives or modules?
+
+sure - It works with everything the linux kernel can handle.
+
+Greetings
+
+Matthias
+
+-- 
+"Skepsis wirft Fragen auf, die zu Nachforschungen f?hren.
+Das ist sehr hilfreich, um neue Dinge zu entwickeln."
+
+Der Dalai Lama zitiert nach Unicum
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081018/971d3e84/attachment.pgp>
+
+From luqeckr at gmail.com  Mon Oct 20 13:53:53 2008
+From: luqeckr at gmail.com (Luqman)
+Date: Mon, 20 Oct 2008 19:53:53 +0800
+Subject: [Lbrc-devel] service not found
+Message-ID: <48FC7151.1060306@gmail.com>
+
+this maybe asked before, but i don't understand when i read on archive
+
+i run ubuntu 8.04
+i load module uinput, so thereis device /dev/input/uinput
+
+i have run LBRCdbus, and found no error
+then i run LBRC-applet, and on my nokia E50 phone i run LBRC
+
+i've found my bluetooth laptop
+but when i click it, it say: LBRC service not found! Length of service 
+list: 0
+
+what should i do ?
+
+--
+
+Thx
+
+Luqe
+
+
+this is when i run LBRCdbus --debug
+--------------------------------------------------------
+$ LBRCdbus --debug
+LBRC.BTServer                      : DEBUG    Trying to register service:
+<?xml version="1.0" encoding="UTF-8" ?>
+<record>
+        <attribute id="0x0001">
+             <uuid value="9c6c8dce-9545-11dc-a3c1-0011d8388a56" />
+        </attribute>
+        <attribute id="0x0004">
+                <sequence>
+                        <sequence>
+                                <uuid value="0x0100" />
+                        </sequence>
+                        <sequence>
+                                <uuid value="0x0003" />
+                                <uint8 value="1" />
+                        </sequence>
+                </sequence>
+        </attribute>
+        <attribute id="0x0100">
+            <text value="LBRC" name="name"/>
+        </attribute>
+</record>
+
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/input/uinput 
+as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a 
+suitable uinput device node: /dev/input/uinput
+LBRC.Listener.UinputDispatcher     : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event 
+Listener: <class 'LBRC.UinputDispatcher.UinputDispatcher'>
+LBRC.Listener.CommandExecutor      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event 
+Listener: <class 'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event 
+Listener: <class 'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event 
+Listener: <class 'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event 
+Listener: <class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event 
+Listener: <class 'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event 
+Listener: <class 'LBRC.VolumeControl.VolumeControl'>
+LBRC.Listener.XInput               : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event 
+Listener: <class 'LBRC.XInput.XInput'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC                               : DEBUG    Recieved signal to switch 
+to system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    No section 
+UinputDispatcher for system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    Completed processing of 
+UinputDispatcher in system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    No config section 
+CommandExecutor for system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    Completed processing of 
+CommandExecutor in system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    No config section 
+DBUSCaller for system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    Completed processing of 
+DBUSCaller in system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    No config section MPlayer 
+for system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    Succesfully processed 
+system profile XInput section Mplayer
+LBRC.Listener.PresentationCompanion: DEBUG    No config section 
+PresentationCompanion for system profile XInput
+LBRC.Listener.PresentationCompanion: DEBUG    Completed processing of 
+PresentationCompanion in system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    No config section 
+VolumeControl for system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    Completed processing of 
+VolumeControl in system profile XInput
+LBRC.Listener.XInput               : DEBUG    No init section in config
+LBRC.Listener.XInput               : DEBUG    Mapping key (50, 0) : 
+{'map_to': 'Up', 'type': 'key', 'keycode': 50, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (53, 0) : 
+{'map_to': 'Down', 'type': 'key', 'keycode': 53, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (52, 0) : 
+{'map_to': 'Left', 'type': 'key', 'keycode': 52, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (54, 0) : 
+{'map_to': 'Right', 'type': 'key', 'keycode': 54, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (57, 0) : 
+{'map_to': 'Page_Up', 'type': 'key', 'keycode': 57, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (35, 0) : 
+{'map_to': 'Page_Down', 'type': 'key', 'keycode': 35, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-10, 0) : 
+{'map_to': 1, 'type': 'mousebutton', 'keycode': -10}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-5, 0) : 
+{'map_to': 1, 'type': 'mousebutton', 'keycode': -5}
+LBRC.Listener.XInput               : DEBUG    Mapping key (49, 0) : 
+{'map_to': 2, 'type': 'mousebutton', 'keycode': 49}
+LBRC.Listener.XInput               : DEBUG    Mapping key (51, 0) : 
+{'map_to': 3, 'type': 'mousebutton', 'keycode': 51}
+LBRC.Listener.XInput               : DEBUG    Mapping key (56, 0) : 
+{'map_to': 4, 'type': 'mousebutton', 'keycode': 56, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (48, 0) : 
+{'map_to': 5, 'type': 'mousebutton', 'keycode': 48, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-2, 0) : 
+{'map_to': '+Y', 'type': 'mouseaxis', 'keycode': -2}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-1, 0) : 
+{'map_to': '-Y', 'type': 'mouseaxis', 'keycode': -1}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-4, 0) : 
+{'map_to': '+X', 'type': 'mouseaxis', 'keycode': -4}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-3, 0) : 
+{'map_to': '-X', 'type': 'mouseaxis', 'keycode': -3}
+LBRC.Listener.XInput               : DEBUG    No destruct section in config
+LBRC.Listener.XInput               : DEBUG    Completed processing of 
+XInput in system profile XInput
+LBRC                               : DEBUG    Reload config
+
+
+
+-- 
+
+Luqe:~$
+
+
+
+From matthias.blaesing at rwth-aachen.de  Mon Oct 20 14:18:42 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 20 Oct 2008 14:18:42 +0200
+Subject: [Lbrc-devel] service not found
+In-Reply-To: <48FC7151.1060306@gmail.com>
+References: <48FC7151.1060306@gmail.com>
+Message-ID: <1224505122.10774.5.camel@enterprise.glx>
+
+Hey Luge,
+
+Am Montag, den 20.10.2008, 19:53 +0800 schrieb Luqman:
+> this maybe asked before, but i don't understand when i read on archive
+
+no problem ;-)
+
+> i run ubuntu 8.04
+> i load module uinput, so thereis device /dev/input/uinput
+> 
+> i have run LBRCdbus, and found no error
+> then i run LBRC-applet, and on my nokia E50 phone i run LBRC
+> 
+> i've found my bluetooth laptop
+> but when i click it, it say: LBRC service not found! Length of
+> service 
+> list: 0
+> 
+> what should i do ?
+
+Make the ubuntu guys fix the bug mentioned here:
+
+https://bugs.launchpad.net/ubuntu/+source/bluez-utils/+bug/227429
+
+not sure when it will be fixed - you could try to run the debian
+packages of bluez-utils...
+
+> this is when i run LBRCdbus --debug [...]
+
+The debug output looks very good! Your problem is that the lbrc service
+is not announced to the phone - so it asumes, that it is not there.
+
+HTH
+
+Matthias
+
+-- 
+"Skepsis wirft Fragen auf, die zu Nachforschungen f?hren.
+Das ist sehr hilfreich, um neue Dinge zu entwickeln."
+
+Der Dalai Lama zitiert nach Unicum
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081020/0959eedb/attachment.pgp>
+
+From jasper.groenewegen at xs4all.nl  Mon Oct 20 14:05:44 2008
+From: jasper.groenewegen at xs4all.nl (Jasper)
+Date: Mon, 20 Oct 2008 14:05:44 +0200
+Subject: [Lbrc-devel] service not found
+In-Reply-To: <48FC7151.1060306@gmail.com>
+References: <48FC7151.1060306@gmail.com>
+Message-ID: <48FC7418.6060508@xs4all.nl>
+
+Luqman wrote:
+> then i run LBRC-applet, and on my nokia E50 phone i run LBRC
+>
+> i've found my bluetooth laptop
+> but when i click it, it say: LBRC service not found! Length of service
+> list: 0
+>
+> what should i do ?
+
+The debug output you supply looks OK. The uinput should not influence 
+the registering of the service. So, I can only assume somehow the LBRC 
+applet is not running anymore while you try to connect from your phone. :S
+
+Did you run LBRC-applet from a terminal and then closed the terminal 
+window? (Sorry if this is offensivily obvious to you.. better to get the 
+easy solutions out of the way first :) ) Or in other words, do you have 
+the LBRC icon in your panel while you connect from your phone?
+
+Otherwise.. make sure your laptop is fully browsable and connectable in 
+the Bluetooth preferences (2nd option on the first tab of the 
+preferences window)
+
+Jasper
+
+
+From luqeckr at gmail.com  Tue Oct 21 13:50:13 2008
+From: luqeckr at gmail.com (Luqman)
+Date: Tue, 21 Oct 2008 19:50:13 +0800
+Subject: [Lbrc-devel] service not found
+In-Reply-To: <1224505122.10774.5.camel@enterprise.glx>
+References: <48FC7151.1060306@gmail.com>
+	<1224505122.10774.5.camel@enterprise.glx>
+Message-ID: <48FDC1F5.4050007@gmail.com>
+
+Matthias Bl?sing wrote:
+> Hey Luge,
+> 
+> Make the ubuntu guys fix the bug mentioned here:
+> 
+> https://bugs.launchpad.net/ubuntu/+source/bluez-utils/+bug/227429
+> 
+> not sure when it will be fixed - you could try to run the debian
+> packages of bluez-utils...
+> 
+
+yes, thanks for quick reply.. it also affect other bluetooth project
+it is mentioned about the bug, and it fixed in intrepid
+and intrepid is in few more days
+
+so maybe i will wait intrepid then...
+
+
+
+Luqe~$
+
+

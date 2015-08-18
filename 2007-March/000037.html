@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Plugin Metadata + Checks
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Plugin%20Metadata%20%2B%20Checks&In-Reply-To=%3C1174859123.17202.15.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000036.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Plugin Metadata + Checks</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Plugin%20Metadata%20%2B%20Checks&In-Reply-To=%3C1174859123.17202.15.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] Plugin Metadata + Checks">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sun Mar 25 23:45:23 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000036.html">[Lbrc-devel] i18n for j2me
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+when thinking about the styling of the j2me client part, I also ran over
+the issue of display control, when we start to implement plugins, that
+require interaction with the screen.
+
+My proposal would be to devide the plugins into three categories:
+
+     1. plugins not depending on the display (read: all currently
+        present plugins)
+     2. plugins requiring the display for a short time (like a menu or a
+        short status display)
+     3. plugins requiring constant display control
+
+
+      * cat1 plugins can be combined in any form
+      * cat2 plugins will be modal while the own the display
+      * only one cat3 plugin can run at any time, but while that is
+        running cat1 and cat2 plugins can both run at the same time,
+        where cat2 plugins take over control while they are running
+
+I write this, as a profile switcher on the phone would in my idea
+implemented as a cat2 plugin. A mediaplayer could be a cat3 plugin (no I
+have no idea how to handle the displays apart from the list case, but we
+should prepare for this).
+
+Any objections?
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl&#228;sing (GPG-Schl&#252;sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: <A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">linuxfun at hotmail.com</A>
+&quot;Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren.&quot;
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070325/d844cdd4/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070325/d844cdd4/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000036.html">[Lbrc-devel] i18n for j2me
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

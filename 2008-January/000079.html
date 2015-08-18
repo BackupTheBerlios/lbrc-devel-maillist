@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20org.freedesktop.DBus.Error.NoReply&In-Reply-To=%3C1201339454.7372.11.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000078.html">
+   <LINK REL="Next"  HREF="000080.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] org.freedesktop.DBus.Error.NoReply</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20org.freedesktop.DBus.Error.NoReply&In-Reply-To=%3C1201339454.7372.11.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] org.freedesktop.DBus.Error.NoReply">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sat Jan 26 10:24:14 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000078.html">[Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+</A></li>
+        <LI>Next message: <A HREF="000080.html">[Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Nitin,
+
+I think you run into a problem, because the dbus session bus is not
+running.
+
+I assume, that you try to run LBRC as root (I saw the hash indicating
+the root prompt). Apart from the fact that this is strongly discouraged
+from a security point of view, you are faced with the problem, that for
+root no dbus session bus is started (normaly). 
+
+This can be done like this:
+
+eval `dbus-launch`
+export DBUS_SESSION_BUS_ADDRESS
+export DBUS_SESSION_BUS_PID
+
+The first line runs dbus-launch, which output Variables, that can be
+used to access the session bus. They are passed into the calling shell
+by evaluating the output. After that we have to make sure the variables
+are passed to our child processes so we export the variables.
+
+After that try to run LBRC again - it should at least come up at all.
+
+Towards the mappings - All the default Keys (that is number and *,#)
+should work without a problem. Problems could arise with special keys
+(the steering cross or the photo button or something like this). But
+even these seem to be pretty similar even between manufactures. So give
+it a try and it should be trivial to tweak the existing profiles.
+
+HTH
+
+Matthias
+
+Am Samstag, den 26.01.2008, 08:36 +0000 schrieb Nitin Mahajan:
+&gt;<i> Hello!
+</I>&gt;<i> 
+</I>&gt;<i> I was trying to setup LBRC on my ubuntu 7.10. Till
+</I>&gt;<i> builds everything was fine.
+</I>&gt;<i> 
+</I>&gt;<i> While I run # ./LBRCdbus --debug
+</I>&gt;<i> 
+</I>&gt;<i> I get the following errors. 
+</I>&gt;<i>  
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>   File &quot;./LBRCdbus&quot;, line 13, in &lt;module&gt;
+</I>&gt;<i>     brs = Core(debug=logging.DEBUG)
+</I>&gt;<i>   File
+</I>&gt;<i> &quot;/home/nitin/downloads/lbrc-0.5/LBRC/dbusinterface.py&quot;,
+</I>&gt;<i> line 195, in __init__
+</I>&gt;<i>     bus_name = dbus.service.BusName(DBUSNAME,
+</I>&gt;<i> bus=dbus.SessionBus())
+</I>&gt;<i>   File
+</I>&gt;<i> &quot;/var/lib/python-support/python2.5/dbus/_dbus.py&quot;,
+</I>&gt;<i> line 218, in __new__
+</I>&gt;<i>     mainloop=mainloop)
+</I>&gt;<i>   File
+</I>&gt;<i> &quot;/var/lib/python-support/python2.5/dbus/_dbus.py&quot;,
+</I>&gt;<i> line 107, in __new__
+</I>&gt;<i>     bus = BusConnection.__new__(subclass, bus_type,
+</I>&gt;<i> mainloop=mainloop)
+</I>&gt;<i>   File
+</I>&gt;<i> &quot;/var/lib/python-support/python2.5/dbus/bus.py&quot;, line
+</I>&gt;<i> 121, in __new__
+</I>&gt;<i>     bus = cls._new_for_bus(address_or_type,
+</I>&gt;<i> mainloop=mainloop)
+</I>&gt;<i> dbus.exceptions.DBusException:
+</I>&gt;<i> org.freedesktop.DBus.Error.NoReply: Did not receive a
+</I>&gt;<i> reply. Possible causes include: the remote application
+</I>&gt;<i> did not send a reply, the message bus security policy
+</I>&gt;<i> blocked the reply, the reply timeout expired, or the
+</I>&gt;<i> network connection was broken.
+</I>&gt;<i> 
+</I>&gt;<i> I am not familiar with D-BUS and Python. Can someone
+</I>&gt;<i> please help me?
+</I>&gt;<i> 
+</I>&gt;<i> I wish to use NOKIA E-Series phones like E-70, E61,
+</I>&gt;<i> E61i with this. Whether the default mappings for keys
+</I>&gt;<i> would work or there will have to be new key mappings
+</I>&gt;<i> or these phones?
+</I>&gt;<i> 
+</I>&gt;<i> Thanking in advance
+</I>&gt;<i> 
+</I>&gt;<i> regards
+</I>&gt;<i> 
+</I>&gt;<i> -Nitin
+</I>
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080126/c123766d/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080126/c123766d/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000078.html">[Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+</A></li>
+	<LI>Next message: <A HREF="000080.html">[Lbrc-devel] org.freedesktop.DBus.Error.NoReply
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

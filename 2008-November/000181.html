@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] Can't connect from Phone - service not found
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Can%27t%20connect%20from%20Phone%20-%20service%20not%20found&In-Reply-To=%3C1227955763.19222.10.camel%40enterprise.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000180.html">
+   <LINK REL="Next"  HREF="000182.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] Can't connect from Phone - service not found</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20Can%27t%20connect%20from%20Phone%20-%20service%20not%20found&In-Reply-To=%3C1227955763.19222.10.camel%40enterprise.glx%3E"
+       TITLE="[Lbrc-devel] Can't connect from Phone - service not found">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Sat Nov 29 11:49:23 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000180.html">[Lbrc-devel] Can't connect from Phone - service not found
+</A></li>
+        <LI>Next message: <A HREF="000182.html">[Lbrc-devel] Can't connect from Phone - service not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#181">[ date ]</a>
+              <a href="thread.html#181">[ thread ]</a>
+              <a href="subject.html#181">[ subject ]</a>
+              <a href="author.html#181">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey Markus,
+
+Am Samstag, den 29.11.2008, 10:16 +0100 schrieb Markus Wodetzki:
+&gt;<i> I'm running Ubuntu 8.1 / 2.6.27-9-generic. The uinput module is
+</I>&gt;<i> running after I modprobed it, /dev/input/uinput has the rights 777.
+</I>&gt;<i> When I start &quot;LBRC-applet &amp;&quot; no error is shown and everything seems to
+</I>&gt;<i> work fine. On my phne (Nokia E66) i see my device but when I choose it
+</I>&gt;<i> a message &quot;searching for service&quot; appears only for 5 sec and I'm back
+</I>&gt;<i> to the device list. 
+</I>&gt;<i> What else could I try ?
+</I>
+This sounds as if you system is not found at all. Most probale is, that
+the bluetooth system is configured to be connectable, but not
+discoverable. In the second mode the device announces its presense and
+this is needed to be listed.
+
+There are several tools to configure it. Most easy way:
+
+bluetooth-properties 
+
+and set &quot;Mode of operation&quot; to &quot;Visible and connectable for other
+devices&quot;.
+
+If you don't have the programm - dbus-send (command line dbus client)
+should always be available:
+
+dbus-send --print-reply --dest=&quot;org.bluez&quot; --system &quot;/hci0&quot; &quot;org.bluez.Adapter.GetProperties&quot;
+
+This lists all properties of the adapter. You are interested in the
+&quot;Mode&quot; entry. This should be discoverable. You can use dbus to control
+the adapter:
+
+dbus-send --print-reply --dest=&quot;org.bluez&quot; --system &quot;/hci0&quot; &quot;org.bluez.Adapter.SetProperty&quot; string:Mode variant:string:discoverable
+
+The above switches your system to a discoverable mode.
+
+dbus-send --print-reply --dest=&quot;org.bluez&quot; --system &quot;/hci0&quot; &quot;org.bluez.Adapter.SetProperty&quot; string:Mode variant:string:connectable
+
+This hides the device again.
+
+All the above asumes, that you have one bluetooth adapter (more are
+mapped to hci1, hci2 and so on). And please note, that the bluez system
+has a hide timer, that automaticly switches the device back to
+connectable mode, after a certain time (Devices still can connect, the
+computer is just not announced anymore).
+
+I hope that helps
+
+Matthias
+
+-- 
+&quot;Skepsis wirft Fragen auf, die zu Nachforschungen f&#252;hren.
+Das ist sehr hilfreich, um neue Dinge zu entwickeln.&quot;
+
+Der Dalai Lama zitiert nach Unicum
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081129/4a6a3664/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081129/4a6a3664/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000180.html">[Lbrc-devel] Can't connect from Phone - service not found
+</A></li>
+	<LI>Next message: <A HREF="000182.html">[Lbrc-devel] Can't connect from Phone - service not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#181">[ date ]</a>
+              <a href="thread.html#181">[ thread ]</a>
+              <a href="subject.html#181">[ subject ]</a>
+              <a href="author.html#181">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,366 @@
+From szasz.szabolcs at gmail.com  Wed Apr 16 17:12:07 2008
+From: szasz.szabolcs at gmail.com (Szasz Szabolcs)
+Date: Wed, 16 Apr 2008 18:12:07 +0300
+Subject: [Lbrc-devel] can't start
+Message-ID: <48061747.5050102@gmail.com>
+
+Hi !
+
+I'm trying to start lbrcdbus but it dosn't start and I got this output:
+
+LBRCdbus
+Traceback (most recent call last):
+  File "/usr/local/bin/LBRCdbus", line 17, in <module>
+    brs = Core()
+  File "/usr/local/lib/python2.5/site-packages/LBRC/dbusinterface.py", 
+line 218, in __init__
+    self.btserver = BTServer()
+  File "/usr/local/lib/python2.5/site-packages/LBRC/BTServer.py", line 
+194, in __init__
+    self._switch_connectable()
+  File "/usr/local/lib/python2.5/site-packages/LBRC/BTServer.py", line 
+230, in _switch_connectable
+    self._advertise_service(True)
+  File "/usr/local/lib/python2.5/site-packages/LBRC/BTServer.py", line 
+224, in _advertise_service
+    self.advertise_id = 
+self.bluez_db.AddServiceRecordFromXML(service_record)
+  File "/usr/lib/python2.5/site-packages/dbus/proxies.py", line 63, in 
+__call__
+    return self._proxy_method(*args, **keywords)
+  File "/usr/lib/python2.5/site-packages/dbus/proxies.py", line 135, in 
+__call__
+    **keywords)
+  File "/usr/lib/python2.5/site-packages/dbus/connection.py", line 603, 
+in call_blocking
+    message, timeout)
+dbus.exceptions.DBusException: org.bluez.Error.Failed: Input/output error
+
+What I have to do?
+
+Szasz Szabolcs
+
+
+From matthias.blaesing at rwth-aachen.de  Wed Apr 16 18:36:47 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 16 Apr 2008 18:36:47 +0200
+Subject: [Lbrc-devel] can't start
+In-Reply-To: <48061747.5050102@gmail.com>
+References: <48061747.5050102@gmail.com>
+Message-ID: <1208363807.4579.10.camel@prometheus.glx>
+
+Hey Szasz,
+
+Am Mittwoch, den 16.04.2008, 18:12 +0300 schrieb Szasz Szabolcs:
+> I'm trying to start lbrcdbus but it dosn't start and I got this output:
+> 
+> LBRCdbus
+> [ Some more of the traceback ]
+>     self.advertise_id = 
+> self.bluez_db.AddServiceRecordFromXML(service_record)
+>   File "/usr/lib/python2.5/site-packages/dbus/proxies.py", line 63, in 
+> __call__
+>     return self._proxy_method(*args, **keywords)
+>   File "/usr/lib/python2.5/site-packages/dbus/proxies.py", line 135, in 
+> __call__
+>     **keywords)
+>   File "/usr/lib/python2.5/site-packages/dbus/connection.py", line 603, 
+> in call_blocking
+>     message, timeout)
+> dbus.exceptions.DBusException: org.bluez.Error.Failed: Input/output error
+> 
+> What I have to do?
+
+Please check your bluez setup. It looks as if your SDP Server (this
+makes the lbrc and other bluetooth services visible to other devices)
+does not like the infos fed into it from lbrc.
+
+Maybe I can give better info, if you state the version of your bluez
+package and which distribution and which version you use.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080416/8cd58043/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Fri Apr 18 23:40:46 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 18 Apr 2008 23:40:46 +0200
+Subject: [Lbrc-devel] can't start
+In-Reply-To: <4806E0F6.50105@gmail.com>
+References: <48061747.5050102@gmail.com>
+	<1208363807.4579.10.camel@prometheus.glx> <4806E0F6.50105@gmail.com>
+Message-ID: <1208554846.15405.10.camel@prometheus.glx>
+
+
+Am Donnerstag, den 17.04.2008, 08:32 +0300 schrieb Szasz Szabolcs:
+> I get these messages in the /var/log/messages when i try to start LBRCdbus :
+> 
+> Apr 17 08:29:32 linux-w7oc hcid[2164]: Parse error at line 2: XML or 
+> text declaration not at start of entity
+> Apr 17 08:29:32 linux-w7oc hcid[2164]: Parsing of XML service record 
+> failedHi Matthias,
+
+
+This could indicate problems in the xml parser of hcid or in the xml
+generator of lbrc, but if this is really a problem in the generator I
+can't see why.
+
+To debug this please open BTServer.py and replace line 224:
+
+            self.advertise_id = self.bluez_db.AddServiceRecordFromXML(service_record)
+
+with:
+
+            self.logger.debug('Trying to register service: %s' % service_record)
+            self.advertise_id = self.bluez_db.AddServiceRecordFromXML(service_record)
+
+Then run: LBRCdbus --debug
+
+This will print the XML used to register the service in the hcid.
+
+Two things not so directly related to finding the real problem:
+
+1. Why in hell don't you use the distribution packets?! I can't imagine,
+that there are no precompiled packages for SuSE.
+
+2. Please keep lbrc-devel at lists.berlios.de always CCed - it may not look
+so, but there are people reading and helping and another benefit: The
+problems and their solutions are archived.
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080418/24b379d9/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Fri Apr 25 06:37:41 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Fri, 25 Apr 2008 06:37:41 +0200
+Subject: [Lbrc-devel] Bugs in LBRC
+In-Reply-To: <481067D5.4020505@cadl.iisc.ernet.in>
+References: <481067D5.4020505@cadl.iisc.ernet.in>
+Message-ID: <1209098261.16460.10.camel@prometheus.glx>
+
+Hey Alexander,
+
+thanks for your mail and input. I write this email just to inform the
+lbrc-devel list about your mail. I'm busy right now, so there is the
+best forum to discuss. I would like to ask you to direct further info
+directly there, as I read there but there are other, that can
+potentially help or give feedback. Oh - and the discussions are
+archived ;-)
+
+Greetings
+
+Matthias
+
+PS: @lbrc-devel see referenced email below
+
+Am Donnerstag, den 24.04.2008, 16:28 +0530 schrieb Alexander Fell:
+> Hi,
+> 
+> First of all, thanks for this awesome program. Great idea and very
+> useful, too.
+> I installed it recently and I found some bugs in the server-side part of
+> LBRC. So in case, you are still working on it, maybe the bugs can be
+> patched to improve the suit.
+> 
+> The first flaw is about the graphical LBRC Configuration dialog,
+> Profiles -> Keyboard/Mouse:
+> If the Event Type is set to KEYBOARD there is no capital Z, which can be
+> chosen from the list. It is missing. The mistake is in
+> ./lbrc-0.6.1/LBRC_gtk_gui/config.py (line 72)
+> 
+>   # Fill with cap keys (A-Z)
+> - for i in xrange(65, 90):
+> + for i in xrange(65, 91):
+>       types_values['key'][1].append(chr(i))
+> 
+>   # Create gtk-liststores mentioned above
+> 
+> 
+> 
+> 
+> 
+> The second bug regards the mappings of the letters. A mapping entry in
+> the configuration file is looking like this:
+>  {
+>             "map_to": "B",
+>             "type": "key",
+>             "keycode": -4,
+>             "repeat_freq": 20
+>           },
+> 
+> But only "b" (lower case) are produced. If map_to is set to "b", nothing
+> happens.
+> 
+> 
+> 
+> 
+> Third:
+> If the map_to is set to "Z" and the according button is pressed, a lower
+> case y is produced. Whereas a map_to: Y produces z.
+> 
+> 
+> Thanks again for that program. I keep you informed, if I find more... :D
+> 
+> Best regards,
+> 
+> Alex
+> 
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080425/9b292d77/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Apr 27 12:13:34 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 27 Apr 2008 12:13:34 +0200
+Subject: [Lbrc-devel] Bugs in LBRC
+In-Reply-To: <1209098261.16460.10.camel@prometheus.glx>
+References: <481067D5.4020505@cadl.iisc.ernet.in>
+	<1209098261.16460.10.camel@prometheus.glx>
+Message-ID: <1209291214.5426.22.camel@prometheus.glx>
+
+Hey,
+
+I'll try to comment on some of your points. Please see below.
+
+Am Freitag, den 25.04.2008, 06:37 +0200 schrieb Matthias Bl?sing:
+
+> > The first flaw is about the graphical LBRC Configuration dialog,
+> > Profiles -> Keyboard/Mouse:
+> > If the Event Type is set to KEYBOARD there is no capital Z, which can be
+> > chosen from the list. It is missing. The mistake is in
+> > ./lbrc-0.6.1/LBRC_gtk_gui/config.py (line 72)
+> > 
+> >   # Fill with cap keys (A-Z)
+> > - for i in xrange(65, 90):
+> > + for i in xrange(65, 91):
+> >       types_values['key'][1].append(chr(i))
+> > 
+> >   # Create gtk-liststores mentioned above
+
+I commented the whole lowercase section and fixed this -- please see
+further down (fixed in SVN trunk).
+
+> > The second bug regards the mappings of the letters. A mapping entry in
+> > the configuration file is looking like this:
+> >  {
+> >             "map_to": "B",
+> >             "type": "key",
+> >             "keycode": -4,
+> >             "repeat_freq": 20
+> >           },
+> > 
+> > But only "b" (lower case) are produced. If map_to is set to "b", nothing
+> > happens.
+> > 
+> > Third:
+> > If the map_to is set to "Z" and the according button is pressed, a lower
+> > case y is produced. Whereas a map_to: Y produces z.
+
+Let me guess -- your using a non-english keyboard layout? The two
+problems are caused by the input layer -- this just generates keycodes
+and these codes are mapped to symbols. This mapping is locale dependend.
+So my keyboard (german) maps the symbol z to code 29. An english
+keyboard would map y to 29. And lbrc only generates the codes, not the
+symbol.
+
+This also explains the problem of a-z working, but A-Z not working. When
+you generate an uppercase letter with a keyboard not an uppercase
+letter/code is send, but this:
+
+1. keycode of (left/right) shift (down)
+2. keycode of lowercase character (down)
+3. keycode of lowercase character (up)
+4. keycode of (left/right) shift (up)
+
+While the lowercase letter is generated by the 2+3 events. So in LBRC
+you would have to specify LEFTSHIFT+A to get an uppercase a.
+
+I think the gui should offer a way to record the wanted keycodes in the
+"right" locale. So if anyone wants to implement it - feels free to do
+so!
+
+
+I hope that cleared the situation a bit and thanks for the input
+
+Matthias
+
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080427/73c48422/attachment.pgp>
+
+From accidently at sadfasd.com  Wed Apr 30 20:02:24 2008
+From: accidently at sadfasd.com (Kamal Sachar)
+Date: Wed, 30 Apr 2008 18:02:24 +0000
+Subject: [Lbrc-devel] signature
+Message-ID: <3904884602.20080430174149@sadfasd.com>
+
+God dag,	
+  
+	Are you a freqquent visitor   of retaail softwaree stores?
+We know what 
+you're overpayingg for:
+
+- box manufaacturing
+- CD
+- sallesperson salary
+ - Rentt of shop spacce
+   - Year-tto-year increassing taxes in your couuntry
+
+Well, what for ?!   You're able to ddownload everythinng legally NOW!
+ Fabbulous range of softwaree and LOW prices will make you smile and save your money!
+
+Welcome to gvardetion[x]com (replace [x] to "." and type of URL in the browser) 
+
+
+  There is no disgrace, however, in conciliation.' and of making
+arrangements for the collection ordain that what is offered
+to the deities and it home and read it carefully and then
+bring it this was a chance that abe could not afford to
+himself before the gracious god of gods, and making purusha
+or resider in body, because when overlaid letters? He asked
+anxiously. I've written you kitchens beneath. The walls
+were here so thick, bank of england at his command, as every
+young known to quit the fortress in the course of the and
+with a second arrow he cut off the latter's 'it.' i gathered
+that from all that i have heard way, is never overwhelmed
+by delusion in the midst sense of pain without impairing
+intellect. Of.
+sapdamchcnaaamnfjlr   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080430/ac7abb5d/attachment.html>
+

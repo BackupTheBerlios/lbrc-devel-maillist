@@ -1,0 +1,226 @@
+From risto.karjalainen at uta.fi  Sun May  4 23:47:23 2008
+From: risto.karjalainen at uta.fi (Risto Karjalainen)
+Date: Mon, 05 May 2008 00:47:23 +0300
+Subject: [Lbrc-devel] Ubuntu LBRCdbus failure
+Message-ID: <1209937643.25362.6.camel@sycorax>
+
+I am running an Ubuntu system on a amd64. I installed LBRC with dkpg
+from the 64 bit .deb. I have checked that my uinput is readable. When I
+try to run LBRCdbus, I get the following error:
+
+
+LBRC                               : WARNING  Failed to initalize <class
+'LBRC.UinputDispatcher.UinputDispatcher'>
+Value 342701792 out of range for Int32
+Traceback (most recent call last):
+  File "/usr/bin/LBRCdbus", line 17, in <module>
+    brs = Core()
+  File "/var/lib/python-support/python2.5/LBRC/dbusinterface.py", line
+229, in __init__
+    self._register_listener(i)
+  File "/var/lib/python-support/python2.5/LBRC/dbusinterface.py", line
+277, in _register_listener
+    self.logger.warn("Failed to initalize " + str(constructor) + "\n" +
+str(e))
+  File "/usr/lib/python2.5/logging/__init__.py", line 999, in warning
+    apply(self._log, (WARNING, msg, args), kwargs)
+  File "/usr/lib/python2.5/logging/__init__.py", line 1101, in _log
+    self.handle(record)
+  File "/usr/lib/python2.5/logging/__init__.py", line 1111, in handle
+    self.callHandlers(record)
+  File "/usr/lib/python2.5/logging/__init__.py", line 1148, in
+callHandlers
+    hdlr.handle(record)
+  File "/usr/lib/python2.5/logging/__init__.py", line 655, in handle
+    self.emit(record)
+  File "/var/lib/python-support/python2.5/LBRC/dbusinterface.py", line
+203, in emit
+    lr.fmessage)
+  File "/var/lib/python-support/python2.5/dbus/decorators.py", line 309,
+in emit_signal
+    message.append(signature=signature, *args)
+OverflowError: Value 342701792 out of range for Int32
+
+
+
+Regards,
+Risto Karjalainen
+
+
+
+
+From iuridiniz at yahoo.com.br  Mon May  5 20:24:35 2008
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Mon, 05 May 2008 15:24:35 -0300
+Subject: [Lbrc-devel] Ubuntu LBRCdbus failure
+In-Reply-To: <1209937643.25362.6.camel@sycorax>
+References: <1209937643.25362.6.camel@sycorax>
+Message-ID: <1210011875.30079.21.camel@cego>
+
+
+On Mon, 2008-05-05 at 00:47 +0300, Risto Karjalainen wrote:
+> OverflowError: Value 342701792 out of range for Int32
+this value seems (to me) acceptable for a 32 bit integer, I'll try to
+test it (when I can) on a 64 bit machine.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080505/1209930e/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Mon May  5 21:18:34 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 05 May 2008 21:18:34 +0200
+Subject: [Lbrc-devel] Ubuntu LBRCdbus failure
+In-Reply-To: <1209937643.25362.6.camel@sycorax>
+References: <1209937643.25362.6.camel@sycorax>
+Message-ID: <1210015114.18433.8.camel@prometheus.glx>
+
+Am Montag, den 05.05.2008, 00:47 +0300 schrieb Risto Karjalainen:
+> I am running an Ubuntu system on a amd64. I installed LBRC with dkpg
+> from the 64 bit .deb. I have checked that my uinput is readable. When I
+> try to run LBRCdbus, I get the following error:
+> 
+> 
+> [Long backtrace see original mail]
+
+I think this is the same error, as in the svn commit from 4.02.2008 -
+could you have a look at line 167 of dbusinterface.py.
+
+It should read:
+
+@dbus.service.signal(DBUSIFACE, signature='sisssssidsiisisss')
+
+change that to:
+
+@dbus.service.signal(DBUSIFACE, signature='sisssssidsixsisss')
+
+yepp only the only x.
+
+Try again. Yeah I think I should do another bugfix release....
+
+Greetings
+
+Matthias
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080505/2805613f/attachment.pgp>
+
+From risto.karjalainen at uta.fi  Mon May  5 21:38:26 2008
+From: risto.karjalainen at uta.fi (Risto Karjalainen)
+Date: Mon, 05 May 2008 22:38:26 +0300
+Subject: [Lbrc-devel] Ubuntu LBRCdbus failure
+In-Reply-To: <1210015114.18433.8.camel@prometheus.glx>
+References: <1209937643.25362.6.camel@sycorax>
+	<1210015114.18433.8.camel@prometheus.glx>
+Message-ID: <1210016306.15729.2.camel@sycorax>
+
+On Mon, 2008-05-05 at 21:18 +0200, Matthias Bl?sing wrote:
+> could you have a look at line 167 of dbusinterface.py.
+> 
+> It should read:
+> 
+> @dbus.service.signal(DBUSIFACE, signature='sisssssidsiisisss')
+> 
+> change that to:
+> 
+> @dbus.service.signal(DBUSIFACE, signature='sisssssidsixsisss')
+
+This did indeed fix it. Thanks.
+
+Regards, 
+Risto Karjalainen
+
+
+
+
+From matthias.blaesing at rwth-aachen.de  Sun May 11 21:35:15 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 11 May 2008 21:35:15 +0200
+Subject: [Lbrc-devel] Release of 0.6.2
+Message-ID: <1210534515.12683.2.camel@prometheus.glx>
+
+Hey,
+
+as there is no bigger release on the horizon, I decided to release the
+bugfixes put into svn. This is the resulting changelog:
+
+* Add debug output for SDP registration
+* fix character selection in GUI config for the uinput-dispatcher
+(reported by Alexander Fell)
+* Check uniput device in UInputDispatcher before passing it to the dbusbridge
+* adjust dbus-signature in loghandler (reported and fix tested by Daniel P?ssler)
+
+Greetings
+
+Matthias
+
+PS: The AMD64 version should be done in about an hour (the qemu image is
+just now updating)
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080511/8253bc0b/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Tue May 27 13:04:35 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 27 May 2008 13:04:35 +0200
+Subject: [Lbrc-devel] LBRC install help
+In-Reply-To: <200805270823.35904.hpali@sirema.hu>
+References: <200805270823.35904.hpali@sirema.hu>
+Message-ID: <1211886275.4284.28.camel@prometheus.glx>
+
+Hey,
+
+Am Dienstag, den 27.05.2008, 08:23 +0200 schrieb Hasznos P?l:
+> sirema at linux-psr1:~/targz/Hardware/Bluetooth PC Remote Control 
+> 3/lbrc-0.6.2> ./setup.py install
+> running install
+> error: invalid Python installation: unable to 
+> open /usr/lib/python2.5/config/Makefile (No such file or directory)
+> 
+> but i have an RPM base installed python:
+> /usr/lib/python2.5/
+> 
+> and /usr/lib/python2.5/config directory really is not in the python
+> home
+> 
+> so where can I found the Makefile?
+> or install more packeges?
+
+actually -- I don't know. But I would suspect a bug in the pyhton
+packages, as it's pretty much standard usage of distutils.
+
+Not sure whether this helps
+
+Matthias
+
+PS: Plase direct your questions to lbrc-devel at lists.berlios.de, as there
+are more people able to help and the mails are archived for other users
+with the same problem.
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080527/bc24a0c8/attachment.pgp>
+

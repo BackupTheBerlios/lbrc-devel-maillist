@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] [Bug #15344] UnknownMethod - HasBonding
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20%5BBug%20%2315344%5D%20UnknownMethod%20-%20HasBonding&In-Reply-To=%3C200903042024.n24KOp1Q020611%40unicorn.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000191.html">
+   <LINK REL="Next"  HREF="000193.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] [Bug #15344] UnknownMethod - HasBonding</H1>
+    <B>admin at berlios.de</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20%5BBug%20%2315344%5D%20UnknownMethod%20-%20HasBonding&In-Reply-To=%3C200903042024.n24KOp1Q020611%40unicorn.berlios.de%3E"
+       TITLE="[Lbrc-devel] [Bug #15344] UnknownMethod - HasBonding">admin at berlios.de
+       </A><BR>
+    <I>Wed Mar  4 21:24:51 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000191.html">[Lbrc-devel] [Bug #15344] UnknownMethod - HasBonding
+</A></li>
+        <LI>Next message: <A HREF="000193.html">[Lbrc-devel] [Feature #4521] Pulseaudio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#192">[ date ]</a>
+              <a href="thread.html#192">[ thread ]</a>
+              <a href="subject.html#192">[ subject ]</a>
+              <a href="author.html#192">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Bug #15344, was updated on 2009-Mar-04 19:25
+Here is a current snapshot of the bug.
+
+Project: Linux Bluetooth Remote Control
+Category: None
+Status: Open
+Resolution: None
+Bug Group: None
+Priority: 5
+Submitted by: nagper
+Assigned to : linuxfun
+Summary: UnknownMethod - HasBonding
+
+Details: I get this message with the latest release and with the svn as well.
+
+Config
+Ubuntu Jaunty
+kernel: 2.6.28.7
+bluez : 4.30
+python-bluez: 0.15-1
+
+
+LBRC.BTServer                      : DEBUG    Trying to register service: 
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;record&gt;
+        &lt;attribute id=&quot;0x0001&quot;&gt;
+             &lt;uuid value=&quot;9c6c8dce-9545-11dc-a3c1-0011d8388a56&quot; /&gt;
+        &lt;/attribute&gt;
+        &lt;attribute id=&quot;0x0004&quot;&gt;
+                &lt;sequence&gt;
+                        &lt;sequence&gt;
+                                &lt;uuid value=&quot;0x0100&quot; /&gt;
+                        &lt;/sequence&gt;
+                        &lt;sequence&gt;
+                                &lt;uuid value=&quot;0x0003&quot; /&gt;
+                                &lt;uint8 value=&quot;1&quot; /&gt;
+                        &lt;/sequence&gt;
+                &lt;/sequence&gt;
+        &lt;/attribute&gt;
+        &lt;attribute id=&quot;0x0100&quot;&gt;
+            &lt;text value=&quot;LBRC&quot; name=&quot;name&quot;/&gt;
+        &lt;/attribute&gt;
+&lt;/record&gt;
+
+LBRC.BTServer                      : DEBUG    Entered new codepath for new bluez api
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/input/uinput as uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a suitable uinput device node: /dev/input/uinput
+LBRC.Listener.UinputDispatcher     : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: &lt;class 'LBRC.UinputDispatcher.UinputDispatcher'&gt;
+LBRC.Listener.CommandExecutor      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: &lt;class 'LBRC.CommandExecutor.CommandExecutor'&gt;
+LBRC.Listener.DBUSCaller           : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: &lt;class 'LBRC.DBUSCaller.DBUSCaller'&gt;
+LBRC.Listener.ProfileSwitcher      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: &lt;class 'LBRC.ProfileSwitcher.ProfileSwitcher'&gt;
+LBRC.Listener.MPlayer              : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: &lt;class 'LBRC.MPlayer.MPlayer'&gt;
+LBRC.Listener.PresentationCompanion: DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: &lt;class 'LBRC.PresentationCompanion.PresentationCompanion'&gt;
+LBRC.Listener.VolumeControl        : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: &lt;class 'LBRC.VolumeControl.VolumeControl'&gt;
+LBRC.Listener.XInput               : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener: &lt;class 'LBRC.XInput.XInput'&gt;
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC                               : DEBUG    Recieved signal to switch to system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    No section UinputDispatcher for system profile XInput
+LBRC.Listener.UinputDispatcher     : DEBUG    Completed processing of UinputDispatcher in system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    No config section CommandExecutor for system profile XInput
+LBRC.Listener.CommandExecutor      : DEBUG    Completed processing of CommandExecutor in system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    No config section DBUSCaller for system profile XInput
+LBRC.Listener.DBUSCaller           : DEBUG    Completed processing of DBUSCaller in system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    No config section MPlayer for system profile XInput
+LBRC.Listener.MPlayer              : DEBUG    Succesfully processed system profile XInput section Mplayer
+LBRC.Listener.PresentationCompanion: DEBUG    No config section PresentationCompanion for system profile XInput
+LBRC.Listener.PresentationCompanion: DEBUG    Completed processing of PresentationCompanion in system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    No config section VolumeControl for system profile XInput
+LBRC.Listener.VolumeControl        : DEBUG    Completed processing of VolumeControl in system profile XInput
+LBRC.Listener.XInput               : DEBUG    No init section in config
+LBRC.Listener.XInput               : DEBUG    Mapping key (50, 0) : {'map_to': 'Up', 'type': 'key', 'keycode': 50, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (53, 0) : {'map_to': 'Down', 'type': 'key', 'keycode': 53, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (52, 0) : {'map_to': 'Left', 'type': 'key', 'keycode': 52, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (54, 0) : {'map_to': 'Right', 'type': 'key', 'keycode': 54, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (57, 0) : {'map_to': 'Page_Up', 'type': 'key', 'keycode': 57, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (35, 0) : {'map_to': 'Page_Down', 'type': 'key', 'keycode': 35, 'repeat_freq': '20'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-10, 0) : {'map_to': 1, 'type': 'mousebutton', 'keycode': -10}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-5, 0) : {'map_to': 1, 'type': 'mousebutton', 'keycode': -5}
+LBRC.Listener.XInput               : DEBUG    Mapping key (49, 0) : {'map_to': 2, 'type': 'mousebutton', 'keycode': 49}
+LBRC.Listener.XInput               : DEBUG    Mapping key (51, 0) : {'map_to': 3, 'type': 'mousebutton', 'keycode': 51}
+LBRC.Listener.XInput               : DEBUG    Mapping key (56, 0) : {'map_to': 4, 'type': 'mousebutton', 'keycode': 56, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (48, 0) : {'map_to': 5, 'type': 'mousebutton', 'keycode': 48, 'repeat_freq': '10'}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-2, 0) : {'map_to': '+Y', 'type': 'mouseaxis', 'keycode': -2}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-1, 0) : {'map_to': '-Y', 'type': 'mouseaxis', 'keycode': -1}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-4, 0) : {'map_to': '+X', 'type': 'mouseaxis', 'keycode': -4}
+LBRC.Listener.XInput               : DEBUG    Mapping key (-3, 0) : {'map_to': '-X', 'type': 'mouseaxis', 'keycode': -3}
+LBRC.Listener.XInput               : DEBUG    No destruct section in config
+LBRC.Listener.XInput               : DEBUG    Completed processing of XInput in system profile XInput
+LBRC                               : DEBUG    Reload config
+LBRC.BTServer                      : DEBUG    Entered new codepath for new bluez api
+LBRC.BTServer                      : DEBUG    Serversocket: ('00:00:00:00:00:00', 1)
+LBRC.BTServer                      : DEBUG    Check for pairing
+Traceback (most recent call last):
+  File &quot;/var/lib/python-support/python2.6/LBRC/BTServer.py&quot;, line 457, in cb_handle_connection
+    if ( self._check_pairing(client_address) and
+  File &quot;/var/lib/python-support/python2.6/LBRC/BTServer.py&quot;, line 521, in _check_pairing
+    if adapter.HasBonding(client_address[0]):
+  File &quot;/var/lib/python-support/python2.6/dbus/proxies.py&quot;, line 68, in __call__
+    return self._proxy_method(*args, **keywords)
+  File &quot;/var/lib/python-support/python2.6/dbus/proxies.py&quot;, line 140, in __call__
+    **keywords)
+  File &quot;/var/lib/python-support/python2.6/dbus/connection.py&quot;, line 622, in call_blocking
+    message, timeout)
+dbus.exceptions.DBusException: org.freedesktop.DBus.Error.UnknownMethod: Method &quot;HasBonding&quot; with signature &quot;s&quot; on interface &quot;org.bluez.Adapter&quot; doesn't exist
+
+Then nothing happens.
+
+Thanks
+Peter
+
+Follow-Ups:
+
+Date: 2009-Mar-04 20:24
+By: nagper
+
+Comment:
+Thanks !
+Disabling the pairing works.
+Because Jaunty is only a development release I think you could close this bug.
+
+Thank again
+Peter
+-------------------------------------------------------
+
+Date: 2009-Mar-04 20:01
+By: linuxfun
+
+Comment:
+I'll have to setup a ubuntu test system, as bluez 0.4X has not reached debian yet. Maybe I was fooled by deprecated interfaces when I did the adjustments for the 0.4X api.
+
+Ok - a look at the api docs in the most recent version of bluez indicates, that this is a correct assumtion. I'm not sure how to fix that (without breaking it on bluez 0.3). 
+
+As a quick fix you could disable the pairing check, as this circumvents the call to the problematic method. But be adviced, that this allows all present bluetooth devices to connect to LBRC.
+-------------------------------------------------------
+
+For detailed info, follow this link:
+<A HREF="http://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=15344&amp;group_id=8112">http://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=15344&amp;group_id=8112</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000191.html">[Lbrc-devel] [Bug #15344] UnknownMethod - HasBonding
+</A></li>
+	<LI>Next message: <A HREF="000193.html">[Lbrc-devel] [Feature #4521] Pulseaudio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#192">[ date ]</a>
+              <a href="thread.html#192">[ thread ]</a>
+              <a href="subject.html#192">[ subject ]</a>
+              <a href="author.html#192">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

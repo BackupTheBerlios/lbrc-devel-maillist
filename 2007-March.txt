@@ -1,0 +1,2259 @@
+From matthias.blaesing at rwth-aachen.de  Sat Mar  3 19:38:53 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 03 Mar 2007 19:38:53 +0100
+Subject: [Lbrc-devel] Thoughts about the development of LBRC
+Message-ID: <1172947133.7721.24.camel@prometheus.glx>
+
+Hello all,
+
+nice to see you on the list. I will shortly line out my thoughts about,
+what has to be done. I'll separate the j2me part and the server/pc
+part. 
+
+On the J2ME side I think (Marc announced he wanted to have a look at
+it):
+
+      * clean up code
+      * switch to a sensible build system (WTK2.2 work ok, but I would
+        prefer somethink based on a command line interface -- ant
+        springs to mind, but I have no clue where to start) 
+      * investigate threading behaviour, could solve some of the
+        following problems
+      * handle situations, when bluetooth is not enabled (my nokia handy
+        pretends it is happily scanning for devices)
+      * better handle disconnection, when issued from PC side (currently
+        you have to press a key, so that the broken connection is
+        recognized)
+      * handle cases, where no bluetooth device is found - the needs to
+        be a timeout - currently the J2ME application pretends(!) to
+        scan on ...
+      * implement bidirectional communication => status replies to phone
+        (switch current profile, show application output ...)
+
+On the server/pc side:
+
+      * make this blob packageable (I started to work on it, there are
+        files in SVN for distutils and building on that support to build
+        a debian package)
+      * create a gui package, as there will be some more utilities
+        needed
+              * log viewer
+              * keycode viewer (=> make it easier to create profiles)
+              * profile creater (keycode => command/events mapping)
+      * make bluetooth more robust (Marc reported a segfault when not
+        bluetooth was present)
+      * add ability to switch bluetooth into discoverable mode (needed,
+        where no other easy way exists, should be two dbus calls)
+      * switch from pynotify to the dbus interface (dropping one
+        dependency)
+      * expose filter settings into the gui (maybe connecting a
+        bluetooth address to a default profile)
+      * work on command execution (X applications could expose problems)
+      * work on additional reactions to keycodes (dbus callouts, ...)
+      * add logging
+      * add documentation
+
+Ok, you see, there are things to do ;-) Please take this as a RFC.
+
+Mfg
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070303/bd94dac2/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Mar  3 21:24:00 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 03 Mar 2007 21:24:00 +0100
+Subject: [Lbrc-devel] Work for non-programmers
+Message-ID: <1172953440.13083.32.camel@prometheus.glx>
+
+Hello you,
+
+this project also offers work for people not familar with python or java
+programming. These are:
+
+      * TESTING: test the programms, make them break, turn off
+        bluetooth, kill the programm while running, do all the things a
+        "normal" user would not do and then:
+      * report bugs
+      * work on the documentation -- a nice README, Webpage, some
+        graphics would be nice
+
+I surely forgot something, so basicly, if you have an idea, don't
+hesitate to contact the list and ask!
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070303/ffdd4c45/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Mar  3 21:18:04 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 03 Mar 2007 21:18:04 +0100
+Subject: [Lbrc-devel] Comments on the structure on server part
+Message-ID: <1172953084.13083.25.camel@prometheus.glx>
+
+Hey again,
+
+some comments on the current structure of LBRC:
+
+/LBRC/__init__.py
+=================
+Contains necessary functions to retrieve data-, config- and binary file
+locations. These functions where introduced to handle the installation
+into a systemwide directory and also enabling to run it from the devel
+directory.
+
+/LBRC/consts.py
+===============
+Contains the necessary constants to create the uinput device. These are
+essentially adaptions of input.h and uinput.h taken from the kernel
+source, which can be found in the doc directory
+
+/LBRC/BTServer.py
+=================
+Responsible for the handling of the bluetooth connection. It receives
+the keycodes from the j2me part and decodes them. The distribution of
+the received keycodes is done via gobject signals. 
+
+/LBRC/dbusinterface.py
+======================
+The main structure can be found here. Here the BTServer is instantiated,
+a gobject main loop is started, the dbusinterface established and this
+module servers as the dispatcher of the keycodes to the following
+(currently) two modules. This module also reads the configfile
+(config.conf) and the profiles file(s) (profile.conf) and passes them to
+the modules, that need this information.
+
+/LBRC/CommandExecutor.py
+========================
+Handles entries in the profiles of the form:
+
+{"keycode": "<code>", "mapping": "<optionales_mapping>", "command":
+"<command>", "argv": [<list of arguments as array>]}
+
+It basicly runs the denoted command with the arguments (for the future
+we can think about adding variables, that are replaced on a call)
+
+The command is called by gobject.spawn_async, so we don't have to worry
+about it in our adress space
+
+/LBRC/UinputDispatcher.py
+=========================
+This modules takes the keys, mousebuttons, mousewheel, mouseaxes entries
+in profiles and is responsible to create the uinput device, and issue
+the correct event sequenze for each type.
+
+Currently there is no way to create compound keys like STRG+C. This has
+to be added to the parser. The parser currently only handles single key
+strokes... but the infrastructure to handle that is in place, we just
+need a nice way to configure it.
+
+/LBRCdbus.py
+============
+Creates a dbusinterface instance and issues the mainloop (not more, not
+less)
+
+/LBRCgui (aka LBRC.py)
+======================
+Was renamed, as LBRC.py prevented a system installation, because we got
+a import loop. Here currently (I want to split it out) the gui part is
+handled. Basicly this part starts a new LBRCdbus.py instance (if it
+didn't find the service on the bus and the service is not issued via
+dbus activation -- we have to get rid of this -- it's error prone!!!)
+and communicates with the dbusinterface to give status information,
+allow profileswitching ...
+
+I hope that helped a bit to get through the code
+
+Mfg
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070303/3bbecaaf/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Sun Mar  4 18:50:21 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 04 Mar 2007 14:50:21 -0300
+Subject: [Lbrc-devel] Thoughts about the development of LBRC
+In-Reply-To: <1172947133.7721.24.camel@prometheus.glx>
+References: <1172947133.7721.24.camel@prometheus.glx>
+Message-ID: <1173030621.30136.0.camel@cego>
+
+On Sat, 2007-03-03 at 19:38 +0100, Matthias Bl?sing wrote:
+> Hello all,
+> 
+> nice to see you on the list. I will shortly line out my thoughts about,
+> what has to be done. I'll separate the j2me part and the server/pc
+> part. 
+> 
+
+nice to see you two
+
+> On the J2ME side I think (Marc announced he wanted to have a look at
+> it):
+> 
+>       * clean up code
+
+always a good thing.
+
+>       * handle situations, when bluetooth is not enabled (my nokia handy
+>         pretends it is happily scanning for devices)
+
+On my nokia 3250 (Series 60 v3) too
+
+
+> On the server/pc side:
+> 
+>       * create a gui package, as there will be some more utilities
+>         needed
+>               * log viewer
+>               * keycode viewer (=> make it easier to create profiles)
+>               * profile creater (keycode => command/events mapping)
+
+I think that a gui for profile is the best thing to do on this moment.
+
+The LBRC is already funcional, a gui for profiles will be good for easy
+adoption by no-technical linux user, so if we want to take over the
+world, we need to get this users early.
+
+> Ok, you see, there are things to do ;-) Please take this as a RFC.
+> 
+
+Ok I will do, but which issue are you working now?
+It's a good thing avoid duplicate code. 
+
+
+Best regards
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+?Aprendi?atraves?da?experiencia?amarga?a?suprema?licao:?
+?controlar?minha?ira?e?torna-la?como?o?calor?que?e?convertido?
+?em?energia.??Nossa?ira?controlada?pode?ser?convertida?numa?
+?forca?capaz?de?mover?o?mundo.
+??--?Mahatma?Gandhi?
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070304/fc805175/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Mar  4 22:24:56 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 04 Mar 2007 22:24:56 +0100
+Subject: [Lbrc-devel] Thoughts about the development of LBRC
+In-Reply-To: <1173030621.30136.0.camel@cego>
+References: <1172947133.7721.24.camel@prometheus.glx>
+	<1173030621.30136.0.camel@cego>
+Message-ID: <1173043496.11023.27.camel@prometheus.glx>
+
+Hey,
+
+i would like to put 3 things into the next release (apart from the
+things already in SVN):
+
+     1. internationalisation support (aka gettext)
+     2. bluetooth control (basicly, what the gnome-bluetooth applet
+        does, => making the PC discoverable, as it is now hidden by
+        default), but this should be configurable
+     3. an profile editor
+     4. add support for keyevent combinations (ex. STRG+C)
+
+I thought about the profile editor and tried to create a gui mockup. I
+attached that to this mail. Additional information:
+
+      * System wide profiles will be shown, but are not
+        change-/deleteable
+      * The treeviews show two columns, the first containing always the
+        phone keycode (where possible in a human readable form "Steering
+        Cross - Up" or "Keypad 1") the Mappings should also be shown as
+        a summary of the configured events
+      * The events are not edited in the treeview, but a modal dialog is
+        shown to configure it
+      * The Keyboard/Mouse Treeview should be grouped by
+        Mouseaxes/Keyevents/Mousebuttons.
+      * Commands need a dialog, where the commandline arguments can be
+        entered as seperate parts, as this is expected by gobject.spawn.
+        else we have to parse the string (not sure what is preferable)
+
+I will focus on the points 1,4 and 2. In that order.
+
+Mfg
+
+Matthias
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: projekt1.glade
+Type: application/x-glade
+Size: 25674 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070304/db9ae7b0/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070304/db9ae7b0/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar  5 01:38:46 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 04 Mar 2007 21:38:46 -0300
+Subject: [Lbrc-devel] Thoughts about the development of LBRC
+In-Reply-To: <1173043496.11023.27.camel@prometheus.glx>
+References: <1172947133.7721.24.camel@prometheus.glx>
+	<1173030621.30136.0.camel@cego>
+	<1173043496.11023.27.camel@prometheus.glx>
+Message-ID: <1173055126.2056.14.camel@cego>
+
+On Sun, 2007-03-04 at 22:24 +0100, Matthias Bl?sing wrote:
+> Hey,
+> 
+> i would like to put 3 things into the next release (apart from the
+> things already in SVN):
+> 
+>      1. internationalisation support (aka gettext)
+>      2. bluetooth control (basicly, what the gnome-bluetooth applet
+>         does, => making the PC discoverable, as it is now hidden by
+>         default), but this should be configurable
+>      3. an profile editor
+>      4. add support for keyevent combinations (ex. STRG+C)
+> 
+Well, we have a roadmap now. :-)
+
+> I thought about the profile editor and tried to create a gui mockup. I
+> attached that to this mail. Additional information:
+> 
+>       * System wide profiles will be shown, but are not
+>         change-/deleteable
+>       * The treeviews show two columns, the first containing always the
+>         phone keycode (where possible in a human readable form "Steering
+>         Cross - Up" or "Keypad 1") the Mappings should also be shown as
+>         a summary of the configured events
+>       * The events are not edited in the treeview, but a modal dialog is
+>         shown to configure it
+>       * The Keyboard/Mouse Treeview should be grouped by
+>         Mouseaxes/Keyevents/Mousebuttons.
+>       * Commands need a dialog, where the commandline arguments can be
+>         entered as seperate parts, as this is expected by gobject.spawn.
+>         else we have to parse the string (not sure what is preferable)
+> 
+> I will focus on the points 1,4 and 2. In that order.
+> 
+
+Could I get the point 3?
+
+And about it I have two questions:
+
+1) Will python-glade2 be a new dependence or will we use a glade parser
+to generate gtk+ code?
+
+2) I have looked all code and there's no support (yet) for hot
+add/remove/change_binds profiles, will it be added or will the profile
+editor ask to user to reinitialise the BTServer?
+
+For the question 2, I think that adding necessary support is the best
+thing to do.
+
+
+> Mfg
+> 
+> Matthias
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+Is?that?really?YOU?that?is?reading?this?
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070304/39aac0d9/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar  5 01:45:52 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 04 Mar 2007 21:45:52 -0300
+Subject: [Lbrc-devel] Thoughts about the development of LBRC
+In-Reply-To: <1173055126.2056.14.camel@cego>
+References: <1172947133.7721.24.camel@prometheus.glx>
+	<1173030621.30136.0.camel@cego>
+	<1173043496.11023.27.camel@prometheus.glx>
+	<1173055126.2056.14.camel@cego>
+Message-ID: <1173055552.2056.18.camel@cego>
+
+On Sun, 2007-03-04 at 21:38 -0300, Iuri Diniz wrote:
+> reinitialise the BTServer?
+
+I mean LBRCdbus.py
+
+
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+
+As?pequenas?d?vidas?s?o?aborrecidas?como?as?moscas.?As?grandes,
+logicamente,?deveriam?ser?terr?veis?como?os?le?es,?e?s?o?mans?ssimas
+
+--Machado?de?Assis
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070304/de92e1da/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar  5 01:53:09 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 04 Mar 2007 21:53:09 -0300
+Subject: [Lbrc-devel] [PATCH] some typo fixes
+Message-ID: <1173055989.2056.27.camel@cego>
+
+While reading the remaining LBRC server code... I have found some typos 
+
+PS: I think that method switch_profile (UinputDispatcher,
+CommandExecutor) has a wrong name for its current function, maybe
+can_switch_profile more suitable.
+
+
+
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+
+A?aus?ncia?de?alternativas?torna?as?mentes?duras?espantosamente?claras
+
+--Henry?Kissinger
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070304/9870a3cf/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar  5 01:55:34 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 04 Mar 2007 21:55:34 -0300
+Subject: [Lbrc-devel] [PATCH] some typo fixes
+In-Reply-To: <1173055989.2056.27.camel@cego>
+References: <1173055989.2056.27.camel@cego>
+Message-ID: <1173056134.2056.28.camel@cego>
+
+the file
+
+On Sun, 2007-03-04 at 21:53 -0300, Iuri Diniz wrote:
+> While reading the remaining LBRC server code... I have found some typos 
+> 
+> PS: I think that method switch_profile (UinputDispatcher,
+> CommandExecutor) has a wrong name for its current function, maybe
+> can_switch_profile more suitable.
+> 
+> 
+> 
+> 
+> ---
+> Iuri Gomes Diniz <iuri at yahoo.com.br>
+> http://clx.digi.com.br
+> 
+> 
+> A?aus?ncia?de?alternativas?torna?as?mentes?duras?espantosamente?claras
+> 
+> --Henry?Kissinger
+> 
+> 
+> 
+> _______________________________________________
+> Lbrc-devel mailing list
+> Lbrc-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/lbrc-devel
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+Be?cheerful?while?you?are?alive.
+??--?Phathotep,?24th?Century?B.C.
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: some_typo_fixes.patch
+Type: text/x-patch
+Size: 2298 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070304/3576657c/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070304/3576657c/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Mon Mar  5 02:23:12 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 05 Mar 2007 02:23:12 +0100
+Subject: [Lbrc-devel] [PATCH] some typo fixes
+In-Reply-To: <1173056134.2056.28.camel@cego>
+References: <1173055989.2056.27.camel@cego> <1173056134.2056.28.camel@cego>
+Message-ID: <1173057792.5066.2.camel@prometheus.glx>
+
+Am Sonntag, den 04.03.2007, 21:55 -0300 schrieb Iuri Diniz:
+> the file
+> 
+> On Sun, 2007-03-04 at 21:53 -0300, Iuri Diniz wrote:
+> > While reading the remaining LBRC server code... I have found some typos 
+
+Thanks,
+
+I commited it to svn and also fixed the other place, where the withspace
+after L2CAP was missing.
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070305/316631e6/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Mon Mar  5 02:41:25 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 05 Mar 2007 02:41:25 +0100
+Subject: [Lbrc-devel] Thoughts about the development of LBRC
+In-Reply-To: <1173055126.2056.14.camel@cego>
+References: <1172947133.7721.24.camel@prometheus.glx>
+	<1173030621.30136.0.camel@cego>
+	<1173043496.11023.27.camel@prometheus.glx>
+	<1173055126.2056.14.camel@cego>
+Message-ID: <1173058885.5066.19.camel@prometheus.glx>
+
+Hey,
+
+Iuri feel free to take the profile editor, I'll stay away from it, till
+I hear from you.
+
+Am Sonntag, den 04.03.2007, 21:38 -0300 schrieb Iuri Diniz:
+> And about it I have two questions:
+> 
+> 1) Will python-glade2 be a new dependence or will we use a glade parser
+> to generate gtk+ code?
+
+Ok, I used glade to build the mockup, because this was the tool to get
+the basic layout out. I also think glade would be a sensible tool to get
+the job done. As far as I understood it from the discussions, there is
+and should no code generator anymore.
+
+I try to drop as many dependencies as possible, but I would expect
+nearly every distribution to also ship python-glade2 bindings.
+(python-dbus seems to be bit more exotic at least at this point in time)
+
+To bring this to an end: I would be happy whether you choose to code the
+gui directly in python or choose to use glade.
+
+> 2) I have looked all code and there's no support (yet) for hot
+> add/remove/change_binds profiles, will it be added or will the profile
+> editor ask to user to reinitialise the BTServer?
+> 
+> For the question 2, I think that adding necessary support is the best
+> thing to do.
+
+I second that. But it need support in UinputDispatcher, as the Events,
+that will be send to the uinput device have to registered, when it is
+opened. Currently the code scans all profiles and based on that it
+creates the necessary event masks. I think the most sensible way to
+solve that, is setting the event masks for all mouse and keyboard
+related events. Then it's just a matter of triggering a reload of the
+profile files in the dbus component. So basicly I would propose, that
+the profile editor creates a new profile.conf file in the appropriate
+place and then calls a dbus method (that has to established), that
+triggers a reload of the profiles.
+
+Greetings
+
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070305/013c6f4b/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Mon Mar  5 02:48:01 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 05 Mar 2007 02:48:01 +0100
+Subject: [Lbrc-devel] [PATCH] some typo fixes
+In-Reply-To: <1173055989.2056.27.camel@cego>
+References: <1173055989.2056.27.camel@cego>
+Message-ID: <1173059282.5066.26.camel@prometheus.glx>
+
+And once again,
+
+Am Sonntag, den 04.03.2007, 21:53 -0300 schrieb Iuri Diniz:
+> PS: I think that method switch_profile (UinputDispatcher,
+> CommandExecutor) has a wrong name for its current function, maybe
+> can_switch_profile more suitable.
+
+Thinking about the hotswap stuff for the profiles, you mentioned in the
+other mail, I think we should try to get rid of this all together. It
+was introduced, because the keystrokes have to be finalized, when a
+profile switch takes place, or the kernel  never gets the key released
+event and that is not nice (I have seen the result, it was not
+funny ...)
+
+Not sure when this will be done though.
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070305/938caf58/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar  5 04:30:42 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Mon, 05 Mar 2007 00:30:42 -0300
+Subject: [Lbrc-devel] PATCH: avoid a segmentaion fault in python-bluez
+Message-ID: <1173065442.2056.55.camel@cego>
+
+On Sat, 2007-03-03 at 19:38 +0100, Matthias Bl?sing wrote:
+> make bluetooth more robust (Marc reported a segfault when not
+>         bluetooth was present) 
+
+The segfault is a python-bluez problem, not a LBRC problem, when sdpd is
+down the call:
+
+LBRC/LBRC/BTServer.py:71
+bluetooth.advertise_service(self.server_sock, self.name, self.serverid)
+
+hangs
+
+this *only* occurs when sdpd is down (killall sdpd to reproduce this
+problem, also: if you stop bluetooth and up only sdpd, the segfault
+doesn't occur).
+
+Looking in bluez dbus specification I didn't find a call to find if sdpd
+is ok for use:
+http://bluez.cvs.sourceforge.net/bluez/utils/hcid/dbus-api.txt?view=markup
+
+but I made a PATCH that looks for a bluez service on the machine.
+(again: if sdpd is down segfault is inevitable, so it doesn't avoid the
+problem, it must be fixed in python-bluez)
+
+I think that registering a callback for when a new device is attached if
+no device is present is the best thing.
+
+With this patch, if bluez is initialised after LBRCdbus, switch profile
+may be called for things get working. *But* _register_bluez_signals is
+never called. This patch *needs* improvement.
+
+
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+Your?aim?is?high?and?to?the?right.
+
+
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: lbrc_dbus_bluez.patch
+Type: text/x-patch
+Size: 2818 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070305/0883a963/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070305/0883a963/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Tue Mar  6 09:27:27 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 06 Mar 2007 09:27:27 +0100
+Subject: [Lbrc-devel] Update on development
+Message-ID: <1173169647.1103.26.camel@prometheus.glx>
+
+Hey,
+
+first the bad news: Currently LBRC is pretty useless on 64bit machines.
+There are several reasons for this, but all are rooted in the uinput
+structure. The locations off the ioctl differ, python is not able to
+invoke these calls, because of a bug in the fnctl module and it would
+need a kernel patch to work. This is caused by the structures, that are
+send from userspace, that have to be in the same alignments and sizes,
+as the kernel structures. Someone forgot to implement compat routines.
+(see: http://www.keshi.org/moin/moin.cgi/PS3/WiiRemote)
+
+So what I aim to do is introducing a new adapter written in C, that only
+does two things:
+      * listen on dbus to inject keyevents into the kernel
+      * create uinputdevs on request via dbus and call the appropriate
+        ioctls
+
+Marc mentioned this problem and he already got a small C programm and
+that works as expected. My next step would be to implement the dbus
+listening part. This means: Users will need to compile this part for
+their system, or we have to provide binaries for all plattforms.
+
+But this part would have the benefit to solve the problem also for other
+projects like the wiimote.
+
+The good news: 
+
+      * The internationalisation thinggy seems to be easier, as
+        expected. The first translation (de) is in SVN and new
+        translations are easily integratable - I'm waiting for Iuri and
+        the profile editor, because I think there we will be faced with
+        a much bigger number of strings, that need translation
+      * profile switching is no longer blocked, the UInputDispatcher now
+        tears down all remaining actions on set_profile (removing the
+        name stupid switch_profile call, that basicly just checked,
+        whether we can switch)
+      * Compound keys (CTRL+C) work now and are parsed correctly (no
+        support for longer keysequences though)
+
+So as announced I will have a look at the bluetooth connection
+(discoverable switching) this week.
+
+I'm not sure how far I will get with respect to the dbus<->uinput
+bridge, as I'm not entirely sure if it advisable to stay with the basis
+dbus parts or it would be good to use the glib bindings for it, as in my
+opinion this part should be as small as possible and as big as necessary
+(the signature should include the initialisation done currently in
+__init__ in UinputDispatcher, and what send_event does).
+
+
+Greetings
+
+Matthias
+
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070306/0fc0a03c/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Thu Mar  8 01:45:19 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Thu, 08 Mar 2007 01:45:19 +0100
+Subject: [Lbrc-devel] Testversion of a DBUS->UINPUT Bridge
+Message-ID: <1173314719.11592.12.camel@prometheus.glx>
+
+Hello all,
+
+as I promised, I tried to implement a DBUS->UINPUT Bridge written in C,
+that listens on the DBUS and pushes the events into the kernel,
+hopefully avoiding the caveats that lie in using a pure python version.
+
+This is not the final "product", but I would like you (especially Marc)
+to test it. I put it at http://lbrc.berlios.de/test_dbusbridge.tgz.
+
+Please note: You will need the devel packages of dbus-glib installed (on
+debian this is called: libdbus-glib-1-dev) and the gcc compiler
+
+The steps to test:
+
+     1. download it
+     2. open 2 terminals
+     3. extract the package and change into the new dir
+        "test_dbusbridge" in both terminals
+     4. run "./build" in one of them (this is a small bash script, that
+        builds the test dbus server)
+     5. You will find a "example-service" created, run it as
+        "./example-service" you should see the string "service running"
+        printed into the terminal
+     6. switch to other terminal and adjust uinputdevice in test.py
+        according to your system and
+     7. run "python test.py" in this terminal window you should see the
+        "hello" printed, as if you typed it on your keyboard.
+
+In the other terminal this should be printed parallel:
+"UInput Device: /dev/input/uinput
+Devicename:    BlueRemote
+Successfully created UINPUT device.
+Closed UINPUT dev"
+
+When your finished, switch back to the first terminal and stop the
+service by pressing CTRL-C. You are done, when you wrote your report ;-)
+
+I'm crossing my fingers, that this works - it would introduce a new
+dependency (read: to install from source you need the dbus-glib bindings
+and a c-compiler, but as I was to switch to packaging, this should be
+doable)
+
+I also finished controls for the visibility of the BlueZ Stack. This
+only a change for the gui, it won't go into the core, as there are
+enought methods to control the visibility.
+
+Mfg
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070308/7113f2f5/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Thu Mar  8 01:50:06 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Thu, 08 Mar 2007 01:50:06 +0100
+Subject: [Lbrc-devel] Testversion of a DBUS->UINPUT Bridge
+In-Reply-To: <1173314719.11592.12.camel@prometheus.glx>
+References: <1173314719.11592.12.camel@prometheus.glx>
+Message-ID: <1173315006.12322.3.camel@prometheus.glx>
+
+Last message before I try to get some sleep:
+
+berlios seems to be a bit paranoid, as you can not download the test
+programm. So I decided to attach it to this email *arg*.
+
+Good night
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: test_dbusbridge.tgz
+Type: application/x-compressed-tar
+Size: 2970 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070308/e7619dcd/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070308/e7619dcd/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Sat Mar 10 20:27:42 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sat, 10 Mar 2007 16:27:42 -0300
+Subject: [Lbrc-devel] news
+Message-ID: <1173554862.20445.9.camel@cego>
+
+Hello you all,
+
+	I have started the configuration editor today ('cause my free time is
+at weekends)... Because I lost much time with a battle with translation
+(it was a miss configuration my machine), there's no significance
+advances.
+
+	But I have add the support to localisation and I translate the current
+string set to pt_BR (Brazilian portuguese).
+
+	So, I'm attaching a preview of work (do not apply it, it's only a stub)
+as well as the pt_BR.po file.
+
+	Enjoy it.
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+Exercise?caution?in?your?daily?affairs.
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: pt_BR.po
+Type: text/x-gettext-translation
+Size: 2964 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070310/1a73d11a/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: config_preview.patch.gz
+Type: application/x-gzip
+Size: 5738 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070310/1a73d11a/attachment-0001.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Esta ? uma parte de mensagem	assinada digitalmente
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070310/1a73d11a/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Sun Mar 11 17:40:54 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 11 Mar 2007 13:40:54 -0300
+Subject: [Lbrc-devel] ask for dropping one more dependency
+Message-ID: <1173631254.31890.7.camel@cego>
+
+
+Hello folk,
+
+What do you all thing about dropping json dependency in favor of
+pickle? 
+http://docs.python.org/lib/module-pickle.html
+
+Well, I have ported code related to write/read config files from
+LBRC.dbusinterface to LBRC.__init__, this is necessary for allow use by
+config editor without duplicated code, on my plan all json calls will be
+stick on this file...
+
+I'm not dropping json dependency yet, but stills here my suggestion...
+
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+Eu?sou?eu,?se?eu?n?o?fosse?eu,?eu?n?o?seria?eu,?mas?como?eu?sou?eu,?eu
+sou?eu!!
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070311/0ac0fdbb/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Mar 11 21:30:50 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 11 Mar 2007 21:30:50 +0100
+Subject: [Lbrc-devel] news
+In-Reply-To: <1173554862.20445.9.camel@cego>
+References: <1173554862.20445.9.camel@cego>
+Message-ID: <1173645050.4373.4.camel@prometheus.glx>
+
+Hey,
+
+Am Samstag, den 10.03.2007, 16:27 -0300 schrieb Iuri Diniz:
+> 	But I have add the support to localisation and I translate the current
+> string set to pt_BR (Brazilian portuguese).
+> 
+> 	So, I'm attaching a preview of work (do not apply it, it's only a stub)
+> as well as the pt_BR.po file.
+
+ok, I overread the part about not to apply the patch - well - I can
+revert it - do I have to (LBRC-applet still runs fine)?
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070311/9191e573/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Mar 11 21:42:26 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 11 Mar 2007 21:42:26 +0100
+Subject: [Lbrc-devel] ask for dropping one more dependency
+In-Reply-To: <1173631254.31890.7.camel@cego>
+References: <1173631254.31890.7.camel@cego>
+Message-ID: <1173645746.4373.15.camel@prometheus.glx>
+
+Hey,
+
+Am Sonntag, den 11.03.2007, 13:40 -0300 schrieb Iuri Diniz:
+> What do you all thing about dropping json dependency in favor of
+> pickle? 
+
+Interesting idea, but it has a major shortcomming. The JSON File is
+pretty easy to be edited by hand and parsable by other programms. In
+contrast to that a pickle file can not edited by hand (at least that is
+what a quick google search suggests).
+
+So we would be forced to go via a python interface to edit the
+profiles/config, if we switch away from json - I don't really like that
+option.
+
+> Well, I have ported code related to write/read config files from
+> LBRC.dbusinterface to LBRC.__init__, this is necessary for allow use by
+> config editor without duplicated code, on my plan all json calls will be
+> stick on this file...
+
+That sounds good to me.
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070311/30f4969a/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar 12 02:14:14 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 11 Mar 2007 22:14:14 -0300
+Subject: [Lbrc-devel] config editor 2nd preview and a lot of changes
+Message-ID: <1173662054.6872.23.camel@cego>
+
+Well, three things
+
+1. config editor:
+
+I have done the second phase (of tree) of the config editor, it now can
+read read from profiles.conf/config.conf but only this no more...
+
+So I want that you all test it and suggests some changes/enhancements on
+gui, my plan is to follow Matthias RFC.
+
+the next preview will be the final with a totally functional editor, I
+hope I delivery it tomorrow.
+
+to next release I want to add support for a pop-up to user associate
+events with keycodes by triggering the codes from cellphone directly, no
+needs to decorate the number of keycode.
+
+2. Request for changes
+
+a) IMHO I think key 'name' is not necessary in profile.conf since that
+key name itself is auto descriptive
+
+so:
+
+ "nokia_6230i_maus1": {
+    "name": "Nokia 6230i Mausprofil",
+    "keys": [
+
+will be:
+
+ "nokia_6230i_maus1": {
+    "keys": [
+
+b) I think that system profiles.conf must be located in /etc rather
+than /usr/share/lbrc/
+
+c) I think that hardcoded /usr/lbrc/* in LBRC/__init__.py is not
+portable, so it's necessary to setup.py change the __init.py or
+fictional config.py that has the correct location of directories.
+
+
+3. a lot of changes:
+
+I have done a lot of changes on LBRC code, some I think that need
+approval by Matthias, I want feedback of that changes, see the complete
+list:
+
+LBRC-applet:
+ * removed a unused import
+
+LBRC/UinputDispatcher.py:
+ * renamed key 'uinputdevice' to 'uinput-device' (needs approval)
+ * FIXME comment to remind that the device /dev/input/event* must be
+destroyed at end of execution
+
+LBRC/__init__.py
+ * some FIXME comments 
+ * renamed 'get_configfile' to 'get_userconfigfile' (needs approval)
+ * new function get_systemconfigfile in contrast to get_userconfigfile
+ * some spelling changes
+ * functions write_config/read_config to parse config files (json)
+ * no more 'get_datafiles' and now get_datafile and get_configfiles
+(needs approval)
+
+LBRC/dbusinterface.py:
+ * new method to force reload config files (needed by config editor)
+ * FIXME comment to remind a error when there's no profiles in
+profiles.conf
+ * renamed key 'defaultprofile' to 'default-profile' (needs approval)
+ * moved json read/write code to LBRC/__init__.py
+
+LBRC_gtk_gui/applet.py
+ * get_datafiles doesn't not exist anymore.
+
+LBRC_gtk_gui/config.glade
+ * corrected a misspelled word (update your translations)
+ * added default height to window
+ * Disabling some buttons by default
+
+LBRC_gtk_gui/config.py
+ * can read profiles.conf and config.conf now :-)
+
+pot/extract_locale
+ * added LBRC_gtk_gui/config.py
+
+pot/LBRC.pot
+ * news strings to translate
+
+pot/pt_BR.pot
+ * updated pt_BR translation.
+
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+Time?to?be?aggressive.??Go?after?a?tattooed?Virgo.
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: LBRC_2nd_preview.patch.gz
+Type: application/x-gzip
+Size: 7049 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070311/9798f0d8/attachment.bin>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070311/9798f0d8/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar 12 02:36:19 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 11 Mar 2007 22:36:19 -0300
+Subject: [Lbrc-devel] config editor 2nd preview and a lot of changes
+In-Reply-To: <1173662054.6872.23.camel@cego>
+References: <1173662054.6872.23.camel@cego>
+Message-ID: <1173663379.6872.26.camel@cego>
+
+On Sun, 2007-03-11 at 22:14 -0300, Iuri Diniz wrote:
+>  * FIXME comment to remind that the device /dev/input/event* must be
+> destroyed at end of execution 
+
+I think that is unnecessary
+
+ 
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+Roupa?suja?se?lava...?na?maquina!
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070311/8492648a/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar 12 02:37:01 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Sun, 11 Mar 2007 22:37:01 -0300
+Subject: [Lbrc-devel] ask for dropping one more dependency
+In-Reply-To: <1173645746.4373.15.camel@prometheus.glx>
+References: <1173631254.31890.7.camel@cego>
+	<1173645746.4373.15.camel@prometheus.glx>
+Message-ID: <1173663421.6872.29.camel@cego>
+
+On Sun, 2007-03-11 at 21:42 +0100, Matthias Bl?sing wrote:
+> Interesting idea, but it has a major shortcomming. The JSON File is
+> pretty easy to be edited by hand and parsable by other programms. In
+> contrast to that a pickle file can not edited by hand (at least that
+> is
+> what a quick google search suggests).
+> 
+> So we would be forced to go via a python interface to edit the
+> profiles/config, if we switch away from json - I don't really like
+> that
+> option. 
+
+I agree with you
+
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+O?pao?com?manteiga?do?pobre?sempre?cai?com?a?manteiga?para?baixo.??
+Anonimo.
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070311/f5ec27dd/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Mon Mar 12 11:19:11 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 12 Mar 2007 11:19:11 +0100
+Subject: [Lbrc-devel] config editor 2nd preview and a lot of changes
+In-Reply-To: <1173662054.6872.23.camel@cego>
+References: <1173662054.6872.23.camel@cego>
+Message-ID: <1173694751.10629.11.camel@prometheus.glx>
+
+Hey,
+
+I'll just comment through out your email:
+
+Am Sonntag, den 11.03.2007, 22:14 -0300 schrieb Iuri Diniz: 
+> 2. Request for changes
+> 
+> a) IMHO I think key 'name' is not necessary in profile.conf since that
+> key name itself is auto descriptive
+
+Actually I think you are correct, but I would use the current name as
+the key to the profile:
+
+>  "nokia_6230i_maus1": {
+>     "name": "Nokia 6230i Mausprofil",
+>     "keys": [
+> 
+> will be:
+> 
+>  "nokia_6230i_maus1": {
+>     "keys": [
+
+Or: 
+"Nokia 6230i Mausprofil": { 
+    "keys": [
+
+> b) I think that system profiles.conf must be located in /etc rather
+> than /usr/share/lbrc/
+
+I agree with that - but then we need another name. Or to be more precise
+I would then propose lbrc_profiles.conf - I don't think that we need our
+own subdir in /etc. (Maybe config.conf and profiles.conf should be
+joined?)
+
+
+> c) I think that hardcoded /usr/lbrc/* in LBRC/__init__.py is not
+> portable, so it's necessary to setup.py change the __init.py or
+> fictional config.py that has the correct location of directories.
+
+The locations of the datafiles were inspired by the FHS. This suggest
+(as far as I understand it) for datafiles, that can be used on all
+architectures (read: images, glade files, ...) these two places:
+
+/usr/share/<application> or
+/usr/local/share/<application>
+
+Architecture dependend libraries or internal binaries (so possibly the
+dbus<->uinput bridge to come) should live in 
+
+/usr/lib/ or when more files are used:
+/usr/lib/<application>
+/usr/local/lib/ or when more files are used:
+/usr/local/lib/<application>
+
+With the uinput we are bound to the Linux Kernel. Principally we are
+able to run on any platform offering a bluez Interface (and pybluez
+bindings) and 
+
+> 3. a lot of changes:
+> 
+> I have done a lot of changes on LBRC code, some I think that need
+> approval by Matthias, I want feedback of that changes, see the complete
+> list:
+> 
+> LBRC-applet:
+>  * removed a unused import
+
+you got a go!
+
+> LBRC/UinputDispatcher.py:
+>  * renamed key 'uinputdevice' to 'uinput-device' (needs approval)
+
+no problem with that - but is there a reason?
+
+>  * FIXME comment to remind that the device /dev/input/event* must be
+> destroyed at end of execution
+
+As you mentioned in your replay - you don't have to. The device(s) will
+be deleted from the kernel, when the uinput device is closed, so the
+destruction is implicit at programm termination.
+
+> LBRC/__init__.py
+>  * some FIXME comments 
+>  * renamed 'get_configfile' to 'get_userconfigfile' (needs approval)
+>  * new function get_systemconfigfile in contrast to get_userconfigfile
+
+I asume you consider the profiles.conf a configfile? Then yes I'm ok
+with it.
+
+>  * some spelling changes
+>  * functions write_config/read_config to parse config files (json)
+>  * no more 'get_datafiles' and now get_datafile and get_configfiles
+> (needs approval)
+
+I'm ok with this (asuming profiles.conf becomes a config file)
+
+> LBRC/dbusinterface.py:
+>  * new method to force reload config files (needed by config editor)
+>  * FIXME comment to remind a error when there's no profiles in
+> profiles.conf
+>  * renamed key 'defaultprofile' to 'default-profile' (needs approval)
+
+Can live with that - not sure why though!
+
+>  * moved json read/write code to LBRC/__init__.py
+
+Good to go.
+
+> LBRC_gtk_gui/applet.py
+>  * get_datafiles doesn't not exist anymore.
+
+as you stated - it has to go in!
+
+> LBRC_gtk_gui/config.glade
+>  * corrected a misspelled word (update your translations)
+>  * added default height to window
+>  * Disabling some buttons by default
+> 
+> LBRC_gtk_gui/config.py
+>  * can read profiles.conf and config.conf now :-)
+
+Ok to commit!
+
+> pot/extract_locale
+>  * added LBRC_gtk_gui/config.py
+> 
+> pot/LBRC.pot
+>  * news strings to translate
+> 
+> pot/pt_BR.pot
+>  * updated pt_BR translation.
+
+Ok to commit!
+
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070312/4209d5ee/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Mon Mar 12 19:47:45 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 12 Mar 2007 19:47:45 +0100
+Subject: [Lbrc-devel] config file format proposal
+In-Reply-To: <1173694751.10629.11.camel@prometheus.glx>
+References: <1173662054.6872.23.camel@cego>
+	<1173694751.10629.11.camel@prometheus.glx>
+Message-ID: <1173725265.21647.23.camel@prometheus.glx>
+
+Hey again,
+
+when were at it - we should rethink the configurationfile dilemma.
+Currently we are faced with two files we have to take into account
+(profiles.conf and config.conf), where in config.conf only two options
+are really used.
+
+I would propose an approach, where the toplevel datastructure is a dict,
+that contains an entry for each profile, with it's (readable) name as a
+key. One exception from this would be a "Generic"/"General" Entry, that
+contains the config options. Within each profile (also a dict structure)
+there would be one entry per Module (UInputDispatcher, CommandExecuter,
+more potential Modules). For each module I think also a dict structure
+would be a good structure. With entries: init, actions and destruct.
+With init and destruct containing actions invoked on profile
+activation/deactivation and keycodes containing the actions to be
+invoked on a keypress.
+
+I think the init/destruct sections make most sense for the
+CommandExecuter or a potential DBUS/MPlayer Module. For an example see
+the attached textfile.
+
+Please take this as an RFC
+
+Mfg
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+{
+"Generic": 
+	{
+	'uinputdevice': '<device>',
+	'defaultprofile': '<profile>'
+	}
+"Nokia 6230i Mausprofil":
+	{
+	"UinputDispatcher":
+		{
+		"actions":
+			[
+			    {
+                    "keycode": "50",
+                    "type": "key",
+                    "map_to": "UP",
+                    "repeat_freq": "20"
+                },
+                {
+                    "keycode": "4294967286",
+                    "type": "mousebutton",
+                    "map_to": "LEFT"
+                }
+                {
+                    "keycode":  "4294967294",
+                    "type": "mouseaxis",
+                    "map_to": "+Y"
+                }
+			]
+		},
+    CommandExecutor:
+        {
+        "init":
+            [
+                {
+                    "command": "<command1>",
+                    "arguments": 
+                        [
+                            "<arg1>",
+                            "<arg2>",
+                            "<arg3>"
+                        ]
+                }
+            ],
+        "actions":
+            [
+                {
+                    "keycode": "<keycode>",
+                    "mapping": "<mapping>",
+                    "command": "<command2>",
+                    "arguments":
+                        [
+                            "<arg1>",
+                            "<arg2>",
+                            "<arg3>"
+                        ]
+                }
+            ]
+        },
+        "destruct":
+            [
+                 {
+                    "command": "<command3>",
+                    "arguments": 
+                        [
+                            "<arg1>",
+                            "<arg2>",
+                            "<arg3>"
+                        ]
+                }
+            ]
+	}
+}
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070312/ae93875e/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Mon Mar 12 23:41:28 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Mon, 12 Mar 2007 19:41:28 -0300
+Subject: [Lbrc-devel] config editor 2nd preview and a lot of changes
+In-Reply-To: <1173694751.10629.11.camel@prometheus.glx>
+References: <1173662054.6872.23.camel@cego>
+	<1173694751.10629.11.camel@prometheus.glx>
+Message-ID: <1173739288.8446.15.camel@cego>
+
+On Mon, 2007-03-12 at 11:19 +0100, Matthias Bl?sing wrote:
+> > c) I think that hardcoded /usr/lbrc/* in LBRC/__init__.py is not
+> > portable, so it's necessary to setup.py change the __init.py or
+> > fictional config.py that has the correct location of directories.
+> 
+> The locations of the datafiles were inspired by the FHS. This suggest
+> (as far as I understand it) for datafiles, that can be used on all
+> architectures (read: images, glade files, ...) these two places:
+> /usr/share/<application> or
+> /usr/local/share/<application>
+> 
+> Architecture dependend libraries or internal binaries (so possibly the
+> dbus<->uinput bridge to come) should live in 
+> 
+> /usr/lib/ or when more files are used:
+> /usr/lib/<application>
+> /usr/local/lib/ or when more files are used:
+> /usr/local/lib/<application>
+> 
+
+It's because all packages that uses automake/autoconf allows to select
+the correct location for files by configure script
+
+Some distros (Gobolinux as a example) uses a file structure that doesn't
+follow FHS, I don't agree with them, but if LBRC allows it, will be easy
+to these distros to come with LBRC.
+
+
+> With the uinput we are bound to the Linux Kernel. Principally we are
+> able to run on any platform offering a bluez Interface (and pybluez
+> bindings) and 
+
+Well alternatives to UInput? I think only implementing the HID profile
+on cellphone, but on my understanding it limites the power of LBRC.
+
+> 
+> > LBRC/UinputDispatcher.py:
+> >  * renamed key 'uinputdevice' to 'uinput-device' (needs approval)
+> 
+> no problem with that - but is there a reason?
+> 
+
+just for better reading (also because in *.glade file, the separation is
+'-')
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070312/e788e9ed/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Tue Mar 13 00:31:17 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 13 Mar 2007 00:31:17 +0100
+Subject: [Lbrc-devel] config file format proposal
+In-Reply-To: <1173739786.8446.23.camel@cego>
+References: <1173662054.6872.23.camel@cego>
+	<1173694751.10629.11.camel@prometheus.glx>
+	<1173725265.21647.23.camel@prometheus.glx>
+	<1173739786.8446.23.camel@cego>
+Message-ID: <1173742277.10774.9.camel@prometheus.glx>
+
+Am Montag, den 12.03.2007, 19:49 -0300 schrieb Iuri Diniz:
+> On Mon, 2007-03-12 at 19:47 +0100, Matthias Bl?sing wrote:
+> 
+> > I would propose an approach, where the toplevel datastructure is a dict,
+> > that contains an entry for each profile, with it's (readable) name as a
+> > key. One exception from this would be a "Generic"/"General" Entry, that
+> > contains the config options. Within each profile (also a dict structure)
+> > there would be one entry per Module (UInputDispatcher, CommandExecuter,
+> > more potential Modules). For each module I think also a dict structure
+> > would be a good structure. With entries: init, actions and destruct.
+> > With init and destruct containing actions invoked on profile
+> > activation/deactivation and keycodes containing the actions to be
+> > invoked on a keypress.
+> 
+> I agree with the idea of one file to all things, but IMHO I think that
+> profiles must be reside inside a 'profiles' key not at top level,
+> because makes more sense for (possible) new entries and at same time
+> does not force the user to not use reserved keys in any time now or
+> future.
+> 
+> So are we ready to change it?
+
+If there are no other opinios or thoughts to consider, than we can join
+the files and make the switch. We are in a phase where I think
+configurationfile/API stability is not our primary concern.
+
+I'm on the way to bed, so don't expect anything from me tonight. Could
+you please checkin the changes you considered towards the config file
+loading? Then I could take which changes have to be applied to the
+UinputDispatcher, CommandExecutor and dbusinterface.
+
+
+Greetings
+
+Matthias
+
+
+PS: Let's keep these things on-list - maybe there are people out there
+interested in the development, that don't want to get subscribed 
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070313/c95a58c0/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Tue Mar 13 00:50:31 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 13 Mar 2007 00:50:31 +0100
+Subject: [Lbrc-devel] config editor 2nd preview and a lot of changes
+In-Reply-To: <1173739288.8446.15.camel@cego>
+References: <1173662054.6872.23.camel@cego>
+	<1173694751.10629.11.camel@prometheus.glx>
+	<1173739288.8446.15.camel@cego>
+Message-ID: <1173743432.10774.23.camel@prometheus.glx>
+
+Hey Iuri
+
+Am Montag, den 12.03.2007, 19:41 -0300 schrieb Iuri Diniz:
+> On Mon, 2007-03-12 at 11:19 +0100, Matthias Bl?sing wrote:
+> [Iuri thinks path shouldn't be hardcoded]
+>> [Matthias answered, that the FHS was/is pretty clear about that]
+> 
+> It's because all packages that uses automake/autoconf allows to select
+> the correct location for files by configure script
+
+> Some distros (Gobolinux as a example) uses a file structure that doesn't
+> follow FHS, I don't agree with them, but if LBRC allows it, will be easy
+> to these distros to come with LBRC.
+
+I hope you don't suggest to switch to the autoconf/automake scripts?
+Last time I checked there were at least 4 versions installable, where
+every package need _its_ version. So we would basicly need a way to let
+the user determine where our files should be installed.
+
+I will take a closer look at distutils, what options it offers.
+Currently I really like the integration with the deb build process.
+
+> > With the uinput we are bound to the Linux Kernel. Principally we are
+> > able to run on any platform offering a bluez Interface (and pybluez
+> > bindings) and 
+> 
+> Well alternatives to UInput? I think only implementing the HID profile
+> on cellphone, but on my understanding it limites the power of LBRC.
+
+Ah! No I meant an alternative for uinput as userspace event interface. I
+think it would be feasable to implement something like that also for
+other kernels. So we should also keep in mind, that the world does not
+end with the linux kernel (the *BSDs and HURD spring to mind)
+
+Mfg
+
+Matthias
+
+PS: If the tests, Marc promised to do with the dbus<->uinput bridge,
+work out ok, I would have to look at distutils again anyway, because
+then we will need an C compiler to create the package ...
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070313/5717dde5/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Tue Mar 13 01:26:29 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Mon, 12 Mar 2007 21:26:29 -0300
+Subject: [Lbrc-devel] config file format proposal
+In-Reply-To: <1173742277.10774.9.camel@prometheus.glx>
+References: <1173662054.6872.23.camel@cego>
+	<1173694751.10629.11.camel@prometheus.glx>
+	<1173725265.21647.23.camel@prometheus.glx>
+	<1173739786.8446.23.camel@cego>
+	<1173742277.10774.9.camel@prometheus.glx>
+Message-ID: <1173745589.8446.77.camel@cego>
+
+On Tue, 2007-03-13 at 00:31 +0100, Matthias Bl?sing wrote:
+> If there are no other opinios or thoughts to consider, than we can
+> join
+> the files and make the switch. We are in a phase where I think
+> configurationfile/API stability is not our primary concern.
+> 
+
+I think that in someday closes to LBRC 1.0 configuration files/API must
+be stable, but it's not the case now :-)
+
+> I'm on the way to bed, so don't expect anything from me tonight. Could
+> you please checkin the changes you considered towards the config file
+> loading? Then I could take which changes have to be applied to the
+> UinputDispatcher, CommandExecutor and dbusinterface.
+> 
+
+OK, I shall do.
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+If?you?learn?one?useless?thing?every?day,?in?a?single?year?you'll?learn
+365?useless?things.
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070312/f8b3f438/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Mar 17 21:03:54 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 17 Mar 2007 21:03:54 +0100
+Subject: [Lbrc-devel] Paths and the mess with distutils
+Message-ID: <1174161834.16400.18.camel@prometheus.glx>
+
+Hello,
+
+I tried to find a way through distutils and installationpaths. I was not
+to successfull, but it I have a proposal. I will move the
+get_datafiles ... function into a seperate module. And then we will do
+some wild guesses to find the right prefixes to use.
+
+I see three basic setups we will be faced with:
+
+- FHS complient installation:
+  Binaries: /usr/local/bin, /usr/bin, /opt/LBRC/bin
+  (System-)config: /etc, /opt/LBRC/etc
+  Datafiles under: /usr/local/share/, /usr/share, /opt/LBRC/share
+
+- "all in one directory installation" (/opt installation is a   
+   specialcase of this)
+  Binaries: <path_to_package>/bin
+  (System-)config: <path_to_package>/etc
+  Datafiles under: <path_to_package>/share
+
+- "running from our sourcefile"
+   ...
+
+
+For Installations in one directory i would replicate the structure, that
+you would get inside an FHS installation, just putting it all under the
+directory tree.
+
+I think these are sane assumptions. The directory where we were
+installed to, can be found dynamicly and I would use the locale files as
+indicator where we are really staying and extrapolating from these
+results the rest of the paths.
+
+But I feel sick with this. And I won't feel responsible for users, using
+packages, that do not comply with the FHS or "all in one directory"
+approach. Distributions feeling the need to differ should also take the
+pain. The big players should comply with FHS (debian and its derivates,
+fedora, gentoo, suse, ...)
+
+For all the others I will offer the possibility to hardcode paths in the
+path.py file, but I strongly discourage this!
+
+Any complaints on this?
+
+I'll try to implement it this evening.
+
+Mfg
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070317/64143155/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Mar 17 21:06:49 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 17 Mar 2007 21:06:49 +0100
+Subject: [Lbrc-devel] Paths and the mess with distutils
+In-Reply-To: <1174161834.16400.18.camel@prometheus.glx>
+References: <1174161834.16400.18.camel@prometheus.glx>
+Message-ID: <1174162009.16400.22.camel@prometheus.glx>
+
+What I forgot to mention:
+
+This mess is caused by the way distutils works. The build and install
+phase are logically seperated and the installationsdirs are known on
+installationstime, not prior. So we can't create a module on build time.
+
+So far
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070317/438085f4/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Mar 18 00:13:11 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 18 Mar 2007 00:13:11 +0100
+Subject: [Lbrc-devel] Paths and the mess with distutils
+In-Reply-To: <1174162009.16400.22.camel@prometheus.glx>
+References: <1174161834.16400.18.camel@prometheus.glx>
+	<1174162009.16400.22.camel@prometheus.glx>
+Message-ID: <1174173191.10498.8.camel@prometheus.glx>
+
+Hello,
+
+I implemented it, but considering it again, I don't see a real benefit.
+The problem of getting the bin-dir into the path of the user stays, the
+modules won't be in the standard search path, ...
+
+Without some serious knowledge about the distributions (currently only
+gobolinux (mentioned by Iuri) and SuSE (at least sometime a few months
+ago) are known to install to locations not following the FHS under /usr)
+there is no real benefit of it. Ok, it is now configurable (but this
+will stay a build time adjustment!)
+
+Mfg
+
+Matthias
+
+PS: Who on earth does gobolinux manage it's libs, includes, ... ? When I
+understand the concept correctly gtk, each python module, ... resides in
+it's own directory - great i don't wanna see the necessary
+LD_LIBRARY_PATHS/ld.so.confs ...
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070318/89453f2c/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Mon Mar 19 00:48:27 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Mon, 19 Mar 2007 00:48:27 +0100
+Subject: [Lbrc-devel] Updates on the weekend
+Message-ID: <1174261707.9534.11.camel@prometheus.glx>
+
+Hello,
+
+I think I touched nearly every file in the python part of lbrc this
+weekend. I unified the config files, added a class for the config
+querying/writing/reading and adjusted the dependant modules accordingly
+(including the config editor). I adjusted the config file layout in the
+way I already lined out and also took Iuris comments about this into
+account. 
+
+While doing this I cleaned the way UinputDispatcher and CommandExecutor
+work and added a DBUSCaller module, that allows to call DBUS methods.
+(a mplayer module exists as a thought)
+
+Another thing I will look next at is the connection we utilize to
+communicate with the J2ME part. Maybe we will switch to RFCOMM, but I'm
+not sure yet.
+
+And additionally I fixed some bugs in the BlueZControl, ...
+
+Please see SVN Log for more details.
+
+Greetings 
+
+Matthias
+
+PS: Marc if you read this, please run the test of the dbus<->uinput
+brigde. That won't go into the next release if no one tests it (and the
+only AMD64 Machine I have access to runs a ubuntu32 installation 24/7).
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070319/93d55460/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Tue Mar 20 19:24:48 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 20 Mar 2007 19:24:48 +0100
+Subject: [Lbrc-devel] Thoughts about the wire (bluetooth) protocol
+Message-ID: <1174415088.20681.26.camel@prometheus.glx>
+
+Hello,
+
+I already worked on the BT connection, so that it's possible to require
+a pairing of the device, that tries to connect, so that we get a bit of
+security.
+
+Nom I'm thinking about the wire protocoll used over the bluetooth
+connection. 
+
+The situation now:
+
+      * L2CAP Connection as Basis (small MTU, unreliable, compare to
+        UDP)
+      * the J2ME parts send 5 byte packets to the server
+      * one way communication
+
+The proposal:
+
+      * RFCOMM (reliable streamconnection, bidirectional)
+      * protocol: JSON packets are send (we send hashes, with required
+        field "type". Currently we would only use one type: "keycode")
+      * ability to establish twoway communication
+
+The use of JSON should enable us to create a sensible, extensible
+protocol.
+
+This is no proposal for the final communication structure (things like
+menus for profile selection, replies from the application, status
+display, ...) come to mind. I'm thinking about creating a state diagram
+for this ... These goals can be archived with the propesed wire
+protocol.
+
+Any thought about this?
+
+The basic idea is realizable, as I have an example created for this, but
+there are issues, that would have to be addressed. Such as seperating
+two json string in one buffer (but that should be doable via checking
+for a sequence like "}\whitespace{", as two hashes have to be seperated
+by a ",".
+
+
+Greeting
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070320/ab46de29/attachment.pgp>
+
+From iuridiniz at yahoo.com.br  Wed Mar 21 01:33:41 2007
+From: iuridiniz at yahoo.com.br (Iuri Diniz)
+Date: Tue, 20 Mar 2007 21:33:41 -0300
+Subject: [Lbrc-devel] Thoughts about the wire (bluetooth) protocol
+In-Reply-To: <1174415088.20681.26.camel@prometheus.glx>
+References: <1174415088.20681.26.camel@prometheus.glx>
+Message-ID: <1174437221.9644.9.camel@cego>
+
+On Tue, 2007-03-20 at 19:24 +0100, Matthias Bl?sing wrote:
+> Any thought about this?
+> 
+> The basic idea is realizable, as I have an example created for this,
+> but
+> there are issues, that would have to be addressed. Such as seperating
+> two json string in one buffer (but that should be doable via checking
+> for a sequence like "}\whitespace{", as two hashes have to be
+> seperated
+> by a ",". 
+
+I think that JSON will be good for extend in the future, but are you
+implementing a JSON reader/parser from scratch?
+
+
+---
+Iuri Gomes Diniz <iuri at yahoo.com.br>
+http://clx.digi.com.br
+
+Mel??do?Sexo?Anal:
+Quero?ver?voc??n?o?chorar,?n?o?olhar?pra?tr?s?nem?se?arrepender?do?que
+faz...
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070320/80ff8f00/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Wed Mar 21 11:11:30 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Wed, 21 Mar 2007 11:11:30 +0100
+Subject: [Lbrc-devel] Thoughts about the wire (bluetooth) protocol
+In-Reply-To: <1174437221.9644.9.camel@cego>
+References: <1174415088.20681.26.camel@prometheus.glx>
+	<1174437221.9644.9.camel@cego>
+Message-ID: <1174471890.10177.8.camel@prometheus.glx>
+
+Am Dienstag, den 20.03.2007, 21:33 -0300 schrieb Iuri Diniz:
+> On Tue, 2007-03-20 at 19:24 +0100, Matthias Bl?sing wrote:
+> > Any thought about this?
+> > 
+> > The basic idea is realizable, as I have an example created for this,
+> > but
+> > there are issues, that would have to be addressed. Such as seperating
+> > two json string in one buffer (but that should be doable via checking
+> > for a sequence like "}\whitespace{", as two hashes have to be
+> > seperated
+> > by a ",". 
+> 
+> I think that JSON will be good for extend in the future, but are you
+> implementing a JSON reader/parser from scratch?
+
+I have thought about that and at least the creation of json strings is
+quite simple. But after your mail I did a short google search and
+stumbled over json-j2me, which looks quite promising. It's licensed
+unter GPL2 or later, so we can use it without any problems.
+
+I'll take a closer look at it this evening.
+
+Mfg
+
+Matthias
+
+PS: When I start the work on the new protocol implementation, I will
+remove the binaries from the svn repository. My plan is, to make build
+available on the website, for people not able to build the j2me part
+themselfes. (This is only relevant for people following SVN, the release
+will get a Build of the J2ME part.
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070321/d4b48cef/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Mar 24 00:56:54 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 24 Mar 2007 00:56:54 +0100
+Subject: [Lbrc-devel] i18n for j2me
+Message-ID: <1174694214.2847.15.camel@prometheus.glx>
+
+Hello,
+
+as I submitted several changes svn to beautify the j2me part, I ran over
+the issue of i18n for the client. A few searches attempts showed, that
+there seems no "right" way to do it.
+
+As we are faced only with a limited number of string in the core, I
+think we should hardcode them in a java class (and not rely on external
+classes like polish from enough software). Every other string can and
+should be send localized from the server application. Here I'm thinking
+about the profile selection as an example.
+
+I hope there are no objections, but I'm open to new ideas.
+
+Greetings
+
+
+Matthias
+
+
+
+PS: I think I will do the protocol and connection method switch this
+weekend. This means, that when you are tracking svn, you have to update
+the python _and_ the j2me part. I will put a new build of the j2me part
+into svn whenever it seems necessary (be it a protocol breakage or just
+a huge improvement ;-)
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070324/23f9a248/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Mar 25 23:45:23 2007
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 25 Mar 2007 23:45:23 +0200
+Subject: [Lbrc-devel] Plugin Metadata + Checks
+Message-ID: <1174859123.17202.15.camel@prometheus.glx>
+
+Hello,
+
+when thinking about the styling of the j2me client part, I also ran over
+the issue of display control, when we start to implement plugins, that
+require interaction with the screen.
+
+My proposal would be to devide the plugins into three categories:
+
+     1. plugins not depending on the display (read: all currently
+        present plugins)
+     2. plugins requiring the display for a short time (like a menu or a
+        short status display)
+     3. plugins requiring constant display control
+
+
+      * cat1 plugins can be combined in any form
+      * cat2 plugins will be modal while the own the display
+      * only one cat3 plugin can run at any time, but while that is
+        running cat1 and cat2 plugins can both run at the same time,
+        where cat2 plugins take over control while they are running
+
+I write this, as a profile switcher on the phone would in my idea
+implemented as a cat2 plugin. A mediaplayer could be a cat3 plugin (no I
+have no idea how to handle the displays apart from the list case, but we
+should prepare for this).
+
+Any objections?
+
+Greetings
+
+Matthias
+
+-- 
+Matthias Bl?sing (GPG-Schl?sselkennung: A71B4BD5)
+ICQ: 84617206   AIM: linuxfun81   MSN: linuxfun at hotmail.com
+"Wer die Freiheit aufgibt um Sicherheit zu gewinnen, der wird am Ende beides verlieren."
+Benjamin Franklin
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20070325/d844cdd4/attachment.pgp>
+

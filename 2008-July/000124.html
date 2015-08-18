@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] [Bug #14143] Error fetching config section
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20%5BBug%20%2314143%5D%20Error%20fetching%20config%20section&In-Reply-To=%3C4284163a0807061111s57918bd0o33ed5e6fd9f3370c%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000123.html">
+   <LINK REL="Next"  HREF="000125.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] [Bug #14143] Error fetching config section</H1>
+    <B>Peter Nagy</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20%5BBug%20%2314143%5D%20Error%20fetching%20config%20section&In-Reply-To=%3C4284163a0807061111s57918bd0o33ed5e6fd9f3370c%40mail.gmail.com%3E"
+       TITLE="[Lbrc-devel] [Bug #14143] Error fetching config section">nagper at gmail.com
+       </A><BR>
+    <I>Sun Jul  6 20:11:11 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000123.html">[Lbrc-devel] [Bug #14143] Error fetching config section
+</A></li>
+        <LI>Next message: <A HREF="000125.html">[Lbrc-devel] [Bug #14170] CommandExecutor - Nokia N80
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi!
+
+It's working now and I am happy :)
+
+Thanks a LOT!!
+Peter
+
+2008/7/6  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">admin at berlios.de</A>&gt;:
+&gt;<i> Bug #14143, was updated on 2008-Jul-06 18:55
+</I>&gt;<i> Here is a current snapshot of the bug.
+</I>&gt;<i>
+</I>&gt;<i> Project: Linux Bluetooth Remote Control
+</I>&gt;<i> Category: None
+</I>&gt;<i> Status: Closed
+</I>&gt;<i> Resolution: Fixed
+</I>&gt;<i> Bug Group: None
+</I>&gt;<i> Priority: 5
+</I>&gt;<i> Submitted by: nagper
+</I>&gt;<i> Assigned to : linuxfun
+</I>&gt;<i> Summary: Error fetching config section
+</I>&gt;<i>
+</I>&gt;<i> Details: Hi!
+</I>&gt;<i>
+</I>&gt;<i> Only the &quot;Volume Control&quot; configuration is working for me.
+</I>&gt;<i> In the log below you can see how i connect to my PC, then changing the profile to Rhythmbox, the pressing key1 on an N80 phone.
+</I>&gt;<i> Nothing happens and I don't know where is the problem exactly.
+</I>&gt;<i>
+</I>&gt;<i> Any help would be great! Thanks!
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> LBRC.BTServer                      : DEBUG    Trying to register service:
+</I>&gt;<i> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+</I>&gt;<i> &lt;record&gt;
+</I>&gt;<i>        &lt;attribute id=&quot;0x0001&quot;&gt;
+</I>&gt;<i>             &lt;uuid value=&quot;9c6c8dce-9545-11dc-a3c1-0011d8388a56&quot; /&gt;
+</I>&gt;<i>        &lt;/attribute&gt;
+</I>&gt;<i>        &lt;attribute id=&quot;0x0004&quot;&gt;
+</I>&gt;<i>                &lt;sequence&gt;
+</I>&gt;<i>                        &lt;sequence&gt;
+</I>&gt;<i>                                &lt;uuid value=&quot;0x0100&quot; /&gt;
+</I>&gt;<i>                        &lt;/sequence&gt;
+</I>&gt;<i>                        &lt;sequence&gt;
+</I>&gt;<i>                                &lt;uuid value=&quot;0x0003&quot; /&gt;
+</I>&gt;<i>                                &lt;uint8 value=&quot;1&quot; /&gt;
+</I>&gt;<i>                        &lt;/sequence&gt;
+</I>&gt;<i>                &lt;/sequence&gt;
+</I>&gt;<i>        &lt;/attribute&gt;
+</I>&gt;<i>        &lt;attribute id=&quot;0x0100&quot;&gt;
+</I>&gt;<i>            &lt;text value=&quot;LBRC&quot; name=&quot;name&quot;/&gt;
+</I>&gt;<i>        &lt;/attribute&gt;
+</I>&gt;<i> &lt;/record&gt;
+</I>&gt;<i>
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/input/uinput as uinput device
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a suitable uinput device node: /dev/input/uinput
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event Listener: &lt;class 'LBRC.UinputDispatcher.UinputDispatcher'&gt;
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event Listener: &lt;class 'LBRC.CommandExecutor.CommandExecutor'&gt;
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event Listener: &lt;class 'LBRC.DBUSCaller.DBUSCaller'&gt;
+</I>&gt;<i> LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.ProfileSwitcher      : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event Listener: &lt;class 'LBRC.ProfileSwitcher.ProfileSwitcher'&gt;
+</I>&gt;<i> LBRC.Listener.MPlayer              : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.MPlayer              : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event Listener: &lt;class 'LBRC.MPlayer.MPlayer'&gt;
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event Listener: &lt;class 'LBRC.PresentationCompanion.PresentationCompanion'&gt;
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    __init__ begin
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    __init__ of baseclass done
+</I>&gt;<i> LBRC                               : DEBUG    Initiablized Event Listener: &lt;class 'LBRC.VolumeControl.VolumeControl'&gt;
+</I>&gt;<i> LBRC                               : DEBUG    Register done
+</I>&gt;<i> LBRC                               : DEBUG    Initial Profile set
+</I>&gt;<i> LBRC                               : DEBUG    Init dispatcher
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    set_profile(user, rb)
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    _interpret_profile(user, rb)
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    actions section not found
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    No actions were defined
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating destruct
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating destruct
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating destruct
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating destruct
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    set_profile finished
+</I>&gt;<i> LBRC                               : DEBUG    Reload config
+</I>&gt;<i>
+</I>&gt;<i> LBRC.BTServer                      : DEBUG    Serversocket: ('00:00:00:00:00:00', 1)
+</I>&gt;<i> LBRC.BTServer                      : DEBUG    Check for pairing
+</I>&gt;<i> LBRC.ConnectionControl             : DEBUG    connect_cb: NagPer 00:12:D1:8D:A1:C4 1
+</I>&gt;<i> LBRC                               : DEBUG    _connection_established_cb called
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    connection established - running init actions
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    connection established - running init actions
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    connection established - running init actions
+</I>&gt;<i> LBRC.Listener.ProfileSwitcher      : DEBUG    connection established - running init actions
+</I>&gt;<i> LBRC.Listener.MPlayer              : DEBUG    connection established - running init actions
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    connection established - running init actions
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    connection established - running init actions
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    In Buffer: '{&quot;type&quot;:&quot;init&quot;,&quot;protocol&quot;:1}\x00'
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    Unmatched package: {'protocol': 1, 'type': 'init'}
+</I>&gt;<i>
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    In Buffer: u'{&quot;keycode&quot;:42,&quot;mapping&quot;:0,&quot;type&quot;:&quot;keyCode&quot;}\x00'
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Keycode: 42, Mapping: 0
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    keycode finished
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    In Buffer: u'{&quot;keycode&quot;:42,&quot;mapping&quot;:1,&quot;type&quot;:&quot;keyCode&quot;}\x00'
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Keycode: 42, Mapping: 1
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    keycode finished
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    Sending package:{'list': [u'MPlayer-FIFO (System)', u'Volume Control (System)', u'Nokia 6230i/N70, Sony Ericsson K750i/K610i (Mouse, Keyboard) (System)', u'MPlayer (System)', u'Rhythmbox (System)', u'Presentation (System)', 'rb'], 'type': 'listQuery', 'title': u'Switch Profile'}
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    '{&quot;list&quot;:[&quot;MPlayer-FIFO (System)&quot;,&quot;Volume Control (System)&quot;,&quot;Nokia 6230i/N70, Sony Ericsson K750i/K610i (Mouse, Keyboard) (System)&quot;,&quot;MPlayer (System)&quot;,&quot;Rhythmbox (System)&quot;,&quot;Presentation (System)&quot;,&quot;rb&quot;],&quot;type&quot;:&quot;listQuery&quot;,&quot;title&quot;:&quot;Switch Profile&quot;}\x00'
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    keycode finished
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    In Buffer: u'{&quot;selectionIndex&quot;:4,&quot;type&quot;:&quot;listReply&quot;}\x00'
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    set_profile(system, Rhythmbox)
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    _interpret_profile(system, Rhythmbox)
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Error fetching config section for system profile from Rhythmbox config
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    No actions were defined
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating destruct
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating destruct
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating destruct
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    set_profile finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    set_profile called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating init
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating destruct
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    failure while interprating actions
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    _interpret_profile finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    set_profile finished
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    In Buffer: u'{&quot;function&quot;:&quot;previousModule&quot;,&quot;type&quot;:&quot;debugMessage&quot;,&quot;message&quot;:&quot;Remove Module: (KeyEcho, KeyEcho)&quot;,&quot;level&quot;:&quot;debug&quot;}\x00'
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    PHONE (previousModule): Remove Module: (KeyEcho, KeyEcho)
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    In Buffer: u'{&quot;function&quot;:&quot;previousModule&quot;,&quot;type&quot;:&quot;debugMessage&quot;,&quot;message&quot;:&quot;Removed Module from previous: KeyEcho (KeyEcho)&quot;,&quot;level&quot;:&quot;debug&quot;}\x00'
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    PHONE (previousModule): Removed Module from previous: KeyEcho (KeyEcho)
+</I>&gt;<i>
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    In Buffer: u'{&quot;keycode&quot;:49,&quot;mapping&quot;:0,&quot;type&quot;:&quot;keyCode&quot;}\x00'
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Keycode: 49, Mapping: 0
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    keycode finished
+</I>&gt;<i> LBRC.BTConnection                  : DEBUG    In Buffer: u'{&quot;keycode&quot;:49,&quot;mapping&quot;:1,&quot;type&quot;:&quot;keyCode&quot;}\x00'
+</I>&gt;<i> LBRC.Listener.UInputDispatcher     : DEBUG    Keycode: 49, Mapping: 1
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.CommandExecutor      : DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.DBUSCaller           : DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.PresentationCompanion: DEBUG    keycode finished
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    keycode called
+</I>&gt;<i> LBRC.Listener.VolumeControl        : DEBUG    keycode finished
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Follow-Ups:
+</I>&gt;<i>
+</I>&gt;<i> Date: 2008-Jul-06 19:53
+</I>&gt;<i> By: linuxfun
+</I>&gt;<i>
+</I>&gt;<i> Comment:
+</I>&gt;<i> I just commited the fix for this bug an another fix to svn. So closing the bug. If this does not fix it for you, please don't hesitate to reopen.
+</I>&gt;<i>
+</I>&gt;<i> I have to see when I will release another complete build, but it can't be to far in the future.
+</I>&gt;<i> -------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Date: 2008-Jul-06 19:29
+</I>&gt;<i> By: linuxfun
+</I>&gt;<i>
+</I>&gt;<i> Comment:
+</I>&gt;<i> Hey,
+</I>&gt;<i>
+</I>&gt;<i> thanks for the report. The bug is caused by a typo in the DBUSCaller Module. I could reproduce the bug an I also fixed it ;-).
+</I>&gt;<i>
+</I>&gt;<i> Until I can get a solution commited to svn (I have to resetup eclipse and co) please open DBUSCaller.py. Have a look at line 21 you can read there:
+</I>&gt;<i>
+</I>&gt;<i> self.logger = logger.getLogger('LBRC.Listener.DBUSCall')
+</I>&gt;<i>
+</I>&gt;<i> this has to be:
+</I>&gt;<i>
+</I>&gt;<i> self.logger = logging.getLogger('LBRC.Listener.DBUSCall')
+</I>&gt;<i>
+</I>&gt;<i> Please don't change the indention but only the necessary 2 deletions and 3 added chars ;-)
+</I>&gt;<i>
+</I>&gt;<i> HTH
+</I>&gt;<i>
+</I>&gt;<i> Matthias
+</I>&gt;<i> -------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> For detailed info, follow this link:
+</I>&gt;<i> <A HREF="http://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=14143&amp;group_id=8112">http://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=14143&amp;group_id=8112</A>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000123.html">[Lbrc-devel] [Bug #14143] Error fetching config section
+</A></li>
+	<LI>Next message: <A HREF="000125.html">[Lbrc-devel] [Bug #14170] CommandExecutor - Nokia N80
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3C1202244515.14568.27.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000088.html">
+   <LINK REL="Next"  HREF="000090.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3C1202244515.14568.27.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Tue Feb  5 21:48:35 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000088.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+        <LI>Next message: <A HREF="000090.html">[Lbrc-devel] LBRC 0.6.1 help
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#89">[ date ]</a>
+              <a href="thread.html#89">[ thread ]</a>
+              <a href="subject.html#89">[ subject ]</a>
+              <a href="author.html#89">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hey,
+
+&gt;<i> one thing i figured out is, when the connection is lost between the
+</I>&gt;<i> devices, the j2me application on my se k750i hangs and i have to power
+</I>&gt;<i> off my phone to get rid of it...
+</I>&gt;<i> maybe there's a way to kind of &quot;park &quot; the logical connection on lost of
+</I>&gt;<i> physical connection or something, or at least disconnect properly.
+</I>
+this is very strange. This is part of the j2me bluetooth layer. What
+basicly happens is this:
+
+1. RFCOMM Port is openend on server
+2. j2me part creates a connection to this port
+3a. The server part uses asynchronous-IO (whether this is done in kernel
+space or on the gobject layer I don't know - and we don't have to care
+as it doesn't change anything)
+3b. The j2me part uses two threads - thread one listens on the created
+streamreader and blocks when there is nothing to read. The other thread
+handles the sending part and the display and keypress part
+4. When the connection is shut down - either side can close the socket
+connection. Then
+5a. gobject signals this with a special event mask and an empty read =&gt;
+when this happens we shut down the pc side
+5b. the j2me part should notice the shutdown, currently by to
+conditions. The first: We get notified, that the read call succeeded,
+but nothing was read (this is the documented behaviour). The second:
+Nokia seems to raise an IOException instead. We catch that and exit
+gracefully. See LBRCSender.java for this.
+
+Then there is the question - how is your connection lost. I tested the
+connection through concrete laced with steel (not sure whether this is
+the right term for the german &quot;Stahlbeton&quot;). I noticed, that the RFCOMM
+stack tries for some time (for me this was something in the range of
+15-30s) to send again and again. But at some time the connection should
+be torn down and this should(!) be signaled by an empty read.
+
+This should happen regardless, whether the connection was broken
+intentionally (either on server or on client side) or whether it was an
+accident. The only thing were I could really change something is when
+the connection is intentionally closed.
+
+I can't &quot;park&quot; the connection, as this is dealt with on a layer I have
+no further control over (j2me bluetooth experts come forward if I've
+overlooked something).
+
+You could implement the connection on a lower layer, where you would
+have to deal with connection states, data delivery and integrety and so
+forth your self. I'm not sure whether it's worth it. And it could be,
+that the access to these layers is blocked by j2me security settings.
+This gets very fast very messy.
+
+Greetings
+
+Matthias 
+
+-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080205/6844488a/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080205/6844488a/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000088.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+	<LI>Next message: <A HREF="000090.html">[Lbrc-devel] LBRC 0.6.1 help
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#89">[ date ]</a>
+              <a href="thread.html#89">[ thread ]</a>
+              <a href="subject.html#89">[ subject ]</a>
+              <a href="author.html#89">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

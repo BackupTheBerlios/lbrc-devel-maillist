@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3CPine.LNX.4.64.0801111745480.24572%40poblijon.ubal.to%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000062.html">
+   <LINK REL="Next"  HREF="000064.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)</H1>
+    <B>tloudev</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3CPine.LNX.4.64.0801111745480.24572%40poblijon.ubal.to%3E"
+       TITLE="[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)">k at mo.ubal.to
+       </A><BR>
+    <I>Fri Jan 11 18:34:36 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000062.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+        <LI>Next message: <A HREF="000064.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi,
+patches are OK, only the python language is a real nightmare :-)
+
+but.. HEAKAPAAA! IT WORKS! I can get events! Thank you!
+
+and the last question is: whire is the FIFO? I'm runnin mplayer from the 
+startup scripts with some window geometry and display settins, so it's 
+totally non-interactive. I need to run it with some -input FIFO parameter, 
+but accordin to /proc/XXXX/fd/ and netstat -lpn I can't locate the output 
+fifo from LBRC. I suppose it's conected some way to the current virtual 
+terminal, but where is the output goin in non-interactive mode?
+thank you
+    Ondrej Pachner
+
+
+
+
+On Fri, 11 Jan 2008, Matthias Bl&#228;sing wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> this concrete problem is fixed in svn. Not sure how good your at reading
+</I>&gt;<i> patches, but this is the needed fix:
+</I>&gt;<i>
+</I>&gt;<i> Index: LBRC/BTServer.py
+</I>&gt;<i> ===================================================================
+</I>&gt;<i> --- LBRC/BTServer.py	(Revision 220)
+</I>&gt;<i> +++ LBRC/BTServer.py	(Revision 221)
+</I>&gt;<i> @@ -189,9 +189,9 @@
+</I>&gt;<i>
+</I>&gt;<i>         self.server_io_watch = None
+</I>&gt;<i>
+</I>&gt;<i> -        self.port = bluetooth.get_available_port( bluetooth.RFCOMM )
+</I>&gt;<i>         self.server_sock = bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+</I>&gt;<i> -        self.server_sock.bind((&quot;&quot;, self.port))
+</I>&gt;<i> +        self.server_sock.bind((&quot;&quot;, bluetooth.PORT_ANY))
+</I>&gt;<i> +        (addr, self.port) = self.server_sock.getsockname();
+</I>&gt;<i>         self.server_sock.listen(1)
+</I>&gt;<i>
+</I>&gt;<i>         self.bluez_db = dinterface(dbus.SystemBus(), 'org.bluez', '/org/bluez', 'org.bluez.Database')
+</I>&gt;<i>
+</I>&gt;<i> As I stated in the message I send when commiting this patch, it was
+</I>&gt;<i> caused by python-bluez dropping a deprecated api. This caught my
+</I>&gt;<i> attention, when debian got a new version of python-dbus.
+</I>&gt;<i>
+</I>&gt;<i> Towards your question regarding other bluetooth services. Yes you can
+</I>&gt;<i> run any other service in parallel. Think of the bluez (or bluetooth in
+</I>&gt;<i> general) services as server processes - ok there are not that many
+</I>&gt;<i> rfcomm channels, but ports on tcp/ip can be compared to L2CAP sockts
+</I>&gt;<i> which are the basis for rfcomm and other protocolls.
+</I>&gt;<i>
+</I>&gt;<i> Greetings
+</I>&gt;<i>
+</I>&gt;<i> Matthias
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000062.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+	<LI>Next message: <A HREF="000064.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

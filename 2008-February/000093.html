@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20org.freedesktop.DBus.Error.ServiceUnknown&In-Reply-To=%3C20080224162624.4fc65e9c.marek%40exel.pl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000092.html">
+   <LINK REL="Next"  HREF="000094.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown</H1>
+    <B>Marek Denis</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20org.freedesktop.DBus.Error.ServiceUnknown&In-Reply-To=%3C20080224162624.4fc65e9c.marek%40exel.pl%3E"
+       TITLE="[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown">marek at exel.pl
+       </A><BR>
+    <I>Sun Feb 24 16:26:24 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000092.html">[Lbrc-devel] LBRC 0.6.1 help
+</A></li>
+        <LI>Next message: <A HREF="000094.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#93">[ date ]</a>
+              <a href="thread.html#93">[ thread ]</a>
+              <a href="subject.html#93">[ subject ]</a>
+              <a href="author.html#93">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi folks,
+
+I'm new to the list and generally to the LBRC software :) 
+
+So far, I am trying to run LBRC software on my laptop with gentoo-linux installed.
+Let me provide some sys info:
+
+User: root (i had some problems while trying non root user)
+Python 2.4.4
+dev-python/dbus-python-0.80.2
+uinput module loaded
+dbus-launch started
+
+This the output i get while trying to run LBRCdbus (ver 0.6.1)
+
+Traceback (most recent call last):
+  File &quot;./LBRCdbus&quot;, line 17, in ?
+    brs = Core()
+  File &quot;/home/marek/Desktop/lbrc-0.6.1/LBRC/dbusinterface.py&quot;, line 218, in __init__
+    self.btserver = BTServer()
+  File &quot;/home/marek/Desktop/lbrc-0.6.1/LBRC/BTServer.py&quot;, line 190, in __init__
+    self.bluez_db = dinterface(dbus.SystemBus(), 'org.bluez', '/org/bluez', 'org.bluez.Database')
+  File &quot;/home/marek/Desktop/lbrc-0.6.1/LBRC/__init__.py&quot;, line 20, in dinterface
+    proxy_obj = bus.get_object(service, obj_path)
+  File &quot;/usr/lib/python2.4/site-packages/dbus/_dbus.py&quot;, line 410, in get_object
+    follow_name_owner_changes=follow_name_owner_changes)
+  File &quot;/usr/lib/python2.4/site-packages/dbus/proxies.py&quot;, line 230, in __init__
+    _dbus_bindings.UInt32(0))
+  File &quot;/usr/lib/python2.4/site-packages/dbus/proxies.py&quot;, line 169, in __call__
+    reply_message = self._connection.send_message_with_reply_and_block(message, timeout)
+dbus.DBusException: org.freedesktop.DBus.Error.ServiceUnknown The name org.bluez was not provided by any .service files
+
+To be honest, I feel a little bit confused which .service file is mentioned here. I suppose there is problem with dbus od dbus-python but I don't have any idea where i should start any research. Google also doesn't know much about it (I mean, as far as I am concerned noone had similar problem :)
+Any help would be appreciated
+
+
+Thanks in advance
+
+Marek
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000092.html">[Lbrc-devel] LBRC 0.6.1 help
+</A></li>
+	<LI>Next message: <A HREF="000094.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#93">[ date ]</a>
+              <a href="thread.html#93">[ thread ]</a>
+              <a href="subject.html#93">[ subject ]</a>
+              <a href="author.html#93">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

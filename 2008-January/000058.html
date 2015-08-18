@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3C1200049302.24740.13.camel%40prometheus.glx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000057.html">
+   <LINK REL="Next"  HREF="000059.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)</H1>
+    <B>Matthias Bl&#228;sing</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3C1200049302.24740.13.camel%40prometheus.glx%3E"
+       TITLE="[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)">matthias.blaesing at rwth-aachen.de
+       </A><BR>
+    <I>Fri Jan 11 12:01:42 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000057.html">[Lbrc-devel] LBRCdbus --debug output
+</A></li>
+        <LI>Next message: <A HREF="000059.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#58">[ date ]</a>
+              <a href="thread.html#58">[ thread ]</a>
+              <a href="subject.html#58">[ subject ]</a>
+              <a href="author.html#58">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Ondrej,
+
+I will only comment on the problems with the newer bindings (the 0.8
+version, as that is the version also present in debian unstable).
+
+This looks like you are trying to run LBRC as root. Firstly: I don't
+know why this is so popular, but I would strongly advise against it.
+
+But the basic problem would stay - namely: There is no dbus daemon
+running. Or at least it can't be accessed. If no dbus daemon is launched
+automaticly - you have to do it yourself (its explained in more detail
+in the manual pages of dbus-launch).
+
+dbus-launch will invoke a new session bus and will print the enviroment
+variables necessary for the programms, that want to use the bus. You
+have to set these variables yourself, as a programm can't modify the
+environment of the calling parent.
+
+So you can either run dbus-launch and manually export the variables or
+use the shell to help you:
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">test at prometheus</A>:~$ eval `dbus-launch`
+<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">test at prometheus</A>:~$ export DBUS_SESSION_BUS_ADDRESS
+<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">test at prometheus</A>:~$ export DBUS_SESSION_BUS_PID
+
+The first command calls dbus-launch and evaluates the output - in this
+case it sets environment variables. The next to lines make sure, that
+the just set variables are passed down into the environment of child
+prozesses.
+
+Hope that helps
+
+Matthias
+
+PS: please keep lbrc-devel as CC - this is a common problem, so another
+user might be interested.
+
+
+Am Freitag, den 11.01.2008, 10:48 +0100 schrieb tloudev:
+&gt;<i> -----BEGIN PGP SIGNED MESSAGE-----
+</I>&gt;<i> Hash: SHA1
+</I>&gt;<i> 
+</I>&gt;<i> hi,
+</I>&gt;<i> I'm trying to run LBRC v0.5, but I have several problems runnin LBRCdbus
+</I>&gt;<i> with dbus-python &gt;=0.80 the proram exits with:
+</I>&gt;<i> kino lbrc-0.5 # LBRCdbus --debug
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>    File &quot;/usr/bin/LBRCdbus&quot;, line 13, in &lt;module&gt;
+</I>&gt;<i>      brs = Core(debug=logging.DEBUG)
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line 195,
+</I>&gt;<i> in __init__
+</I>&gt;<i>      bus_name = dbus.service.BusName(DBUSNAME, bus=dbus.SessionBus())
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/dbus/_dbus.py&quot;, line 213, in
+</I>&gt;<i> __new__
+</I>&gt;<i>      mainloop=mainloop)
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/dbus/_dbus.py&quot;, line 102, in
+</I>&gt;<i> __new__
+</I>&gt;<i>      bus = BusConnection.__new__(subclass, bus_type, mainloop=mainloop)
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/dbus/bus.py&quot;, line 125, in
+</I>&gt;<i> __new__
+</I>&gt;<i>      bus = cls._new_for_bus(address_or_type, mainloop=mainloop)
+</I>&gt;<i> dbus.exceptions.DBusException: 
+</I>&gt;<i> org.freedesktop.DBus.Error.Spawn.ExecFailed:
+</I>&gt;<i> Failed to execute dbus-launch to autolaunch D-Bus session
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> with dbus-python-0.71:
+</I>&gt;<i> kino lbrc-0.5 # LBRCdbus
+</I>&gt;<i> Traceback (most recent call last):
+</I>&gt;<i>    File &quot;/usr/bin/LBRCdbus&quot;, line 3, in &lt;module&gt;
+</I>&gt;<i>      from LBRC.dbusinterface import Core
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line 27, 
+</I>&gt;<i> in &lt;module&gt;
+</I>&gt;<i>      class DBUSProfileControl(dbus.service.Object):
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line 33, 
+</I>&gt;<i> in DBUSProfileControl
+</I>&gt;<i>      @dbus.service.signal(DBUSIFACE, signature='ss')
+</I>&gt;<i>    File &quot;/usr/lib/python2.5/site-packages/dbus/decorators.py&quot;, line 64, in 
+</I>&gt;<i> decorator
+</I>&gt;<i>      sig = tuple(dbus_bindings.Signature(signature))
+</I>&gt;<i>    File &quot;dbus_bindings.pyx&quot;, line 84, in dbus_bindings.SignatureIter.next
+</I>&gt;<i> TypeError: exceptions must be strings, classes, or instances, not type
+</I>&gt;<i> 
+</I>&gt;<i> the file dbus_bindings.pyx doesn't exist, there's only dbus_bindings.so
+</I>&gt;<i> I'm using gentoo linux with 2.6.23 kernel
+</I>&gt;<i> thank you for any help
+</I>&gt;<i>     Ondrej Pachner
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> - --
+</I>&gt;<i> 
+</I>&gt;<i> Check my PGP public key at <A HREF="http://poblijon.ubal.to/~tloudev/pgp.pub">http://poblijon.ubal.to/~tloudev/pgp.pub</A>
+</I>&gt;<i> 
+</I>&gt;<i> -----BEGIN PGP SIGNATURE-----
+</I>&gt;<i> Version: GnuPG v1.4.5 (GNU/Linux)
+</I>&gt;<i> 
+</I>&gt;<i> iD8DBQFHhztcFM6HvNRuG3ARAleWAKDpv8CVQ3hIhdmoHrPMHDAn9uyy+gCcCCVQ
+</I>&gt;<i> 7j0nNYeUMBjJGD6pbsagUkQ=
+</I>&gt;<i> =KSA2
+</I>&gt;<i> -----END PGP SIGNATURE-----
+</I>-- 
+So long and thanks for all the fish!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080111/79804bee/attachment.pgp">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080111/79804bee/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000057.html">[Lbrc-devel] LBRCdbus --debug output
+</A></li>
+	<LI>Next message: <A HREF="000059.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#58">[ date ]</a>
+              <a href="thread.html#58">[ thread ]</a>
+              <a href="subject.html#58">[ subject ]</a>
+              <a href="author.html#58">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,643 @@
+From luqeckr at gmail.com  Tue Nov  4 15:10:59 2008
+From: luqeckr at gmail.com (Luqman)
+Date: Tue, 04 Nov 2008 22:10:59 +0800
+Subject: [Lbrc-devel] nothing happen - dbus problem ?
+In-Reply-To: <48FC7151.1060306@gmail.com>
+References: <48FC7151.1060306@gmail.com>
+Message-ID: <491057F3.4040602@gmail.com>
+
+i recently upgrade to ubuntu intrepid
+when i run LBRC-applet, the syslog says
+~~~~~~~~~~~
+Nov  4 22:08:03 luqe-netbook kernel: [ 7424.062784] input: Linux 
+Bluetooth Remote Control as /devices/virtual/input/input20
+~~~~~~~~~~~
+
+i try to connect to my laptop but nothing happen
+the bluetooth indicator (*) just show up for a few second
+
+i run LBRCdbus --debug and the result is attached..
+
+
+
+-- 
+
+Luqe:~$
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: debug.txt
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081104/a2283b1f/attachment.txt>
+
+From matthias.blaesing at rwth-aachen.de  Tue Nov  4 20:15:01 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Tue, 04 Nov 2008 20:15:01 +0100
+Subject: [Lbrc-devel] nothing happen - dbus problem ?
+In-Reply-To: <491057F3.4040602@gmail.com>
+References: <48FC7151.1060306@gmail.com> <491057F3.4040602@gmail.com>
+Message-ID: <1225826101.4108.13.camel@enterprise.glx>
+
+Hey again,
+
+Am Dienstag, den 04.11.2008, 22:10 +0800 schrieb Luqman:
+> i recently upgrade to ubuntu intrepid
+> when i run LBRC-applet, the syslog says
+> ~~~~~~~~~~~
+> Nov  4 22:08:03 luqe-netbook kernel: [ 7424.062784] input: Linux 
+> Bluetooth Remote Control as /devices/virtual/input/input20
+> ~~~~~~~~~~~
+> 
+> i try to connect to my laptop but nothing happen
+> the bluetooth indicator (*) just show up for a few second
+> 
+> i run LBRCdbus --debug and the result is attached..
+
+I had a look at your log and it looked good. But there is no connection
+visible.
+
+On a connect you would see something like this:
+
+LBRC.BTServer                      : DEBUG    Serversocket: ('00:00:00:00:00:00', 1)
+LBRC.BTServer                      : DEBUG    Check for pairing
+LBRC.ConnectionControl             : DEBUG    connect_cb: Stinger 00:1D:28:72:38:BC 1
+LBRC                               : DEBUG    _connection_established_cb called
+
+The name and the bluetooth address at the connect_cb entry are of course
+the ones of your phone.
+
+The basic workflow should be:
+
+     1. Start LBRC-applet or LBRCdbus on the host side
+     2. make sure the PC is visible for bluetooth connections (the
+        LBRC-applet has controls for that, or use one of the other tools
+        available)
+     3. Start the j2me client on the phone
+     4. Newer versions of the j2me client present you then a list of
+        preknown devices, if your PC is not found among them choose
+        "[Find Devices]", which starts a device search
+     5. Then select the entry of your PC
+     6. Then you should see the log entry mentioned above and the screen
+        on the phone sould show "Keypress...." in the top left corner
+        and the LBRC logo in the lower right one.
+
+HTH
+
+Matthias
+
+-- 
+Zwei Dinge sind unendlich, das Universum und die menschliche Dummheit,
+aber bei dem Universum bin ich mir noch nicht ganz sicher.
+
+Albert Einstein
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081104/fa2bfbb1/attachment.pgp>
+
+From mwodetzki at googlemail.com  Sat Nov 29 10:16:53 2008
+From: mwodetzki at googlemail.com (Markus Wodetzki)
+Date: Sat, 29 Nov 2008 10:16:53 +0100
+Subject: [Lbrc-devel] Can't connect from Phone - service not found
+Message-ID: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+
+Hello everyone,
+
+I have the same problem to connect to my pc as already asked by Luqe.
+
+I'm running Ubuntu 8.1 / 2.6.27-9-generic. The uinput module is running
+after I modprobed it, /dev/input/uinput has the rights 777. When I start
+"LBRC-applet &" no error is shown and everything seems to work fine. On my
+phne (Nokia E66) i see my device but when I choose it a message "searching
+for service" appears only for 5 sec and I'm back to the device list.
+What else could I try ?
+
+Thx Markus
+
+Here is the LBRCdbus --debug output:
+
+/var/lib/python-support/python2.4/dbus/_dbus.py:249: DeprecationWarning: The
+dbus_bindings module is not public API and will go away soon.
+
+Most uses of dbus_bindings are applications catching the exception
+dbus.dbus_bindings.DBusException. You should use dbus.DBusException
+instead (this is compatible with all dbus-python versions since 0.40.2).
+
+If you need additional public API, please contact the maintainers via
+<dbus at lists.freedesktop.org>.
+
+  import dbus.dbus_bindings as m
+LBRC.Listener.UInputDispatcher     : DEBUG    Examing /dev/input/uinput as
+uinput device
+LBRC.Listener.UInputDispatcher     : DEBUG    Asuming we found a suitable
+uinput device node: /dev/input/uinput
+LBRC.Listener.UinputDispatcher     : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener:
+<class 'LBRC.UinputDispatcher.UinputDispatcher'>
+LBRC.Listener.CommandExecutor      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener:
+<class 'LBRC.CommandExecutor.CommandExecutor'>
+LBRC.Listener.DBUSCaller           : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener:
+<class 'LBRC.DBUSCaller.DBUSCaller'>
+LBRC.Listener.ProfileSwitcher      : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener:
+<class 'LBRC.ProfileSwitcher.ProfileSwitcher'>
+LBRC.Listener.MPlayer              : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener:
+<class 'LBRC.MPlayer.MPlayer'>
+LBRC.Listener.PresentationCompanion: DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener:
+<class 'LBRC.PresentationCompanion.PresentationCompanion'>
+LBRC.Listener.VolumeControl        : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener:
+<class 'LBRC.VolumeControl.VolumeControl'>
+LBRC.Listener.XInput               : DEBUG    Loaded succesfully
+LBRC                               : DEBUG    Initialized Event Listener:
+<class 'LBRC.XInput.XInput'>
+LBRC                               : DEBUG    Register done
+LBRC                               : DEBUG    Initial Profile set
+LBRC                               : DEBUG    Init dispatcher
+LBRC                               : DEBUG    Recieved signal to switch to
+system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i (Mouse, Keyboard)
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'UP', 'type':
+'key', 'keycode': 50, 'repeat_freq': '20'}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'DOWN', 'type':
+'key', 'keycode': 53, 'repeat_freq': '20'}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'LEFT', 'type':
+'key', 'keycode': 52, 'repeat_freq': '20'}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'RIGHT', 'type':
+'key', 'keycode': 54, 'repeat_freq': '20'}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'PAGEUP', 'type':
+'key', 'keycode': 57, 'repeat_freq': '20'}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'PAGEDOWN', 'type':
+'key', 'keycode': 35, 'repeat_freq': '20'}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'LEFT', 'type':
+'mousebutton', 'keycode': -10}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'LEFT', 'type':
+'mousebutton', 'keycode': -5}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'MIDDLE', 'type':
+'mousebutton', 'keycode': 49}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': 'RIGHT', 'type':
+'mousebutton', 'keycode': 51}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': '+WHEEL', 'type':
+'mousewheel', 'keycode': 56, 'repeat_freq': '10'}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': '-WHEEL', 'type':
+'mousewheel', 'keycode': 48, 'repeat_freq': '10'}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': '+Y', 'type':
+'mouseaxis', 'keycode': -2}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': '-Y', 'type':
+'mouseaxis', 'keycode': -1}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': '+X', 'type':
+'mouseaxis', 'keycode': -4}
+LBRC.Listener.UinputDispatcher     : DEBUG    {'map_to': '-X', 'type':
+'mouseaxis', 'keycode': -3}
+LBRC.Listener.UinputDispatcher     : DEBUG    Completed processing of
+UinputDispatcher in system profile Nokia 6230i/N70, Sony Ericsson
+K750i/K610i (Mouse, Keyboard)
+LBRC.Listener.CommandExecutor      : DEBUG    No config section
+CommandExecutor for system profile Nokia 6230i/N70, Sony Ericsson
+K750i/K610i (Mouse, Keyboard)
+LBRC.Listener.CommandExecutor      : DEBUG    Completed processing of
+CommandExecutor in system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i
+(Mouse, Keyboard)
+LBRC.Listener.DBUSCaller           : DEBUG    No config section DBUSCaller
+for system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i (Mouse,
+Keyboard)
+LBRC.Listener.DBUSCaller           : DEBUG    Completed processing of
+DBUSCaller in system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i
+(Mouse, Keyboard)
+LBRC.Listener.MPlayer              : DEBUG    No config section MPlayer for
+system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i (Mouse, Keyboard)
+LBRC.Listener.MPlayer              : DEBUG    Succesfully processed system
+profile Nokia 6230i/N70, Sony Ericsson K750i/K610i (Mouse, Keyboard) section
+Mplayer
+LBRC.Listener.PresentationCompanion: DEBUG    No config section
+PresentationCompanion for system profile Nokia 6230i/N70, Sony Ericsson
+K750i/K610i (Mouse, Keyboard)
+LBRC.Listener.PresentationCompanion: DEBUG    Completed processing of
+PresentationCompanion in system profile Nokia 6230i/N70, Sony Ericsson
+K750i/K610i (Mouse, Keyboard)
+LBRC.Listener.VolumeControl        : DEBUG    No config section
+VolumeControl for system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i
+(Mouse, Keyboard)
+LBRC.Listener.VolumeControl        : DEBUG    Completed processing of
+VolumeControl in system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i
+(Mouse, Keyboard)
+LBRC.Listener.XInput               : DEBUG    No config section XInput for
+system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i (Mouse, Keyboard)
+LBRC.Listener.XInput               : DEBUG    Completed processing of XInput
+in system profile Nokia 6230i/N70, Sony Ericsson K750i/K610i (Mouse,
+Keyboard)
+LBRC                               : DEBUG    Reload config
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081129/0ff4b695/attachment.html>
+
+From matthias.blaesing at rwth-aachen.de  Sat Nov 29 11:49:23 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 29 Nov 2008 11:49:23 +0100
+Subject: [Lbrc-devel] Can't connect from Phone - service not found
+In-Reply-To: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+References: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+Message-ID: <1227955763.19222.10.camel@enterprise.glx>
+
+Hey Markus,
+
+Am Samstag, den 29.11.2008, 10:16 +0100 schrieb Markus Wodetzki:
+> I'm running Ubuntu 8.1 / 2.6.27-9-generic. The uinput module is
+> running after I modprobed it, /dev/input/uinput has the rights 777.
+> When I start "LBRC-applet &" no error is shown and everything seems to
+> work fine. On my phne (Nokia E66) i see my device but when I choose it
+> a message "searching for service" appears only for 5 sec and I'm back
+> to the device list. 
+> What else could I try ?
+
+This sounds as if you system is not found at all. Most probale is, that
+the bluetooth system is configured to be connectable, but not
+discoverable. In the second mode the device announces its presense and
+this is needed to be listed.
+
+There are several tools to configure it. Most easy way:
+
+bluetooth-properties 
+
+and set "Mode of operation" to "Visible and connectable for other
+devices".
+
+If you don't have the programm - dbus-send (command line dbus client)
+should always be available:
+
+dbus-send --print-reply --dest="org.bluez" --system "/hci0" "org.bluez.Adapter.GetProperties"
+
+This lists all properties of the adapter. You are interested in the
+"Mode" entry. This should be discoverable. You can use dbus to control
+the adapter:
+
+dbus-send --print-reply --dest="org.bluez" --system "/hci0" "org.bluez.Adapter.SetProperty" string:Mode variant:string:discoverable
+
+The above switches your system to a discoverable mode.
+
+dbus-send --print-reply --dest="org.bluez" --system "/hci0" "org.bluez.Adapter.SetProperty" string:Mode variant:string:connectable
+
+This hides the device again.
+
+All the above asumes, that you have one bluetooth adapter (more are
+mapped to hci1, hci2 and so on). And please note, that the bluez system
+has a hide timer, that automaticly switches the device back to
+connectable mode, after a certain time (Devices still can connect, the
+computer is just not announced anymore).
+
+I hope that helps
+
+Matthias
+
+-- 
+"Skepsis wirft Fragen auf, die zu Nachforschungen f?hren.
+Das ist sehr hilfreich, um neue Dinge zu entwickeln."
+
+Der Dalai Lama zitiert nach Unicum
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081129/4a6a3664/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sat Nov 29 16:29:49 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sat, 29 Nov 2008 16:29:49 +0100
+Subject: [Lbrc-devel] Can't connect from Phone - service not found
+In-Reply-To: <1419b2590811290449y1afcce1jdcd7d94307515d1c@mail.gmail.com>
+References: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+	<1227955763.19222.10.camel@enterprise.glx>
+	<1419b2590811290449y1afcce1jdcd7d94307515d1c@mail.gmail.com>
+Message-ID: <1227972589.2120.9.camel@enterprise.glx>
+
+Hey,
+
+Am Samstag, den 29.11.2008, 13:49 +0100 schrieb Markus Wodetzki:
+> thx for the quick reply. The Bluez was the first thing i configured.
+> It is set to always visible (connectable doesnt exist) and i can send
+> and receive files without problems. 
+> 
+> http://img389.imageshack.us/img389/4102/bluezay6.jpg
+> 
+> As i said, LBRC on my phone finds my computer, but when i click on it,
+> the message "checking for service" appears but switches back after 5
+> sec to the device list.
+
+Ah! Excuse me - i must have missed that. You asked where you can find
+your bluetooth device name - I'm not sure what you mean. If you mean the
+name that is announced to other bluetooth devices, you can find it under
+"Friendly name" in your screenshot. If you mean which physical adapters
+are present:
+
+dbus-send --print-reply --dest="org.bluez" --system "/" "org.bluez.Manager.ListAdapters"
+
+You get a list of dbus paths, you can use to control the adapters - It
+seems newer bluez versions changed the object paths:
+
+Exchange the /hci0 by /org/bluez/hci0.
+
+So your problem is, that the phone does not seem to be able to get a
+list of registered services. Could you please run:
+
+sdptool browse --xml local
+
+_after_ you started LBRC-applet or LBRCdbus on your host and provide us
+with the output? A brief look at the output on my sisters ubuntu system
+show a big list of running services - I could think of problems in that
+direction, but would like to see the list first.
+
+Greetings
+
+Matthias
+
+-- 
+"Skepsis wirft Fragen auf, die zu Nachforschungen f?hren.
+Das ist sehr hilfreich, um neue Dinge zu entwickeln."
+
+Der Dalai Lama zitiert nach Unicum
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081129/6f189f96/attachment.pgp>
+
+From mwodetzki at googlemail.com  Sun Nov 30 12:06:12 2008
+From: mwodetzki at googlemail.com (Markus Wodetzki)
+Date: Sun, 30 Nov 2008 12:06:12 +0100
+Subject: [Lbrc-devel] Can't connect from Phone - service not found
+In-Reply-To: <1227972589.2120.9.camel@enterprise.glx>
+References: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+	<1227955763.19222.10.camel@enterprise.glx>
+	<1419b2590811290449y1afcce1jdcd7d94307515d1c@mail.gmail.com>
+	<1227972589.2120.9.camel@enterprise.glx>
+Message-ID: <1419b2590811300306w106cdda9xf610e8400a57cd2@mail.gmail.com>
+
+Hello,
+
+here is my output after i started LBRC-applet:
+
+http://nopaste.ch/c129c700176eb00.html
+
+It's a bit long, so i posted it there, hope it's ok.
+
+Greets
+
+Markus
+
+
+2008/11/29 Matthias Bl?sing <matthias.blaesing at rwth-aachen.de>
+
+> Hey,
+>
+> Am Samstag, den 29.11.2008, 13:49 +0100 schrieb Markus Wodetzki:
+> > thx for the quick reply. The Bluez was the first thing i configured.
+> > It is set to always visible (connectable doesnt exist) and i can send
+> > and receive files without problems.
+> >
+> > http://img389.imageshack.us/img389/4102/bluezay6.jpg
+> >
+> > As i said, LBRC on my phone finds my computer, but when i click on it,
+> > the message "checking for service" appears but switches back after 5
+> > sec to the device list.
+>
+> Ah! Excuse me - i must have missed that. You asked where you can find
+> your bluetooth device name - I'm not sure what you mean. If you mean the
+> name that is announced to other bluetooth devices, you can find it under
+> "Friendly name" in your screenshot. If you mean which physical adapters
+> are present:
+>
+> dbus-send --print-reply --dest="org.bluez" --system "/"
+> "org.bluez.Manager.ListAdapters"
+>
+> You get a list of dbus paths, you can use to control the adapters - It
+> seems newer bluez versions changed the object paths:
+>
+> Exchange the /hci0 by /org/bluez/hci0.
+>
+> So your problem is, that the phone does not seem to be able to get a
+> list of registered services. Could you please run:
+>
+> sdptool browse --xml local
+>
+> _after_ you started LBRC-applet or LBRCdbus on your host and provide us
+> with the output? A brief look at the output on my sisters ubuntu system
+> show a big list of running services - I could think of problems in that
+> direction, but would like to see the list first.
+>
+> Greetings
+>
+> Matthias
+>
+> --
+> "Skepsis wirft Fragen auf, die zu Nachforschungen f?hren.
+> Das ist sehr hilfreich, um neue Dinge zu entwickeln."
+>
+> Der Dalai Lama zitiert nach Unicum
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081130/38fe3c3b/attachment.html>
+
+From matthias.blaesing at rwth-aachen.de  Sun Nov 30 12:39:04 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 30 Nov 2008 12:39:04 +0100
+Subject: [Lbrc-devel] Can't connect from Phone - service not found
+In-Reply-To: <1419b2590811300306w106cdda9xf610e8400a57cd2@mail.gmail.com>
+References: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+	<1227955763.19222.10.camel@enterprise.glx>
+	<1419b2590811290449y1afcce1jdcd7d94307515d1c@mail.gmail.com>
+	<1227972589.2120.9.camel@enterprise.glx>
+	<1419b2590811300306w106cdda9xf610e8400a57cd2@mail.gmail.com>
+Message-ID: <1228045144.4294.5.camel@enterprise.glx>
+
+Hey,
+
+Am Sonntag, den 30.11.2008, 12:06 +0100 schrieb Markus Wodetzki:
+> 
+> here is my output after i started LBRC-applet:
+> 
+> http://nopaste.ch/c129c700176eb00.html
+> 
+> It's a bit long, so i posted it there, hope it's ok.
+
+indeed - it is ok. And it reveals the reason, that your phone can not
+find the LBRC service - it is not announced. You should find an entry:
+
+<attribute id="0x0100">
+	<text value="LBRC" name="name"/>
+</attribute>
+
+This is not the case...
+
+I try to get an ubuntu instance up and running to have a closer look - I
+suspect some more api changes on the bluez front.
+
+Greetings
+
+Matthias
+
+-- 
+Zwei Dinge sind unendlich, das Universum und die menschliche Dummheit,
+aber bei dem Universum bin ich mir noch nicht ganz sicher.
+
+Albert Einstein
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081130/3faeb232/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Nov 30 13:02:02 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 30 Nov 2008 13:02:02 +0100
+Subject: [Lbrc-devel] Can't connect from Phone - service not found
+In-Reply-To: <1228045144.4294.5.camel@enterprise.glx>
+References: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+	<1227955763.19222.10.camel@enterprise.glx>
+	<1419b2590811290449y1afcce1jdcd7d94307515d1c@mail.gmail.com>
+	<1227972589.2120.9.camel@enterprise.glx>
+	<1419b2590811300306w106cdda9xf610e8400a57cd2@mail.gmail.com>
+	<1228045144.4294.5.camel@enterprise.glx>
+Message-ID: <1228046522.4294.10.camel@enterprise.glx>
+
+Hey again,
+
+so my basic assumption was correct: There were massive changes in the
+API and this breaks the whole BTServer Module. I have to see how long it
+will take to fix this. I don't see a way to check for the version of the
+dbus api, so I have to take a good gues, which methods have to fail/work
+to identify the version.
+
+Yay to the guys breaking the API! The bluez project has a leading zero
+in its version, but then - its bluetooth certified and it does not exist
+just a few days ...
+
+Well, well ...
+
+Matthias
+
+PS: Thanks for your email - I wouldn't have seen this problem until the
+new bluez api had hit debian unstable ...
+
+-- 
+"Versuche dein Bestes - und scheitere. Das ist die Realit?t."
+
+Der Dalai Lama zitiert nach Unicum
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081130/5857de4e/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Nov 30 15:00:55 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 30 Nov 2008 15:00:55 +0100
+Subject: [Lbrc-devel] Testrequest: New bluez api .... (was:
+ Can't	connect from Phone - service not found)
+In-Reply-To: <1228046522.4294.10.camel@enterprise.glx>
+References: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+	<1227955763.19222.10.camel@enterprise.glx>
+	<1419b2590811290449y1afcce1jdcd7d94307515d1c@mail.gmail.com>
+	<1227972589.2120.9.camel@enterprise.glx>
+	<1419b2590811300306w106cdda9xf610e8400a57cd2@mail.gmail.com>
+	<1228045144.4294.5.camel@enterprise.glx>
+	<1228046522.4294.10.camel@enterprise.glx>
+Message-ID: <1228053655.4294.19.camel@enterprise.glx>
+
+Hey,
+
+so - I did some changes and branched it of - as I get timeouts, when I
+try to use bluetooth from within VirtualBox, I have to ask you to test
+the changes I made. They are in a branch for 0.6.4:
+
+svn checkout svn://svn.berlios.de/lbrc/branches/0.6.4 lbrc
+
+Gives you a directory lbrc, from which you can directly test the
+potential 0.6.4 release. If you installed lbrc prior to this with the
+deb packages: remove/purge them first!
+
+Thanks in advance
+
+Matthias
+
+-- 
+All generalizations are false, including this one.
+                -- Mark Twain
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081130/887b4aeb/attachment.pgp>
+
+From matthias.blaesing at rwth-aachen.de  Sun Nov 30 22:38:12 2008
+From: matthias.blaesing at rwth-aachen.de (Matthias =?ISO-8859-1?Q?Bl=E4sing?=)
+Date: Sun, 30 Nov 2008 22:38:12 +0100
+Subject: [Lbrc-devel] Testrequest: New bluez api .... (was:
+ Can't	connect from Phone - service not found)
+In-Reply-To: <1419b2590811301319gfab8077yd3d2fc2e42fd9140@mail.gmail.com>
+References: <1419b2590811290116p47874b7btfecf25b672cae56e@mail.gmail.com>
+	<1227972589.2120.9.camel@enterprise.glx>
+	<1419b2590811300306w106cdda9xf610e8400a57cd2@mail.gmail.com>
+	<1228045144.4294.5.camel@enterprise.glx>
+	<1228046522.4294.10.camel@enterprise.glx>
+	<1228053655.4294.19.camel@enterprise.glx>
+	<1419b2590811301046u7a6a4c47w517343572872b649@mail.gmail.com>
+	<1228072634.26819.1.camel@enterprise.glx>
+	<1419b2590811301134i78385417xa99af66182d21078@mail.gmail.com>
+	<1228074329.27577.2.camel@enterprise.glx>
+	<1419b2590811301319gfab8077yd3d2fc2e42fd9140@mail.gmail.com>
+Message-ID: <1228081092.29343.7.camel@enterprise.glx>
+
+Good night ;-),
+
+Am Sonntag, den 30.11.2008, 22:19 +0100 schrieb Markus Wodetzki:
+> ok great, i can connect from my phone. Unfortunately i cant control
+> anything:
+> 
+> LBRC-applet says:
+> 
+> 2008-11-30 22:17:58,610 DBUS.LBRC WARNING  Failed to initalize <class
+> 'LBRC.UinputDispatcher.UinputDispatcher'>
+> Kindprozess ?~/Downloads/LBRC_064_2/uinputbridge? konnte nicht
+> ausgef?hrt werden (No such file or directory)
+
+I'm about to move to my bed, but I have two things to say about this:
+
+     1. I'll try to get a release out of the house tomorrow or the day
+        after tomorrow.
+     2. Switch to the XInput Module (the XInput Profile uses this module
+        and is a direct translation of the Nokia ... Keyboard/Mouse
+        Control Profile). As long as you are using X11 and don't need
+        input in the console this is definitly the way to go.
+
+Hope that helps
+
+Matthias
+
+-- 
+Zwei Dinge sind unendlich, das Universum und die menschliche Dummheit,
+aber bei dem Universum bin ich mir noch nicht ganz sicher.
+
+Albert Einstein
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/lbrc-devel/attachments/20081130/1b04be63/attachment.pgp>
+

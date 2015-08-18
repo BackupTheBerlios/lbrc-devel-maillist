@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20org.freedesktop.DBus.Error.ServiceUnknown&In-Reply-To=%3Cb211fe280802261436h60721dffw86ab662b63ecb6f8%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000095.html">
+   <LINK REL="Next"  HREF="000097.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown</H1>
+    <B>Iuri Diniz</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20org.freedesktop.DBus.Error.ServiceUnknown&In-Reply-To=%3Cb211fe280802261436h60721dffw86ab662b63ecb6f8%40mail.gmail.com%3E"
+       TITLE="[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown">iuridiniz at yahoo.com.br
+       </A><BR>
+    <I>Tue Feb 26 23:36:12 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000095.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+        <LI>Next message: <A HREF="000097.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#96">[ date ]</a>
+              <a href="thread.html#96">[ thread ]</a>
+              <a href="subject.html#96">[ subject ]</a>
+              <a href="author.html#96">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Feb 26, 2008 at 6:55 PM, Marek Denis &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/lbrc-devel">marek at exel.pl</A>&gt; wrote:
+
+&gt;<i> &gt;
+</I>&gt;<i> &gt; What's the output generated from:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; dbus-send --system --print-reply
+</I>&gt;<i> &gt; --dest=org.freedesktop.DBus /org/freedesktop/DBus
+</I>&gt;<i> &gt; org.freedesktop.DBus.ListNames
+</I>&gt;<i>
+</I>&gt;<i> this is the output. As I wrote previously I am a bit confised and don't
+</I>&gt;<i> have any idea where I can do ANY of search...
+</I>&gt;<i>
+</I>&gt;<i> localhost ~ # dbus-send --system --print-reply --dest=org.freedesktop.DBus/org/freedesktop/DBus
+</I>&gt;<i> org.freedesktop.DBus.ListNames
+</I>&gt;<i> method return sender=org.freedesktop.DBus -&gt; dest=:1.3
+</I>&gt;<i>   array [
+</I>&gt;<i>      string &quot;org.freedesktop.DBus&quot;
+</I>&gt;<i>      string &quot;:1.3&quot;
+</I>&gt;<i>      string &quot;:1.0&quot;
+</I>&gt;<i>      string &quot;:1.1&quot;
+</I>&gt;<i>   ]
+</I>&gt;<i>
+</I>&gt;<i>
+</I>Well, since as you say your bluetooth is working I think your bluetooth does
+not register itself on DBus, it's expected something like this:
+
+  array [
+     string &quot;org.freedesktop.DBus&quot;
+     string &quot;org.bluez&quot;
+  ]
+
+I don't know the cause, but could you start DBus system before bluetooth and
+see if there's org.bluez on the output?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080226/07481a7d/attachment.html">https://lists.berlios.de/pipermail/lbrc-devel/attachments/20080226/07481a7d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000095.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+	<LI>Next message: <A HREF="000097.html">[Lbrc-devel] org.freedesktop.DBus.Error.ServiceUnknown
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#96">[ date ]</a>
+              <a href="thread.html#96">[ thread ]</a>
+              <a href="subject.html#96">[ subject ]</a>
+              <a href="author.html#96">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>

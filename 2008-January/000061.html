@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/lbrc-devel/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3CPine.LNX.4.64.0801111656590.24572%40poblijon.ubal.to%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000060.html">
+   <LINK REL="Next"  HREF="000062.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)</H1>
+    <B>tloudev</B> 
+    <A HREF="mailto:lbrc-devel%40lists.berlios.de?Subject=Re%3A%20%5BLbrc-devel%5D%20DBUS%20Daemon%20not%20running%20%28was%3A%20Re%3A%20LBRC%20errors%29&In-Reply-To=%3CPine.LNX.4.64.0801111656590.24572%40poblijon.ubal.to%3E"
+       TITLE="[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)">k at mo.ubal.to
+       </A><BR>
+    <I>Fri Jan 11 17:09:47 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000060.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+        <LI>Next message: <A HREF="000062.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi,
+solvin one problem causes another problem visible..
+I have rfcomm kernel module loaded, bluetooth started, but:
+kino / # /etc/init.d/bluetooth start
+  * Starting Bluetooth ...
+  *     Starting hcid ...   [ ok ]
+  *     Starting rfcomm ... [ ok ]
+kino / # hciconfig -a
+hci0:   Type: USB
+         BD Address: 11:11:11:11:11:11 ACL MTU: 672:3 SCO MTU: 48:1
+         UP RUNNING PSCAN ISCAN
+         RX bytes:284954058 acl:15 sco:5587243 events:130 errors:0
+         TX bytes:1982 acl:15 sco:0 commands:91 errors:0
+         Features: 0xff 0x3e 0x85 0x38 0x18 0x18 0x00 0x00
+         Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+         Link policy: RSWITCH HOLD SNIFF PARK
+         Link mode: ACCEPT MASTER
+         Name: 'kino'
+         Class: 0x080100
+         Service Classes: Capturing
+         Device Class: Computer, Uncategorized
+         HCI Ver: 2.0 (0x3) HCI Rev: 0x1f4 LMP Ver: 2.0 (0x3) LMP Subver: 
+0x1f4
+         Manufacturer: CONWISE Technology Corporation Ltd (66)
+
+kino / # LBRCdbus
+Traceback (most recent call last):
+   File &quot;/usr/bin/LBRCdbus&quot;, line 15, in &lt;module&gt;
+     brs = Core()
+   File &quot;/usr/lib/python2.5/site-packages/LBRC/dbusinterface.py&quot;, line 204, 
+in __init__
+     self.btserver = BTServer()
+   File &quot;/usr/lib/python2.5/site-packages/LBRC/BTServer.py&quot;, line 193, in 
+__init__
+     self.port = bluetooth.get_available_port( bluetooth.RFCOMM )
+AttributeError: 'module' object has no attribute 'get_available_port'
+
+BTW is there some way to add the LBRC service to the standard bluez 
+configuration? Can I run other bt services simultaneously?
+    O.P.
+
+
+On Fri, 11 Jan 2008, Matthias Bl&#228;sing wrote:
+
+&gt;<i> Hello again,
+</I>&gt;<i> ok - you just hit a bug and undocumented behaviour. I'm not how much the
+</I>&gt;<i> Format of lbrc.conf has changed, but your config looks strange.
+</I>&gt;<i> Your problem is, that if there is a user config file, lbrc expects a
+</I>&gt;<i> profiles section to be present. Well I commited a fix for this into svn.
+</I>&gt;<i> To help you with 0.5 try this as .lbrc.conf:
+</I>&gt;<i>
+</I>&gt;<i> {
+</I>&gt;<i>  &quot;generic-config&quot;: {
+</I>&gt;<i> 	&quot;uinputdevice&quot;: &quot;/dev/misc/uinput&quot;
+</I>&gt;<i>  },
+</I>&gt;<i>  &quot;profiles&quot;: {}
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> This sets the uinputdevice, defines an custom profiles section, that is
+</I>&gt;<i> empty. Existing profiles can find in the lbrc.conf, that is installed
+</I>&gt;<i> systemwide. If you execute LBRC from the source directory it is directly
+</I>&gt;<i> in the base directory. If it is installed please use find.
+</I>&gt;<i>
+</I>&gt;<i> And then you mentioned the dbus daemon started by init.d. There are
+</I>&gt;<i> diffent &quot;dbuses&quot;. The one you mentioned is the system bus, that is used
+</I>&gt;<i> for system-wide services. The one we use is called the session bus. This
+</I>&gt;<i> is created, when dbus-launch is called. Here connect all services, that
+</I>&gt;<i> belong to one session. I hope the clears it a bit.
+</I>&gt;<i>
+</I>&gt;<i> Greetings
+</I>&gt;<i>
+</I>&gt;<i> Matthias
+</I>&gt;<i>
+</I>&gt;<i> Am Freitag, den 11.01.2008, 13:09 +0100 schrieb tloudev:
+</I>&gt;&gt;<i> hi Matthias,
+</I>&gt;&gt;<i> so the correct version of the dbus-python should be &gt;=0.80.. OK.
+</I>&gt;&gt;<i> right now it seems much better in this case, but I have another error,
+</I>&gt;&gt;<i> probably between the chair and the keyboard again :-)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     O.P.
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000060.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+	<LI>Next message: <A HREF="000062.html">[Lbrc-devel] DBUS Daemon not running (was: Re: LBRC errors)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/lbrc-devel">More information about the Lbrc-devel
+mailing list</a><br>
+</body></html>
